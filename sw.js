@@ -1,6 +1,7 @@
 /* Service worker: rende l'app installabile e utilizzabile anche offline.
-   Prima risponde dalla cache, poi aggiorna in background (stale-while-revalidate). */
-const CACHE = 'japan-tour-planner-v4';
+   Prima chiede alla rete (verificando con il server, così pagina, script e stili sono sempre della
+   stessa versione) e aggiorna la copia; senza rete risponde dalla copia salvata. */
+const CACHE = 'japan-tour-planner-v5';
 const SHELL = [
   './', 'index.html', 'css/app.css', 'css/shell.css', 'js/dash-shim.js', 'js/d3.v7.min.js', 'js/app.js', 'manifest.webmanifest',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png',
@@ -9,7 +10,8 @@ const SHELL = [
 ];
 
 self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  // cache: 'reload' salta la cache HTTP del browser, che potrebbe contenere file della versione precedente
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL.map((u) => new Request(u, { cache: 'reload' })))).then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', (e) => {
@@ -19,9 +21,9 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET' || new URL(req.url).origin !== location.origin) return;
-  e.respondWith(caches.open(CACHE).then(async (cache) => {
-    const cached = await cache.match(req, { ignoreSearch: true });
-    const network = fetch(req).then((res) => { if (res && res.ok) cache.put(req, res.clone()); return res; }).catch(() => cached);
-    return cached || network;
-  }));
+  e.respondWith(caches.open(CACHE).then((cache) =>
+    fetch(req.url, { cache: 'no-cache' })
+      .then((res) => { if (res && res.ok) cache.put(req, res.clone()); return res; })
+      .catch(() => cache.match(req, { ignoreSearch: true }).then((c) => c || (req.mode === 'navigate' ? cache.match('index.html') : undefined)))
+  ));
 });
