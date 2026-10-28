@@ -2,186 +2,423 @@
  {
   "luogo": "Shinhotaka",
   "dal": "10-01",
-  "al": "10-20"
+  "al": "10-20",
+  "tipo": "foliage"
  },
  {
   "luogo": "Nikko",
   "dal": "10-15",
-  "al": "11-05"
+  "al": "11-05",
+  "tipo": "foliage"
  },
  {
   "luogo": "Shirakawa-go",
   "dal": "10-20",
-  "al": "11-05"
+  "al": "11-05",
+  "tipo": "foliage"
  },
  {
   "luogo": "Koyasan",
   "dal": "10-20",
-  "al": "11-10"
+  "al": "11-10",
+  "tipo": "foliage"
  },
  {
   "luogo": "Takayama",
   "dal": "10-25",
-  "al": "11-10"
+  "al": "11-10",
+  "tipo": "foliage"
  },
  {
   "luogo": "Kawaguchiko",
   "dal": "10-25",
-  "al": "11-15"
+  "al": "11-15",
+  "tipo": "foliage"
  },
  {
   "luogo": "Kanazawa",
   "dal": "11-01",
-  "al": "11-20"
+  "al": "11-20",
+  "tipo": "foliage"
  },
  {
   "luogo": "Hakone",
   "dal": "11-01",
-  "al": "11-25"
+  "al": "11-25",
+  "tipo": "foliage"
  },
  {
   "luogo": "Miyajima",
   "dal": "11-05",
-  "al": "11-25"
+  "al": "11-25",
+  "tipo": "foliage"
  },
  {
   "luogo": "Nara",
   "dal": "11-10",
-  "al": "11-30"
+  "al": "11-30",
+  "tipo": "foliage"
  },
  {
   "luogo": "Kyoto",
   "dal": "11-15",
-  "al": "12-05"
+  "al": "12-05",
+  "tipo": "foliage"
  },
  {
   "luogo": "Osaka",
   "dal": "11-15",
-  "al": "12-05"
+  "al": "12-05",
+  "tipo": "foliage"
  },
  {
   "luogo": "Tokyo",
   "dal": "11-20",
-  "al": "12-10"
+  "al": "12-10",
+  "tipo": "foliage"
  },
  {
   "luogo": "Biei",
   "dal": "09-25",
-  "al": "10-15"
+  "al": "10-15",
+  "tipo": "foliage"
  },
  {
   "luogo": "Sapporo",
   "dal": "10-20",
-  "al": "11-05"
+  "al": "11-05",
+  "tipo": "foliage"
  },
  {
   "luogo": "Otaru",
   "dal": "10-20",
-  "al": "11-05"
+  "al": "11-05",
+  "tipo": "foliage"
  },
  {
   "luogo": "Noboribetsu",
   "dal": "10-15",
-  "al": "11-01"
+  "al": "11-01",
+  "tipo": "foliage"
  },
  {
   "luogo": "Hakodate",
   "dal": "10-25",
-  "al": "11-10"
+  "al": "11-10",
+  "tipo": "foliage"
  },
  {
   "luogo": "Kakunodate",
   "dal": "10-25",
-  "al": "11-10"
+  "al": "11-10",
+  "tipo": "foliage"
  },
  {
   "luogo": "Ginzan Onsen",
   "dal": "10-20",
-  "al": "11-05"
+  "al": "11-05",
+  "tipo": "foliage"
  },
  {
   "luogo": "Hiraizumi",
   "dal": "10-25",
-  "al": "11-15"
+  "al": "11-15",
+  "tipo": "foliage"
  },
  {
   "luogo": "Matsushima",
   "dal": "11-01",
-  "al": "11-20"
+  "al": "11-20",
+  "tipo": "foliage"
  },
  {
   "luogo": "Kamikochi",
   "dal": "10-05",
-  "al": "10-25"
+  "al": "10-25",
+  "tipo": "foliage"
  },
  {
   "luogo": "Matsumoto",
   "dal": "10-25",
-  "al": "11-15"
+  "al": "11-15",
+  "tipo": "foliage"
  },
  {
   "luogo": "Kusatsu",
   "dal": "10-10",
-  "al": "10-30"
+  "al": "10-30",
+  "tipo": "foliage"
  },
  {
   "luogo": "Takao",
   "dal": "11-15",
-  "al": "12-05"
+  "al": "12-05",
+  "tipo": "foliage"
  },
  {
   "luogo": "Jigokudani",
   "dal": "10-20",
-  "al": "11-10"
+  "al": "11-10",
+  "tipo": "foliage"
  },
  {
   "luogo": "Tsumago",
   "dal": "11-01",
-  "al": "11-20"
+  "al": "11-20",
+  "tipo": "foliage"
  },
  {
   "luogo": "Kinosaki",
   "dal": "11-01",
-  "al": "11-20"
+  "al": "11-20",
+  "tipo": "foliage"
  },
  {
   "luogo": "Okayama",
   "dal": "11-15",
-  "al": "12-05"
+  "al": "12-05",
+  "tipo": "foliage"
  },
  {
   "luogo": "Iya",
   "dal": "10-25",
-  "al": "11-15"
+  "al": "11-15",
+  "tipo": "foliage"
  },
  {
   "luogo": "Fukuoka",
   "dal": "11-15",
-  "al": "12-05"
+  "al": "12-05",
+  "tipo": "foliage"
  },
  {
   "luogo": "Beppu",
   "dal": "11-01",
-  "al": "11-25"
+  "al": "11-25",
+  "tipo": "foliage"
  },
  {
   "luogo": "Yufuin",
   "dal": "11-01",
-  "al": "11-25"
+  "al": "11-25",
+  "tipo": "foliage"
  },
  {
   "luogo": "Nagasaki",
   "dal": "11-15",
-  "al": "12-05"
+  "al": "12-05",
+  "tipo": "foliage"
  },
  {
   "luogo": "Kumamoto",
   "dal": "11-15",
-  "al": "12-05"
+  "al": "12-05",
+  "tipo": "foliage"
  },
  {
   "luogo": "Kagoshima",
   "dal": "11-20",
-  "al": "12-10"
+  "al": "12-10",
+  "tipo": "foliage"
+ },
+ {
+  "luogo": "Tokyo",
+  "dal": "03-24",
+  "al": "04-05",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Kamakura",
+  "dal": "03-26",
+  "al": "04-06",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Hakone",
+  "dal": "03-28",
+  "al": "04-10",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Kawaguchiko",
+  "dal": "04-05",
+  "al": "04-18",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Kyoto",
+  "dal": "03-27",
+  "al": "04-08",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Osaka",
+  "dal": "03-27",
+  "al": "04-07",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Nara",
+  "dal": "03-28",
+  "al": "04-08",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Himeji",
+  "dal": "03-28",
+  "al": "04-08",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Kobe",
+  "dal": "03-27",
+  "al": "04-07",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Hiroshima",
+  "dal": "03-26",
+  "al": "04-06",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Miyajima",
+  "dal": "03-27",
+  "al": "04-07",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Okayama",
+  "dal": "03-27",
+  "al": "04-07",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Nagoya",
+  "dal": "03-25",
+  "al": "04-06",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Kanazawa",
+  "dal": "04-02",
+  "al": "04-12",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Takayama",
+  "dal": "04-12",
+  "al": "04-24",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Matsumoto",
+  "dal": "04-06",
+  "al": "04-16",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Nikko",
+  "dal": "04-12",
+  "al": "04-25",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Kakunodate",
+  "dal": "04-20",
+  "al": "05-01",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Hiraizumi",
+  "dal": "04-18",
+  "al": "04-28",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Sendai",
+  "dal": "04-06",
+  "al": "04-16",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Hakodate",
+  "dal": "04-25",
+  "al": "05-06",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Sapporo",
+  "dal": "04-28",
+  "al": "05-08",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Fukuoka",
+  "dal": "03-23",
+  "al": "04-04",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Kumamoto",
+  "dal": "03-23",
+  "al": "04-04",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Nagasaki",
+  "dal": "03-24",
+  "al": "04-05",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Kagoshima",
+  "dal": "03-26",
+  "al": "04-06",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Matsuyama",
+  "dal": "03-25",
+  "al": "04-06",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "Takamatsu",
+  "dal": "03-27",
+  "al": "04-07",
+  "tipo": "sakura"
+ },
+ {
+  "luogo": "",
+  "dal": "06-05",
+  "al": "07-20",
+  "tipo": "clima",
+  "nome": "Stagione delle piogge (tsuyu)",
+  "nota": "Pioggia frequente e umidità ovunque tranne Hokkaido; tenete giornate al coperto di riserva"
+ },
+ {
+  "luogo": "",
+  "dal": "07-20",
+  "al": "08-31",
+  "tipo": "clima",
+  "nome": "Caldo estivo",
+  "nota": "Spesso oltre 35 °C e molto umido: visite la mattina presto e la sera"
+ },
+ {
+  "luogo": "",
+  "dal": "08-15",
+  "al": "10-10",
+  "tipo": "clima",
+  "nome": "Stagione dei tifoni",
+  "nota": "Un tifone può fermare treni e voli per un giorno o due: lasciate margine prima del volo di ritorno"
+ },
+ {
+  "luogo": "",
+  "dal": "12-10",
+  "al": "03-10",
+  "tipo": "clima",
+  "nome": "Inverno",
+  "nota": "Neve nelle Alpi, nel Tohoku e in Hokkaido: alcune strade e funivie chiudono, i bus di montagna sono ridotti"
  }
 ]

@@ -1,13 +1,57 @@
 [
  {
-  "nome": "Percorso di partenza",
-  "sel": "tokyo,nikko,kamakura,kanazawa,shirakawa,kyoto,nara,osaka,kobe,hiroshima",
-  "notti": 14,
+  "nome": "Prima volta, 10 notti",
+  "sel": "tokyo,kamakura,kyoto,nara,osaka",
+  "notti": 10,
+  "arrivo": "tokyo",
   "ritorno": "osaka",
-  "partenza": "2027-10-13",
   "pernotto": "",
   "giorni_citta": "",
   "giornata_citta": "",
-  "note": "Bilanciata: tutte le mete richieste"
+  "note": "Il classico: Tokyo, Kyoto e Osaka con gite facili"
+ },
+ {
+  "nome": "Classico completo, 14 notti",
+  "sel": "tokyo,nikko,hakone,kanazawa,shirakawa,kyoto,nara,osaka,hiroshima",
+  "notti": 14,
+  "arrivo": "tokyo",
+  "ritorno": "osaka",
+  "pernotto": "hakone",
+  "giorni_citta": "",
+  "giornata_citta": "",
+  "note": "Tokyo, una notte a Hakone, Alpi giapponesi, Kansai e Hiroshima"
+ },
+ {
+  "nome": "Alpi e onsen, 14 notti",
+  "sel": "tokyo,hakone,matsumoto,kamikochi,takayama,shirakawa,kanazawa,kyoto,osaka",
+  "notti": 14,
+  "arrivo": "tokyo",
+  "ritorno": "osaka",
+  "pernotto": "hakone,shirakawa",
+  "giorni_citta": "",
+  "giornata_citta": "",
+  "note": "Montagne, villaggi tradizionali e due notti in ryokan"
+ },
+ {
+  "nome": "Kansai e Kyushu, 12 notti",
+  "sel": "kyoto,nara,osaka,himeji,hiroshima,fukuoka,nagasaki,beppu",
+  "notti": 12,
+  "arrivo": "osaka",
+  "ritorno": "osaka",
+  "pernotto": "beppu",
+  "giorni_citta": "",
+  "giornata_citta": "",
+  "note": "Arrivo e partenza da Osaka, poi verso sud fino a Nagasaki e alle terme di Beppu"
+ },
+ {
+  "nome": "Hokkaido e Tokyo, 12 notti",
+  "sel": "tokyo,sapporo,otaru,biei,hakodate,noboribetsu",
+  "notti": 12,
+  "arrivo": "tokyo",
+  "ritorno": "tokyo",
+  "pernotto": "noboribetsu",
+  "giorni_citta": "",
+  "giornata_citta": "",
+  "note": "Natura, cibo e terme del nord; ideale d'estate o con la neve"
  }
 ]

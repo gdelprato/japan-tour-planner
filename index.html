@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Japan Tour Planner</title>
-<meta name="description" content="Japan Tour Planner: costruisci e confronta il percorso del viaggio in Giappone, con mappa, calendario e budget.">
+<meta name="description" content="Japan Tour Planner: costruisci e confronta il tuo viaggio in Giappone, con mappa, calendario, eventi e budget.">
 <meta name="theme-color" content="#1d2b53">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png" type="image/png">
@@ -30,7 +30,7 @@
     <div class="bar-actions">
       <button type="button" class="bar-btn" id="opensettings" aria-expanded="false" aria-controls="settings">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <span>Date e notti</span>
+        <span>Il viaggio</span>
       </button>
       <button type="button" class="bar-btn primary" id="sharebtn">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -50,11 +50,15 @@
   <div class="sheet" id="settings" hidden>
     <div class="sheet-head"><h2>Il vostro viaggio</h2><button type="button" class="sheet-close" id="closesettings" aria-label="Chiudi">✕</button></div>
     <div class="jp-controls" id="controls">
-      <label class="field"><span>Arrivo in Giappone</span><input type="date" class="jp-date" id="arrivo" min="2027-09-01" max="2027-12-31"></label>
+      <label class="field"><span>Arrivo in Giappone</span><input type="date" class="jp-date" id="arrivo"></label>
       <div class="field"><span>Notti</span><div class="jp-step big"><button type="button" id="nminus" aria-label="Una notte in meno">−</button><span id="nval">—</span><button type="button" id="nplus" aria-label="Una notte in più">+</button></div></div>
+      <div class="field"><span>Viaggiatori</span><div class="jp-step big"><button type="button" id="pminus" aria-label="Una persona in meno">−</button><span id="pval">—</span><button type="button" id="pplus" aria-label="Una persona in più">+</button></div></div>
+      <label class="field"><span>Partenza da</span><select class="jp-date" id="da"></select></label>
+      <div class="field"><span>Arrivo a</span><div class="jp-seg" id="arrseg"><button type="button" data-arr="tokyo">Tokyo</button><button type="button" data-arr="osaka">Osaka</button></div></div>
       <div class="field"><span>Ritorno da</span><div class="jp-seg" id="retseg"><button type="button" data-rit="osaka">Osaka</button><button type="button" data-rit="tokyo">Tokyo</button></div></div>
+      <div class="field"><span>Stile di viaggio</span><div class="jp-seg" id="stileseg"><button type="button" data-stile="economico">Economico</button><button type="button" data-stile="medio">Medio</button><button type="button" data-stile="comfort">Comfort</button></div></div>
       <div class="field"><span>Salva per confrontarlo</span><div class="jp-save"><input type="text" id="savename" maxlength="40" placeholder="Nome del percorso"><button type="button" class="jp-btn" id="savebtn">Aggiungi al confronto</button></div></div>
-      <button type="button" class="jp-link" id="reset">Torna al percorso di partenza</button>
+      <button type="button" class="jp-link" id="reset">Ricomincia dal percorso di esempio</button>
     </div>
   </div>
   <div class="scrim" id="scrim" hidden></div>
@@ -98,7 +102,7 @@
   <section class="jp-pane" id="calendario" role="tabpanel" hidden>
     <div class="jp-card">
       <h2 class="jp-h2">Giorno per giorno</h2>
-      <p class="jp-note" id="calnote">Il programma del percorso sulle date reali, con feste e periodo del foliage. Le date del foliage sono stime tipiche e cambiano ogni anno.</p>
+      <p class="jp-note" id="calnote">Il programma del percorso sulle date reali, con feste, ciliegi e foliage. Le date di ciliegi e foliage sono medie tipiche e cambiano ogni anno.</p>
       <div class="jp-warn" id="calwarn" hidden style="margin-bottom: var(--cds-gap-sm)"></div>
       <div class="jp-tablebox">
         <table class="jp-table jp-cal" id="caltab" data-source="eventi stagione">
@@ -113,7 +117,7 @@
   <section class="jp-pane" id="confronto" role="tabpanel" hidden>
     <div class="jp-card">
       <h2 class="jp-h2">Percorsi a confronto</h2>
-      <p class="jp-note">I percorsi salvati per tutti, quelli che aggiungete con "Aggiungi al confronto" (restano su questo dispositivo) e quello che state costruendo. In verde il valore migliore di ogni colonna. Per mandare un percorso agli altri usate "Copia link del percorso".</p>
+      <p class="jp-note">I modelli di viaggio, i percorsi che aggiungete con "Aggiungi al confronto" (restano su questo dispositivo) e quello che state costruendo, tutti con le vostre date e lo stesso numero di viaggiatori. In verde il valore migliore di ogni colonna. Per mandare un percorso ad altri usate "Copia link".</p>
       <div class="jp-tablebox">
         <table class="jp-table jp-cmp money" id="cmptab" data-source="percorsi">
           <thead><tr><th>Percorso</th><th>Notti</th><th>Alloggi</th><th>Treno con bagagli</th><th>Giorni liberi</th><th>Mete</th><th>A persona</th><th>Quali mete</th><th></th></tr></thead>
@@ -135,7 +139,7 @@
       <h2 class="jp-h2">Dettaglio</h2>
       <div class="jp-tablebox">
         <table class="jp-table money" id="btab">
-          <thead><tr><th>Categoria</th><th>Min a persona</th><th>Max a persona</th><th>Min in 5</th><th>Max in 5</th><th>Come è calcolato</th></tr></thead>
+          <thead><tr><th>Categoria</th><th>Min a persona</th><th>Max a persona</th><th>Min in gruppo</th><th>Max in gruppo</th><th>Come è calcolato</th></tr></thead>
           <tbody></tbody>
         </table>
       </div>
@@ -156,11 +160,11 @@
   <section class="jp-pane" id="logistica" role="tabpanel" hidden>
     <div>
       <h2 class="jp-h2">Date, voli, bagagli e prenotazioni</h2>
-      <p class="jp-note">Quanto emerso finora nella pianificazione, con la fonte di ogni indicazione.</p>
+      <p class="jp-note">Le scadenze calcolate per il vostro viaggio e i consigli generali, con la fonte di ogni indicazione.</p>
       <div class="jp-grid jp-info" id="info" data-source="info"></div>
     </div>
   </section>
-  <footer class="jp-foot">Prezzi, tempi dei treni e periodi del foliage sono stime raccolte a ottobre 2026, da verificare quando prenotate. Le scelte restano su questo dispositivo; il link condiviso porta con sé il percorso.</footer>
+  <footer class="jp-foot">Prezzi, tempi dei treni, ciliegi e foliage sono stime aggiornate a ottobre 2026, da verificare quando prenotate. Le scelte restano su questo dispositivo; il link condiviso porta con sé il percorso.</footer>
   </main>
  </div>
 </div>

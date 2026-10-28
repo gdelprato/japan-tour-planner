@@ -1,6 +1,6 @@
 # Japan Tour Planner
 
-Costruttore del percorso per il viaggio in Giappone di ottobre 2027: scegli le mete, il numero di notti e da dove ripartire, e l'app calcola basi, notti, ordine delle tappe, treni, calendario e budget.
+Costruttore del percorso per qualsiasi viaggio in Giappone: scegli date, notti, numero di viaggiatori, città di partenza, arrivo e ritorno (Tokyo o Osaka), stile di viaggio e mete, e l'app calcola basi, notti, l'ordine delle tappe con meno ore di treno, calendario con feste, ciliegi e foliage, scadenze di prenotazione e budget.
 
 È una web app statica (HTML, CSS, JavaScript e dati JSON), senza server né account. Si può installare sul telefono come un'app e funziona anche offline.
 
@@ -48,13 +48,15 @@ Poi apri http://localhost:8000
 
 ## Condividere un percorso
 
-Il pulsante **Copia link del percorso** crea un link che contiene le mete scelte, le notti, la data e il ritorno: chi lo apre vede esattamente lo stesso percorso.
-Le scelte e i percorsi aggiunti al confronto restano salvati sul dispositivo di ciascuno.
+Il pulsante **Copia link** crea un link che contiene tutte le scelte (mete, notti, data, viaggiatori, partenza, arrivo, ritorno e stile): chi lo apre vede esattamente lo stesso viaggio.
+Le scelte e i percorsi aggiunti al confronto restano salvati sul dispositivo di ciascuno. I link creati con le versioni precedenti continuano a funzionare.
 
 ## Aggiornare i dati
 
-- Mete: `data/catalogo.json` · treni e voli: `data/tratte.json` · costi: `data/parametri.json`
-- Percorsi salvati per tutti: `data/percorsi.json` · percorso di partenza: `data/params.json`
-- Dopo una modifica, cambia il numero in `CACHE = 'japan-tour-planner-v1'` dentro `sw.js` (per esempio `japan-tour-planner-v2`), così i telefoni scaricano i dati nuovi.
+- Mete: `data/catalogo.json` · treni: `data/tratte.json` · costi: `data/parametri.json` · voli per città di partenza: `data/partenze.json`
+- Feste e periodi affollati: `data/eventi.json` (`MM-GG` si ripete ogni anno, `regola: "lun:2:10"` è il weekend lungo del secondo lunedì di ottobre, `voli_alta` segna l'alta stagione dei voli)
+- Ciliegi, foliage e clima: `data/stagione.json`
+- Modelli di viaggio: `data/percorsi.json` · percorso di esempio al primo avvio: `data/params.json`
+- Dopo una modifica, aumenta il numero in `CACHE = 'japan-tour-planner-v3'` dentro `sw.js` (per esempio `japan-tour-planner-v4`), così i telefoni scaricano i dati nuovi.
 
-Prezzi, tempi dei treni e periodi del foliage sono stime raccolte a ottobre 2026, da verificare quando prenotate.
+Prezzi, tempi dei treni, ciliegi e foliage sono stime aggiornate a ottobre 2026, da verificare quando prenotate.

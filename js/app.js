@@ -18,6 +18,21 @@
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const accent = () => dash.colors[0];
   const LONG_LEG = 2.5;
+  const DAY = 86400000;
+  const NMIN = 3, NMAX = 30, PMAX = 10;
+  // città di arrivo e ritorno: base in cui si dorme e aeroporto collegato nei dati delle tratte
+  const AIR = {
+    tokyo: { city: 'Tokyo', air: 'Haneda', code: 'HND', nome: 'Tokyo Haneda' },
+    osaka: { city: 'Osaka', air: 'Kansai', code: 'KIX', nome: 'Osaka Kansai' }
+  };
+  // fattori sui prezzi di alloggi e cibo, rispetto alle stime "medie" di parametri.json
+  const STILI = {
+    economico: { nome: 'Economico', hotel: 0.6, ryokan: 0.85, cibo: 0.75, how: 'ostelli, capsule e business hotel' },
+    medio: { nome: 'Medio', hotel: 1, ryokan: 1, cibo: 1, how: 'hotel o appartamenti' },
+    comfort: { nome: 'Comfort', hotel: 1.8, ryokan: 1.3, cibo: 1.5, how: 'hotel di categoria superiore' }
+  };
+  const isoDay = (t) => new Date(t).toISOString().slice(0, 10);
+  const defaultStart = () => { const d = new Date(); d.setUTCHours(0, 0, 0, 0); return isoDay(d.getTime() + 180 * DAY); };
 
   let tab = 'percorso';
   let view = 'route';
@@ -64,10 +79,15 @@
 
   // ---------- params ----------
   const norm = (p) => ({
-    sel: split(p.sel), notti: Number(p.notti) || 14, ritorno: p.ritorno === 'tokyo' ? 'tokyo' : 'osaka',
+    sel: split(p.sel), notti: Math.min(NMAX, Math.max(NMIN, Math.round(Number(p.notti)) || 12)),
+    arrivo: AIR[p.arrivo] ? p.arrivo : 'tokyo', ritorno: AIR[p.ritorno] ? p.ritorno : 'osaka',
+    persone: Math.min(PMAX, Math.max(1, Math.round(Number(p.persone)) || 2)),
+    da: String(p.da || 'milano'), stile: STILI[p.stile] ? p.stile : 'medio',
     pernotto: split(p.pernotto), gc: split(p.giorni_citta), gcit: split(p.giornata_citta),
-    partenza: /^\d{4}-\d{2}-\d{2}$/.test(String(p.partenza || '')) ? String(p.partenza) : '2027-10-13'
+    partenza: /^\d{4}-\d{2}-\d{2}$/.test(String(p.partenza || '')) ? String(p.partenza) : defaultStart()
   });
+  // la data proposta cambia col passare dei giorni: la si fissa prima di condividere o salvare
+  const fixDate = () => { if (!(dash.params() || {}).partenza) dash.setParams({ partenza: P().partenza }); };
   const P = () => norm(dash.params() || {});
   const setP = (o) => { animateNext = true; dash.setParams(o); };
   const dayOf = (it, p) => { const o = p.gc.map(s => String(s).split(':')).find(([k]) => k === it.id); return o ? Number(o[1]) : num(it.giorni); };
@@ -78,11 +98,18 @@
     else { s.add(id); setP({ sel: Array.from(s) }); }
   };
   const toggleList = (key, list, id) => { const s = new Set(list); if (s.has(id)) s.delete(id); else s.add(id); setP({ [key]: Array.from(s) }); };
-  document.getElementById('nminus').addEventListener('click', () => { const n = P().notti; if (n > 10) setP({ notti: n - 1 }); });
-  document.getElementById('nplus').addEventListener('click', () => { const n = P().notti; if (n < 21) setP({ notti: n + 1 }); });
+  document.getElementById('nminus').addEventListener('click', () => { const n = P().notti; if (n > NMIN) setP({ notti: n - 1 }); });
+  document.getElementById('nplus').addEventListener('click', () => { const n = P().notti; if (n < NMAX) setP({ notti: n + 1 }); });
+  document.getElementById('pminus').addEventListener('click', () => { const n = P().persone; if (n > 1) setP({ persone: n - 1 }); });
+  document.getElementById('pplus').addEventListener('click', () => { const n = P().persone; if (n < PMAX) setP({ persone: n + 1 }); });
+  document.querySelectorAll('#arrseg button').forEach(b => b.addEventListener('click', () => setP({ arrivo: b.dataset.arr })));
   document.querySelectorAll('#retseg button').forEach(b => b.addEventListener('click', () => setP({ ritorno: b.dataset.rit })));
+  document.querySelectorAll('#stileseg button').forEach(b => b.addEventListener('click', () => setP({ stile: b.dataset.stile })));
+  const daSel = document.getElementById('da');
+  daSel.addEventListener('change', () => setP({ da: daSel.value }));
   document.getElementById('reset').addEventListener('click', () => { animateNext = true; dash.resetParams(); });
   const arrivo = document.getElementById('arrivo');
+  arrivo.min = isoDay(Date.now()); arrivo.max = isoDay(Date.now() + 730 * DAY);
   arrivo.addEventListener('change', () => { if (arrivo.value && arrivo.validity.valid) setP({ partenza: arrivo.value }); });
   arrivo.addEventListener('blur', () => { arrivo.value = P().partenza; });
   document.querySelectorAll('#viewseg button').forEach(b => b.addEventListener('click', () => { view = b.dataset.view; frameView(view); }));
@@ -91,6 +118,7 @@
   document.getElementById('zminus').addEventListener('click', () => zoomBy(1 / 1.8));
   const shareBtn = document.getElementById('sharebtn');
   if (shareBtn) shareBtn.addEventListener('click', async () => {
+    fixDate();
     const url = dash.shareUrl();
     let ok = false;
     try { await navigator.clipboard.writeText(url); ok = true; } catch (e) { ok = false; }
@@ -102,6 +130,7 @@
   });
   const saveBtn = document.getElementById('savebtn'), saveName = document.getElementById('savename');
   saveBtn.addEventListener('click', () => {
+    fixDate();
     const p = dash.params() || {};
     const name = (saveName.value || '').trim() || ('Percorso ' + (pinned.length + 1));
     pinned.push({ nome: name, params: JSON.parse(JSON.stringify(p)), pinned: true });
@@ -137,6 +166,50 @@
     while (cur !== from) { const pv = prev.get(cur); legs.unshift(pv.e); cur = pv.from; }
     return { ore: d3.sum(legs, l => l.ore), yen: d3.sum(legs, l => l.yen) };
   }
+  // ordine delle tappe con meno ore di treno: la prima è fissa (città di arrivo), l'ultima tratta va verso `end`.
+  // A parità di ore vince l'ordine geografico di basi.json.
+  function order(stops, end, tratte, rank) {
+    const rest = stops.slice(1), n = rest.length;
+    const byRank = (a, b) => rank(a.base) - rank(b.base);
+    if (n < 2 || n > 12) return stops.slice(0, 1).concat(rest.sort(byRank));
+    const memo = new Map();
+    const cost = (a, b) => {
+      const k = a + '>' + b;
+      if (!memo.has(k)) memo.set(k, ((shortest(tratte, a, b) || { ore: 99 }).ore) + (rank(b) < rank(a) ? 0.001 : 0));
+      return memo.get(k);
+    };
+    const full = (1 << n) - 1, dp = Array.from({ length: 1 << n }, () => new Array(n).fill(Infinity)), from = Array.from({ length: 1 << n }, () => new Array(n).fill(-1));
+    rest.forEach((s, i) => { dp[1 << i][i] = cost(stops[0].base, s.base); });
+    for (let m = 1; m <= full; m++) for (let i = 0; i < n; i++) {
+      if (!(m & (1 << i)) || dp[m][i] === Infinity) continue;
+      for (let j = 0; j < n; j++) {
+        if (m & (1 << j)) continue;
+        const v = dp[m][i] + cost(rest[i].base, rest[j].base), m2 = m | (1 << j);
+        if (v < dp[m2][j]) { dp[m2][j] = v; from[m2][j] = i; }
+      }
+    }
+    let last = 0, best = Infinity;
+    for (let i = 0; i < n; i++) { const v = dp[full][i] + cost(rest[i].base, end); if (v < best) { best = v; last = i; } }
+    const seq = []; let m = full, i = last;
+    while (i >= 0) { seq.unshift(rest[i]); const pi = from[m][i]; m &= ~(1 << i); i = pi; }
+    return stops.slice(0, 1).concat(seq);
+  }
+  // eventi e stagioni: "MM-GG" vale ogni anno (anche a cavallo di capodanno), "AAAA-MM-GG" solo quell'anno,
+  // "regola": "lun:N:M" è il weekend lungo (sabato-lunedì) dell'N-esimo lunedì del mese M
+  function onDay(e, iso) {
+    const y = Number(iso.slice(0, 4));
+    if (e.regola) {
+      const [, n, m] = String(e.regola).split(':').map(Number);
+      const w = new Date(Date.UTC(y, m - 1, 1)).getUTCDay();
+      const mon = Date.UTC(y, m - 1, 1 + ((8 - w) % 7) + (n - 1) * 7);
+      return iso >= isoDay(mon - 2 * DAY) && iso <= isoDay(mon);
+    }
+    if (/^\d{4}-/.test(e.dal)) return iso >= e.dal && iso <= e.al;
+    const md = iso.slice(5);
+    return e.al < e.dal ? (md >= e.dal || md <= e.al) : (md >= e.dal && md <= e.al);
+  }
+  const tripDays = (p) => { const a = Date.parse(p.partenza + 'T00:00:00Z'); return Array.from({ length: p.notti + 1 }, (_, i) => isoDay(a + i * DAY)); };
+  const during = (list, p) => { const ds = tripDays(p); return (list || []).filter(e => ds.some(d => onDay(e, d))); };
   function par() { const m = new Map(); (D.par.data || []).forEach(r => m.set(r.id, { min: num(r.min), max: num(r.max), voce: r.voce })); return m; }
 
   function build(p) {
@@ -145,7 +218,8 @@
     const bInfo = new Map(basi.map(b => [b.base, { ordine: num(b.ordine), prio: num(b.priorita_extra), zona: b.zona }]));
     const bases = new Map();
     const ensure = (name) => { if (!bases.has(name)) bases.set(name, { base: name, need: 0, city: [], trips: [], own: false, tipoNotte: 'hotel' }); return bases.get(name); };
-    ensure('Tokyo');
+    const A0 = AIR[p.arrivo], A1 = AIR[p.ritorno], roundTrip = p.arrivo === p.ritorno;
+    ensure(A0.city);
     const items = cat.filter(c => sel.has(c.id));
     const overnight = (i) => yes(i.notte_possibile) && pern.has(i.id);
     const dayCity = (i) => i.tipo === 'citta' && i.basi_giornata && gcit.has(i.id);
@@ -166,15 +240,17 @@
       else { const leg = shortest(tratte, name, opts[0]); t = { ...i, ore_tratta: num(i.ore_tratta) + (leg ? leg.ore : 0), yen_ar: num(i.yen_ar) + (leg ? leg.yen * 2 : 0), via: opts[0] }; }
       b.trips.push(t);
     });
-    const stops = Array.from(bases.values()).sort((a, b) => ((bInfo.get(a.base) || {}).ordine || 99) - ((bInfo.get(b.base) || {}).ordine || 99));
-    const endTokyo = p.ritorno === 'tokyo' ? 1 : 0;
+    const rank = (name) => (bInfo.get(name) || {}).ordine || 99;
+    const first = bases.get(A0.city);
+    const stops = order([first].concat(Array.from(bases.values()).filter(s => s !== first)), roundTrip ? A1.city : A1.air, tratte, rank);
+    const endHome = roundTrip ? 1 : 0;
     // legs first (order is known), then nights
-    stops.forEach((s, i) => { s.from = i === 0 ? 'Haneda' : stops[i - 1].base; s.legIn = shortest(tratte, s.from, s.base); s.ts = i === 0 ? 0 : (s.legIn && s.legIn.ore > LONG_LEG ? 1 : 2); s.zona = (bInfo.get(s.base) || {}).zona; });
+    stops.forEach((s, i) => { s.from = i === 0 ? A0.air : stops[i - 1].base; s.legIn = shortest(tratte, s.from, s.base); s.ts = i === 0 ? 0 : (s.legIn && s.legIn.ore > LONG_LEG ? 1 : 2); s.zona = (bInfo.get(s.base) || {}).zona; });
     stops.forEach((s, i) => {
       s.minN = i === 0 ? Math.ceil(s.need - 1e-9) + 1 : Math.max(1, 1 + Math.ceil(s.need - s.ts / 2 - 1e-9));
       s.nights = s.minN;
     });
-    const minTotal = d3.sum(stops, s => s.nights) + endTokyo;
+    const minTotal = d3.sum(stops, s => s.nights) + endHome;
     const maxN = (pm.get('max_notti') || { min: 5 }).min;
     let extra = p.notti - minTotal;
     const prio = (s) => (bInfo.get(s.base) || { prio: 99 }).prio;
@@ -190,37 +266,42 @@
       s.free = (s.ts + 2 * (s.nights - 1) - 2 * s.need) / 2;
     });
     let endStop = null;
-    if (endTokyo) {
-      const from = stops[stops.length - 1].base, leg = shortest(tratte, from, 'Tokyo');
-      endStop = { base: 'Tokyo', ordine: stops.length + 1, nights: 1, dal: day, al: day + 1, need: 0, city: [], trips: [], free: 0, finale: true, tipoNotte: 'hotel', from, legIn: leg, ts: leg && leg.ore > LONG_LEG ? 1 : 2, zona: (bInfo.get('Tokyo') || {}).zona };
+    if (endHome) {
+      const from = stops[stops.length - 1].base, leg = shortest(tratte, from, A1.city);
+      endStop = { base: A1.city, ordine: stops.length + 1, nights: 1, dal: day, al: day + 1, need: 0, city: [], trips: [], free: 0, finale: true, tipoNotte: 'hotel', from, legIn: leg, ts: leg && leg.ore > LONG_LEG ? 1 : 2, zona: (bInfo.get(A1.city) || {}).zona };
       day += 1;
     }
     const all = stops.concat(endStop ? [endStop] : []);
-    const airport = p.ritorno === 'tokyo' ? 'Haneda' : 'Kansai';
+    const airport = A1.air;
     const last = shortest(tratte, all[all.length - 1].base, airport);
     const moving = all.slice(1).map(s => s.legIn).filter(Boolean);
     const rate = (pm.get('cambio') || { min: 176 }).min;
     const G = p.notti + 1;
     const g = (id) => pm.get(id) || { min: 0, max: 0 };
+    const sty = STILI[p.stile], solo = p.persone === 1 ? g('camera_singola') : { min: 1, max: 1 };
+    const dep = (D.dep.data || []).find(d => d.id === p.da) || (D.dep.data || [])[0] || { nome: '?', min: 0, max: 0 };
+    const alta = during((D.ev.data || []).filter(e => yes(e.voli_alta)), p);
+    const fAlta = alta.length ? g('alta_stagione') : { min: 1, max: 1 };
+    const oj = roundTrip ? { min: 0, max: 0 } : g('open_jaw');
     const ryN = d3.sum(all.filter(s => s.tipoNotte === 'ryokan'), s => s.nights);
     const hoN = p.notti - ryN;
     const trainYen = d3.sum(all, s => s.legIn ? s.legIn.yen : 0) + (last ? last.yen : 0);
     const tripYen = d3.sum(all, s => d3.sum(s.trips.filter(t => !t.sulPosto), t => num(t.yen_ar)));
     const cambi = all.length - 1;
     const cost = [
-      { cat: 'Voli', min: g('voli').min, max: g('voli').max, how: 'Andata e ritorno ' + (p.ritorno === 'tokyo' ? 'su Haneda' : 'Haneda / Kansai (open-jaw)') },
-      { cat: 'Alloggi', min: (hoN * g('notte_hotel').min + ryN * g('notte_ryokan').min) / rate, max: (hoN * g('notte_hotel').max + ryN * g('notte_ryokan').max) / rate, how: hoN + ' notti in hotel o appartamento' + (ryN ? ' + ' + ryN + ' in ryokan o minshuku' : '') },
+      { cat: 'Voli', min: dep.min * fAlta.min + oj.min, max: dep.max * fAlta.max + oj.max, how: 'Da ' + dep.nome + ', ' + (roundTrip ? 'andata e ritorno su ' + A0.nome : 'arrivo a ' + A0.nome + ' e ritorno da ' + A1.nome) + (alta.length ? '; alta stagione (' + alta.map(e => e.nome).join(', ') + ')' : '') },
+      { cat: 'Alloggi', min: solo.min * (hoN * sty.hotel * g('notte_hotel').min + ryN * sty.ryokan * g('notte_ryokan').min) / rate, max: solo.max * (hoN * sty.hotel * g('notte_hotel').max + ryN * sty.ryokan * g('notte_ryokan').max) / rate, how: hoN + ' notti in ' + sty.how + (ryN ? ' + ' + ryN + ' in ryokan o minshuku' : '') + (p.persone === 1 ? ', camera singola' : '') },
       { cat: 'Treni tra le basi', min: trainYen / rate, max: trainYen / rate, how: 'Aeroporti inclusi, circa ' + yen(trainYen) },
       { cat: 'Gite in giornata', min: tripYen / rate, max: tripYen / rate, how: 'Andata e ritorno dalle basi, circa ' + yen(tripYen) },
       { cat: 'Trasporti locali', min: G * g('locali').min / rate, max: G * g('locali').max / rate, how: G + ' giorni di metro e bus' },
-      { cat: 'Cibo', min: G * g('cibo').min / rate, max: G * g('cibo').max / rate, how: G + ' giorni' },
+      { cat: 'Cibo', min: G * sty.cibo * g('cibo').min / rate, max: G * sty.cibo * g('cibo').max / rate, how: G + ' giorni, stile ' + sty.nome.toLowerCase() },
       { cat: 'Ingressi', min: G * g('ingressi').min / rate, max: G * g('ingressi').max / rate, how: G + ' giorni' },
       { cat: 'Takkyubin', min: cambi * g('takkyubin').min, max: cambi * g('takkyubin').max, how: cambi + ' spedizioni dello zaino, una per cambio' },
       { cat: 'Assicurazione', min: g('assicurazione').min * G / 15, max: g('assicurazione').max * G / 15, how: 'Riproporzionata su ' + G + ' giorni' },
       { cat: 'eSIM e varie', min: g('esim').min + G * g('varie').min / rate, max: g('esim').max + G * g('varie').max / rate, how: 'eSIM, bibite, snack, armadietti' },
     ];
     const tot = { min: d3.sum(cost, c => c.min), max: d3.sum(cost, c => c.max) };
-    return { p, stops, all, endStop, last, airport, deficit, minTotal, items, moving, cost, tot, cambi, G, maxN,
+    return { p, A0, A1, dep, stops, all, endStop, last, airport, deficit, minTotal, items, moving, cost, tot, cambi, G, maxN,
       oreBagagli: d3.sum(moving, l => l.ore), free: d3.sum(stops, s => Math.max(0, s.free)), overMax: stops.filter(s => s.nights > maxN && s.nights > s.minN) };
   }
 
@@ -231,7 +312,7 @@
     const days = [];
     r.all.forEach((s, idx) => {
       const q = [];
-      if (s.finale) q.push({ t: 'Ultima serata a Tokyo', kind: 'libero', units: 1, split: true });
+      if (s.finale) q.push({ t: 'Ultima serata a ' + s.base, kind: 'libero', units: 1, split: true });
       s.city.forEach(c => { for (let k = 0; k < Math.round(c.gg * 2); k++) q.push({ t: c.nome, kind: 'citta', units: 1, split: true }); });
       s.trips.forEach(t => { const h = Math.max(1, Math.round(num(t.giorni) * 2)); q.push({ t: t.nome, kind: t.sulPosto ? 'posto' : (t.cittaInGiornata ? 'citta' : 'gita'), units: h, split: !!t.cittaInGiornata }); });
       // a city visited as a day trip is split in halves like a city
@@ -248,7 +329,7 @@
         const day = { n: d, date: dateOf(d), stop: s, first: d === s.dal, parts: [] };
         let slots = 2;
         if (d === s.dal) {
-          if (idx === 0) { day.travel = 'Atterraggio a Haneda' + (s.legIn ? ', poi ' + hrs(s.legIn.ore) + ' fino in città' : ''); slots = 0; }
+          if (idx === 0) { day.travel = 'Atterraggio a ' + r.A0.air + (s.legIn ? ', poi ' + hrs(s.legIn.ore) + ' fino in città' : ''); slots = 0; }
           else { day.travel = 'Treno da ' + s.from + ' (' + (s.legIn ? hrs(s.legIn.ore) : '?') + ')'; slots = s.ts; }
         }
         const taken = [];
@@ -267,20 +348,20 @@
       s.overflow = d3.sum(q.filter(x => x.kind !== 'libero'), x => x.units) / 2;
     });
     const lastStop = r.all[r.all.length - 1];
-    days.push({ n: r.p.notti + 1, date: dateOf(r.p.notti + 1), stop: null, first: true, travel: 'Treno per ' + (r.airport === 'Kansai' ? 'Osaka Kansai' : 'Tokyo Haneda') + (r.last ? ' (' + hrs(r.last.ore) + ')' : '') + ' e volo di ritorno', parts: [] });
+    days.push({ n: r.p.notti + 1, date: dateOf(r.p.notti + 1), stop: null, first: true, travel: 'Treno per ' + r.A1.nome + (r.last ? ' (' + hrs(r.last.ore) + ')' : '') + ' e volo di ritorno', parts: [] });
     return days;
   }
   function notesFor(day) {
     const out = [];
-    const iso = day.date.toISOString().slice(0, 10), md = iso.slice(5);
+    const iso = day.date.toISOString().slice(0, 10);
     const here = new Set();
     if (day.stop) { here.add(day.stop.base); day.parts.forEach(pt => { const it = (D.cat.data || []).find(c => c.nome === pt.t); if (it) split(it.luoghi).forEach(l => here.add(l)); }); }
     if (D.ev.status === 'ok') D.ev.data.forEach(e => {
-      if (iso >= e.dal && iso <= e.al && (!e.luogo || here.has(e.luogo))) out.push({ kind: 'ev', t: e.nome, nota: e.nota, w: 'nome=' + enc(e.nome) });
+      if (onDay(e, iso) && (!e.luogo || here.has(e.luogo))) out.push({ kind: 'ev', t: e.nome, nota: e.nota, w: 'nome=' + enc(e.nome) });
     });
     if (D.st.status === 'ok') D.st.data.forEach(s => {
-      if (!here.has(s.luogo) || !day.parts.some(pt => pt.kind !== 'libero' || day.stop.base === s.luogo)) return;
-      if (md >= s.dal && md <= s.al) out.push({ kind: 'fo', t: 'Foliage a ' + s.luogo, w: 'luogo=' + enc(s.luogo) });
+      if (s.tipo === 'clima' || !here.has(s.luogo) || !day.parts.some(pt => pt.kind !== 'libero' || day.stop.base === s.luogo)) return;
+      if (onDay(s, iso)) out.push({ kind: s.tipo === 'sakura' ? 'sk' : 'fo', t: (s.tipo === 'sakura' ? 'Ciliegi a ' : 'Foliage a ') + s.luogo, w: 'luogo=' + enc(s.luogo) });
     });
     return out;
   }
@@ -295,6 +376,7 @@
     const chip = (t, cls) => p.appendChild(el('span', 'chip' + (cls ? ' ' + cls : ''), t));
     chip(f.format(new Date(a)) + ' – ' + f.format(new Date(a + R.p.notti * 86400000)));
     chip(nn(R.p.notti));
+    chip(R.p.persone + (R.p.persone === 1 ? ' persona' : ' persone'));
     chip(R.all.length + ' alloggi');
     chip(R.items.length + ' mete');
     if (R.deficit > 0) chip('mancano ' + nn(R.deficit), 'alert');
@@ -305,9 +387,17 @@
   function drawControls() {
     const p = P();
     document.getElementById('nval').textContent = p.notti;
-    document.getElementById('nminus').disabled = p.notti <= 10;
-    document.getElementById('nplus').disabled = p.notti >= 21;
+    document.getElementById('nminus').disabled = p.notti <= NMIN;
+    document.getElementById('nplus').disabled = p.notti >= NMAX;
+    document.getElementById('pval').textContent = p.persone;
+    document.getElementById('pminus').disabled = p.persone <= 1;
+    document.getElementById('pplus').disabled = p.persone >= PMAX;
+    document.querySelectorAll('#arrseg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.arr === p.arrivo)));
     document.querySelectorAll('#retseg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.rit === p.ritorno)));
+    document.querySelectorAll('#stileseg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.stile === p.stile)));
+    const deps = D.dep.data || [];
+    if (daSel.options.length !== deps.length) { daSel.textContent = ''; deps.forEach(d => { const o = el('option', null, d.nome); o.value = d.id; daSel.appendChild(o); }); }
+    daSel.value = deps.some(d => d.id === p.da) ? p.da : (deps[0] || {}).id || '';
     if (arrivo !== document.activeElement) arrivo.value = p.partenza;
   }
 
@@ -396,6 +486,9 @@
     r.all.forEach(s => s.trips.filter(t => !t.sulPosto && num(t.ore_tratta) > 2).forEach(t => longs.push(t.nome + ' da ' + s.base + ' (' + hrs(num(t.ore_tratta)) + ' a tratta)')));
     if (longs.length) msgs.push(['Giornate lunghe in treno. ', longs.join(', ') + '. Valutate di dormire lì, dove possibile, o una base più vicina.']);
     if (!r.last) msgs.push(['Collegamento mancante. ', 'Non trovo un treno per l\'aeroporto scelto.']);
+    during((D.st.data || []).filter(s => s.tipo === 'clima'), r.p).forEach(s => msgs.push([s.nome + '. ', s.nota + '.']));
+    const busy = during((D.ev.data || []).filter(e => !e.luogo), r.p);
+    if (busy.length) msgs.push(['Periodi affollati. ', busy.map(e => e.nome).join(', ') + ': guardate il calendario e prenotate presto treni e alloggi.']);
     return msgs;
   }
   function drawKpis() {
@@ -474,7 +567,7 @@
     // frame of the route: bases, day trips and airports
     const fpts = [];
     const addPt = (n) => { const q = PT(n); if (q) fpts.push(q); };
-    ['Haneda', R.airport].forEach(addPt);
+    [R.A0.air, R.airport].forEach(addPt);
     R.all.forEach(s => { addPt(s.base); s.trips.forEach(t => split(t.luoghi).forEach(addPt)); });
     const fx = fpts.map(q => q[0]), fy = fpts.map(q => q[1]);
     const routeT = fpts.length ? frameBox(Math.min(...fx), Math.min(...fy), Math.max(...fx), Math.max(...fy), 44, 14) : d3.zoomIdentity;
@@ -487,7 +580,7 @@
       const nx = -(y2 - y1) / len, ny = (x2 - x1) / len, off = Math.min(60, len * 0.2) * side;
       return `M${x1},${y1} Q${(x1 + x2) / 2 + nx * off},${(y1 + y2) / 2 + ny * off} ${x2},${y2}`;
     };
-    const firstP = PT('Haneda'), lastAir = PT(R.airport);
+    const firstP = PT(R.A0.air), lastAir = PT(R.airport);
     const seq = R.all.map(s => PT(s.base));
     if (firstP && seq[0]) ns(gR.append('path').attr('d', curve(firstP, seq[0], 1)).attr('stroke', A).attr('stroke-width', 1.4).attr('stroke-dasharray', '2 4').attr('opacity', .7));
     if (lastAir && seq[seq.length - 1]) ns(gR.append('path').attr('d', curve(seq[seq.length - 1], lastAir, 1)).attr('stroke', A).attr('stroke-width', 1.4).attr('stroke-dasharray', '2 4').attr('opacity', .7));
@@ -553,7 +646,7 @@
         tip.append('div').style('font-weight', 600).text(p.luogo);
         if (kind === 'stop') stopsHere.forEach(s => tip.append('div').attr('class', 't').text('Tappa ' + s.ordine + ' · giorni ' + s.dal + '–' + s.al + ' · ' + nn(s.nights)));
         else if (kind === 'trip') tip.append('div').attr('class', 't').text('In giornata da ' + trip.base + ' · ' + hrs(num(trip.item.ore_tratta)) + ' a tratta');
-        else if (kind === 'air') tip.append('div').attr('class', 't').text(p.luogo === R.airport ? 'Aeroporto di ritorno' : (p.luogo === 'Haneda' ? 'Aeroporto di arrivo' : 'Aeroporto'));
+        else if (kind === 'air') tip.append('div').attr('class', 't').text(p.luogo === R.airport && p.luogo === R.A0.air ? 'Aeroporto di arrivo e ritorno' : p.luogo === R.airport ? 'Aeroporto di ritorno' : (p.luogo === R.A0.air ? 'Aeroporto di arrivo' : 'Aeroporto'));
         if (it && kind !== 'air') { tip.append('div').attr('class', 't').text(it.descrizione); tip.append('div').text(sel.has(it.id) ? 'Clic per toglierla' : 'Clic per aggiungerla'); }
         const tw = tip.node().offsetWidth;
         tip.style('left', Math.min(Math.max(0, px + 12), box.clientWidth - tw) + 'px').style('top', (py + 14) + 'px');
@@ -561,7 +654,7 @@
       }).on('mouseleave', () => { tip.style('opacity', 0); setHL(null); });
       const major = kind === 'stop';
       let label = null;
-      if (!(kind === 'air' && p.luogo !== R.airport && p.luogo !== 'Haneda')) {
+      if (!(kind === 'air' && p.luogo !== R.airport && p.luogo !== R.A0.air)) {
         let txt = p.luogo;
         if (major && !small) txt += ' · ' + nn(d3.sum(stopsHere, s => s.nights));
         label = gL.append('text').attr('font-size', major ? (small ? 11 : 12.5) : 10.5).attr('font-weight', major ? 600 : 400)
@@ -665,7 +758,7 @@
       return s;
     };
     const seg = (leg, cls) => { const d = el('div', 'seg' + (cls ? ' ' + cls : '')); if (leg) d.appendChild(el('span', 't', hrs(leg.ore))); return d; };
-    track.appendChild(station('air', '✈', 'HND', 'Haneda', ['Giorno 1', 'Arrivo'], 'Haneda'));
+    track.appendChild(station('air', '✈', R.A0.code, R.A0.air, ['Giorno 1', 'Arrivo'], R.A0.air));
     R.all.forEach((s, i) => {
       track.appendChild(seg(s.legIn, i === 0 ? 'air' : null));
       const trips = s.trips.filter(t => !t.sulPosto).length;
@@ -673,8 +766,7 @@
         ['Giorni ' + s.dal + '–' + s.al, nn(s.nights) + (trips ? ' · ' + trips + (trips === 1 ? ' gita' : ' gite') : '')], s.base));
     });
     track.appendChild(seg(R.last, 'air'));
-    const ap = R.airport === 'Kansai' ? ['KIX', 'Kansai'] : ['HND', 'Haneda'];
-    track.appendChild(station('air', '✈', ap[0], ap[1], ['Giorno ' + (R.p.notti + 1), 'Volo di ritorno'], R.airport));
+    track.appendChild(station('air', '✈', R.A1.code, R.A1.air, ['Giorno ' + (R.p.notti + 1), 'Volo di ritorno'], R.airport));
     box.appendChild(track);
   }
 
@@ -688,7 +780,7 @@
     R.all.forEach(s => {
       const c = el('article', 'jp-stopcard'); c.setAttribute('data-city', s.base);
       c.addEventListener('mouseenter', () => setHL(s.base)); c.addEventListener('mouseleave', () => setHL(null));
-      if (s.legIn) c.appendChild(el('div', 'leg', (s.from === 'Haneda' ? 'Atterraggio a Haneda, poi ' : 'Da ' + s.from + ': ') + 'treno ' + hrs(s.legIn.ore) + ' · ~' + yen(s.legIn.yen)));
+      if (s.legIn) c.appendChild(el('div', 'leg', (s.from === R.A0.air ? 'Atterraggio a ' + R.A0.air + ', poi ' : 'Da ' + s.from + ': ') + 'treno ' + hrs(s.legIn.ore) + ' · ~' + yen(s.legIn.yen)));
       const hd = el('div', 'hd');
       const n = el('span', 'jp-num', String(s.ordine)); n.style.background = A; n.style.width = '1.7rem'; n.style.height = '1.7rem';
       hd.append(n, el('b', null, s.base));
@@ -699,14 +791,14 @@
       if (s.ordine === 1) ul.appendChild(el('li', null, 'Arrivo e prima serata'));
       s.city.forEach(it => { const li = el('li'); li.append(mark(el('b', null, it.nome), 'catalogo', 'nome', 'id=' + enc(it.id)), el('span', null, ' · ' + gg(it.gg) + ' in città')); ul.appendChild(li); });
       s.trips.forEach(it => { const li = el('li'); li.append(mark(el('b', null, it.nome), 'catalogo', 'nome', 'id=' + enc(it.id)), el('span', null, it.sulPosto ? ' · dormite lì' : ' · in giornata, ' + hrs(num(it.ore_tratta)) + ' a tratta')); ul.appendChild(li); });
-      if (s.finale) ul.appendChild(el('li', null, 'Ultima serata a Tokyo'));
+      if (s.finale) ul.appendChild(el('li', null, 'Ultima serata a ' + s.base));
       if (ul.children.length) c.appendChild(ul);
       if (s.free >= 0.5) c.appendChild(el('div', 'free', (s.free === 0.5 ? 'Mezza giornata libera' : String(s.free).replace('.', ',') + ' giorni liberi')));
       if (s.zona) { const z = el('div', 'zona'); z.append(el('span', null, 'Dove dormire: '), mark(el('span', null, s.zona), 'basi', 'zona', 'base=' + enc(s.base))); z.lastChild.style.color = 'var(--color-fg)'; c.appendChild(z); }
       box.appendChild(c);
     });
     const end = el('div', 'jp-end');
-    end.append(el('b', null, 'Giorno ' + (R.p.notti + 1) + ' · volo da ' + (R.airport === 'Kansai' ? 'Osaka Kansai' : 'Tokyo Haneda')));
+    end.append(el('b', null, 'Giorno ' + (R.p.notti + 1) + ' · volo da ' + R.A1.nome));
     if (R.last) end.append(el('span', null, 'Da ' + R.all[R.all.length - 1].base + ': ' + hrs(R.last.ore) + ' · ~' + yen(R.last.yen)));
     box.appendChild(end);
   }
@@ -740,7 +832,7 @@
       notes.forEach(nt => {
         const d = el('div');
         if (nt.kind === 'ev') { d.append(mark(el('span', 'jp-tag ev', nt.t), 'eventi', 'nome', nt.w)); d.append(' ', mark(el('span', null, nt.nota), 'eventi', 'nota', nt.w)); }
-        else d.append(mark(el('span', 'jp-tag fo', nt.t), 'stagione', 'luogo', nt.w));
+        else d.append(mark(el('span', 'jp-tag ' + nt.kind, nt.t), 'stagione', 'luogo', nt.w));
         td3.appendChild(d);
         if (nt.kind === 'ev' && day.travel && day.stop && !day.stop.finale && day.n > 1) flags.push(fmtDate.format(day.date) + ': spostamento durante "' + nt.t + '"');
       });
@@ -753,7 +845,10 @@
 
   // ---------- compare ----------
   function routeFromSaved(r) {
-    return { nome: r.nome, note: r.note, params: { sel: split(r.sel), notti: num(r.notti), ritorno: r.ritorno, partenza: r.partenza, pernotto: split(r.pernotto), giorni_citta: split(r.giorni_citta), giornata_citta: split(r.giornata_citta) } };
+    // un modello porta solo il percorso: date, viaggiatori, partenza e stile restano quelli scelti
+    const params = { sel: split(r.sel), notti: num(r.notti), arrivo: r.arrivo, ritorno: r.ritorno, pernotto: split(r.pernotto), giorni_citta: split(r.giorni_citta), giornata_citta: split(r.giornata_citta) };
+    Object.keys(params).forEach(k => { if (params[k] == null) delete params[k]; });
+    return { nome: r.nome, note: r.note, params };
   }
   function drawCompare() {
     const tb = document.querySelector('#cmptab tbody'); tb.textContent = '';
@@ -762,7 +857,7 @@
     if (D.per.status === 'ok') D.per.data.forEach(r => list.push({ ...routeFromSaved(r), saved: true, w: 'nome=' + enc(r.nome) }));
     pinned.forEach((x, i) => list.push({ ...x, idx: i }));
     list.push({ nome: 'Percorso attuale', params: dash.params() || {}, current: true });
-    const rows = list.map(x => ({ ...x, r: build(norm(x.params)) }));
+    const rows = list.map(x => ({ ...x, r: build(norm(Object.assign({}, dash.params(), x.params))) }));
     const best = (f, dir) => { const v = rows.map(x => f(x.r)); return dir === 'min' ? Math.min(...v) : Math.max(...v); };
     const bAll = best(r => r.all.length, 'min'), bOre = best(r => r.oreBagagli, 'min'), bFree = best(r => r.free, 'max'), bMete = best(r => r.items.length, 'max'), bCost = best(r => r.tot.min, 'min');
     const catName = new Map((D.cat.data || []).map(c => [c.id, c.nome]));
@@ -771,7 +866,7 @@
       const tr = el('tr', x.current ? 'cur' : null);
       const td0 = el('td');
       td0.appendChild(x.saved ? mark(el('b', null, x.nome), 'percorsi', 'nome', x.w) : el('b', null, x.nome));
-      td0.appendChild(el('div', 'jp-note', x.saved ? 'Salvato per tutti' : (x.current ? 'Quello che state costruendo' : 'Salvato su questo dispositivo')));
+      td0.appendChild(el('div', 'jp-note', x.saved ? (x.note || 'Modello di viaggio') : (x.current ? 'Quello che state costruendo' : 'Salvato su questo dispositivo')));
       td0.lastChild.style.margin = '0';
       tr.appendChild(td0);
       const cell = (txt, good) => { const td = el('td', good ? 'best' : null, txt); tr.appendChild(td); };
@@ -812,8 +907,14 @@
       pt.appendChild(tr);
     });
     if (!R) return;
+    const N = R.p.persone;
+    const dtr = el('tr');
+    ['Volo da ' + R.dep.nome + ' andata e ritorno, bassa stagione', nf.format(num(R.dep.min)), nf.format(num(R.dep.max)), 'eur', 'Stima: ' + (R.dep.nota || '')].forEach(v => dtr.appendChild(el('td', null, v)));
+    pt.insertBefore(dtr, pt.firstChild);
+    const th = document.querySelectorAll('#btab thead th');
+    th[3].textContent = 'Min in ' + N; th[4].textContent = 'Max in ' + N;
     kpi(k, 'A persona', eur(R.tot.min), 'fino a ' + eur(R.tot.max));
-    kpi(k, 'In 5 persone', eur(R.tot.min * 5), 'fino a ' + eur(R.tot.max * 5));
+    kpi(k, N === 1 ? 'Da soli' : 'In ' + N + ' persone', eur(R.tot.min * N), 'fino a ' + eur(R.tot.max * N));
     kpi(k, 'Al giorno a persona', eur(R.tot.min / R.G), 'fino a ' + eur(R.tot.max / R.G));
     kpi(k, 'Viaggio', nn(R.p.notti), R.all.length + ' alloggi');
     const mx = d3.max(R.cost, c => c.max) || 1;
@@ -827,9 +928,9 @@
       row.appendChild(el('span', 'val', Math.round(c.min) === Math.round(c.max) ? eur(c.min) : eur(c.min) + ' – ' + eur(c.max)));
       bars.appendChild(row);
     });
-    R.cost.forEach(c => { const tr = el('tr'); [c.cat, eur(c.min), eur(c.max), eur(c.min * 5), eur(c.max * 5), c.how].forEach(v => tr.appendChild(el('td', null, v))); tb.appendChild(tr); });
+    R.cost.forEach(c => { const tr = el('tr'); [c.cat, eur(c.min), eur(c.max), eur(c.min * N), eur(c.max * N), c.how].forEach(v => tr.appendChild(el('td', null, v))); tb.appendChild(tr); });
     const tr = el('tr'); tr.style.fontWeight = '600';
-    ['Totale', eur(R.tot.min), eur(R.tot.max), eur(R.tot.min * 5), eur(R.tot.max * 5), 'Shopping e souvenir esclusi'].forEach(v => tr.appendChild(el('td', null, v)));
+    ['Totale', eur(R.tot.min), eur(R.tot.max), eur(R.tot.min * N), eur(R.tot.max * N), 'Shopping e souvenir esclusi'].forEach(v => tr.appendChild(el('td', null, v)));
     tb.appendChild(tr);
   }
 
@@ -839,6 +940,7 @@
     box.textContent = '';
     const inf = D.inf;
     if (inf.status !== 'ok') { const c = el('div', 'jp-card'); if (inf.status === 'error') fail(c); else c.classList.add('dash-skeleton'); box.appendChild(c); return; }
+    if (R) box.appendChild(tripCard(R));
     d3.group(inf.data, r => r.sezione).forEach((items, sez) => {
       const c = el('div', 'jp-card');
       c.appendChild(el('h3', null, sez));
@@ -856,11 +958,40 @@
     });
   }
 
+  // scadenze e avvisi calcolati dalla data di arrivo del percorso
+  function tripCard(r) {
+    const c = el('div', 'jp-card');
+    c.appendChild(el('h3', null, 'Per il vostro viaggio'));
+    const start = Date.parse(r.p.partenza + 'T00:00:00Z'), now = Date.now();
+    const mf = new Intl.DateTimeFormat('it-IT', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+    const df = new Intl.DateTimeFormat('it-IT', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+    const back = (months) => { const d = new Date(start); d.setUTCMonth(d.getUTCMonth() - months); return d; };
+    const from = (d) => d.getTime() <= now ? 'da subito' : 'da ' + mf.format(d);
+    const span = (a, b) => b.getTime() <= now ? 'il prima possibile' : (a.getTime() <= now ? 'da subito, entro ' + mf.format(b) : 'tra ' + mf.format(a) + ' e ' + mf.format(b));
+    const alta = during((D.ev.data || []).filter(e => yes(e.voli_alta)), r.p);
+    const rows = [
+      ['Arrivo', df.format(new Date(start)) + ', ' + nn(r.p.notti) + ', ' + r.p.persone + (r.p.persone === 1 ? ' persona' : ' persone')],
+      ['Avvisi di prezzo sui voli', from(back(11)) + ', da ' + r.dep.nome + (r.dep.nota ? ' (' + r.dep.nota.charAt(0).toLowerCase() + r.dep.nota.slice(1) + ')' : '')],
+      ['Prenotare i voli', alta.length ? span(back(7), back(5)) + ': il viaggio cade in alta stagione' : span(back(5), back(3))],
+      ['Prenotare gli alloggi', span(back(6), back(3)) + (r.all.some(s => s.tipoNotte === 'ryokan') ? ', prima i ryokan' : '')],
+      ['Posti sugli Shinkansen', 'Si prenotano da un mese prima: ' + from(back(1))]
+    ];
+    const busy = during((D.ev.data || []).filter(e => !e.luogo), r.p);
+    if (busy.length) rows.push(['Periodi affollati', busy.map(e => e.nome).join(', ')]);
+    const clima = during((D.st.data || []).filter(s => s.tipo === 'clima'), r.p);
+    if (clima.length) rows.push(['Clima', clima.map(s => s.nome + ': ' + s.nota).join('. ')]);
+    if (r.p.persone >= 5) rows.push(['Taxi', 'In ' + r.p.persone + ' servono due auto o un taxi grande']);
+    const dl = el('dl');
+    rows.forEach(([k, v]) => { dl.appendChild(el('dt', null, k)); dl.appendChild(el('dd', null, v)); });
+    c.appendChild(dl);
+    return c;
+  }
+
   // ---------- render ----------
   function render() {
     if (!D) return;
     root.style.setProperty('--jp-accent', accent());
-    const ready = ['cat', 'basi', 'tratte', 'par'].every(k => D[k].status === 'ok');
+    const ready = ['cat', 'basi', 'tratte', 'par', 'dep'].every(k => D[k].status === 'ok');
     R = ready ? build(P()) : null;
     drawTakeaway();
     drawControls();
@@ -873,7 +1004,7 @@
 
   dash.onData(() => {
     D = { cat: dash.data('catalogo'), basi: dash.data('basi'), tratte: dash.data('tratte'), par: dash.data('parametri'),
-      jp: dash.data('giappone'), ct: dash.data('citta'), inf: dash.data('info'), ev: dash.data('eventi'), st: dash.data('stagione'), per: dash.data('percorsi') };
+      jp: dash.data('giappone'), ct: dash.data('citta'), inf: dash.data('info'), ev: dash.data('eventi'), st: dash.data('stagione'), per: dash.data('percorsi'), dep: dash.data('partenze') };
     render();
   });
 

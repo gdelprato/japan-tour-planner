@@ -1,0 +1,72 @@
+[
+ {
+  "id": "milano",
+  "nome": "Milano",
+  "min": 750,
+  "max": 1200,
+  "nota": "Diretto ANA Malpensa–Haneda o voli con uno scalo"
+ },
+ {
+  "id": "roma",
+  "nome": "Roma",
+  "min": 750,
+  "max": 1200,
+  "nota": "Diretto ITA Fiumicino–Haneda o voli con uno scalo"
+ },
+ {
+  "id": "venezia",
+  "nome": "Venezia",
+  "min": 800,
+  "max": 1300,
+  "nota": "Uno scalo in Europa o nel Golfo"
+ },
+ {
+  "id": "bologna",
+  "nome": "Bologna",
+  "min": 800,
+  "max": 1300,
+  "nota": "Uno scalo in Europa o nel Golfo"
+ },
+ {
+  "id": "torino",
+  "nome": "Torino",
+  "min": 850,
+  "max": 1350,
+  "nota": "Uno scalo, oppure partenza da Milano"
+ },
+ {
+  "id": "firenze",
+  "nome": "Firenze o Pisa",
+  "min": 850,
+  "max": 1350,
+  "nota": "Uno scalo, oppure partenza da Roma"
+ },
+ {
+  "id": "napoli",
+  "nome": "Napoli",
+  "min": 850,
+  "max": 1350,
+  "nota": "Uno scalo, oppure partenza da Roma"
+ },
+ {
+  "id": "sud",
+  "nome": "Bari, Catania o Palermo",
+  "min": 900,
+  "max": 1450,
+  "nota": "Uno o due scali"
+ },
+ {
+  "id": "zurigo",
+  "nome": "Zurigo",
+  "min": 800,
+  "max": 1300,
+  "nota": "Diretto Swiss su Narita o voli con uno scalo"
+ },
+ {
+  "id": "europa",
+  "nome": "Altra città europea",
+  "min": 700,
+  "max": 1300,
+  "nota": "Dipende molto dall'hub più vicino"
+ }
+]

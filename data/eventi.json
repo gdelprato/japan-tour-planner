@@ -1,37 +1,178 @@
 [
  {
-  "dal": "2027-10-09",
-  "al": "2027-10-11",
+  "dal": "12-29",
+  "al": "01-03",
+  "nome": "Capodanno giapponese",
+  "luogo": "",
+  "nota": "Molti negozi, musei e ristoranti chiusi i primi giorni; templi affollatissimi il 1° gennaio",
+  "voli_alta": true
+ },
+ {
+  "regola": "lun:2:1",
+  "nome": "Weekend lungo del Giorno della maggiore età",
+  "luogo": "",
+  "nota": "Ponte nazionale: treni e mete famose più affollati"
+ },
+ {
+  "dal": "02-23",
+  "al": "02-23",
+  "nome": "Compleanno dell'imperatore",
+  "luogo": "",
+  "nota": "Giorno festivo nazionale"
+ },
+ {
+  "dal": "02-04",
+  "al": "02-11",
+  "nome": "Festival della neve di Sapporo",
+  "luogo": "Sapporo",
+  "nota": "Sculture di neve e ghiaccio; date indicative, controllate il calendario ufficiale. Alloggi da prenotare molto presto"
+ },
+ {
+  "dal": "03-20",
+  "al": "04-10",
+  "nome": "Stagione dei ciliegi",
+  "luogo": "",
+  "nota": "Periodo più richiesto dell'anno: alloggi e voli cari, prenotate con molto anticipo",
+  "voli_alta": true
+ },
+ {
+  "dal": "04-14",
+  "al": "04-15",
+  "nome": "Festa di primavera di Takayama",
+  "luogo": "Takayama",
+  "nota": "Carri decorati e marionette; alloggi da prenotare con molto anticipo"
+ },
+ {
+  "dal": "04-29",
+  "al": "05-05",
+  "nome": "Golden Week",
+  "luogo": "",
+  "nota": "La settimana di vacanze più affollata: Shinkansen pieni, alloggi cari. Prenotate i posti sui treni",
+  "voli_alta": true
+ },
+ {
+  "dal": "05-15",
+  "al": "05-15",
+  "nome": "Aoi Matsuri",
+  "luogo": "Kyoto",
+  "nota": "Corteo in costume di corte dal Palazzo imperiale ai santuari Shimogamo e Kamigamo"
+ },
+ {
+  "dal": "07-01",
+  "al": "07-15",
+  "nome": "Hakata Gion Yamakasa",
+  "luogo": "Fukuoka",
+  "nota": "Corsa dei carri all'alba del 15 luglio"
+ },
+ {
+  "dal": "07-14",
+  "al": "07-17",
+  "nome": "Gion Matsuri",
+  "luogo": "Kyoto",
+  "nota": "Serate di festa (yoiyama) e grande sfilata dei carri il 17 luglio; folla e alloggi cari"
+ },
+ {
+  "regola": "lun:3:7",
+  "nome": "Weekend lungo del Giorno del mare",
+  "luogo": "",
+  "nota": "Ponte nazionale: treni e spiagge più affollati"
+ },
+ {
+  "dal": "07-20",
+  "al": "08-31",
+  "nome": "Vacanze estive in Giappone",
+  "luogo": "",
+  "nota": "Famiglie in viaggio, voli più cari",
+  "voli_alta": true
+ },
+ {
+  "dal": "07-24",
+  "al": "07-25",
+  "nome": "Tenjin Matsuri",
+  "luogo": "Osaka",
+  "nota": "Processione di barche sul fiume e fuochi d'artificio la sera del 25"
+ },
+ {
+  "dal": "08-06",
+  "al": "08-08",
+  "nome": "Tanabata di Sendai",
+  "luogo": "Sendai",
+  "nota": "Strade coperte di decorazioni di carta colorata"
+ },
+ {
+  "dal": "08-06",
+  "al": "08-06",
+  "nome": "Giorno della memoria di Hiroshima",
+  "luogo": "Hiroshima",
+  "nota": "Cerimonia al Parco della Pace e lanterne sul fiume la sera"
+ },
+ {
+  "dal": "08-13",
+  "al": "08-16",
+  "nome": "Obon",
+  "luogo": "",
+  "nota": "I giapponesi tornano nelle città d'origine: treni e autostrade pieni"
+ },
+ {
+  "dal": "08-16",
+  "al": "08-16",
+  "nome": "Gozan no Okuribi",
+  "luogo": "Kyoto",
+  "nota": "Grandi fuochi accesi sulle montagne intorno a Kyoto la sera"
+ },
+ {
+  "regola": "lun:3:9",
+  "nome": "Weekend lungo del Giorno degli anziani",
+  "luogo": "",
+  "nota": "Ponte nazionale: treni e mete famose più affollati"
+ },
+ {
+  "dal": "10-07",
+  "al": "10-09",
+  "nome": "Nagasaki Kunchi",
+  "luogo": "Nagasaki",
+  "nota": "Festa del santuario Suwa con danze del drago"
+ },
+ {
+  "regola": "lun:2:10",
   "nome": "Weekend lungo della festa dello Sport",
   "luogo": "",
   "nota": "Treni e mete famose più affollati: prenotate i posti sugli Shinkansen"
  },
  {
-  "dal": "2027-10-09",
-  "al": "2027-10-10",
+  "dal": "10-09",
+  "al": "10-10",
   "nome": "Festa d'autunno di Takayama",
   "luogo": "Takayama",
   "nota": "Carri decorati e marionette; alloggi da prenotare con molto anticipo"
  },
  {
-  "dal": "2027-10-22",
-  "al": "2027-10-22",
+  "dal": "10-22",
+  "al": "10-22",
   "nome": "Jidai Matsuri e festa del fuoco di Kurama",
   "luogo": "Kyoto",
   "nota": "Corteo storico in costume di giorno, fiaccole a Kurama la sera"
  },
  {
-  "dal": "2027-11-03",
-  "al": "2027-11-03",
+  "dal": "11-03",
+  "al": "11-03",
   "nome": "Festa della Cultura",
   "luogo": "",
   "nota": "Giorno festivo nazionale: più folla nelle mete famose"
  },
  {
-  "dal": "2027-10-07",
-  "al": "2027-10-09",
-  "nome": "Nagasaki Kunchi",
-  "luogo": "Nagasaki",
-  "nota": "Festa del santuario Suwa con danze del drago"
+  "dal": "11-23",
+  "al": "11-23",
+  "nome": "Festa del Ringraziamento del lavoro",
+  "luogo": "",
+  "nota": "Giorno festivo nazionale, in pieno foliage a Kyoto: molta folla"
+ },
+ {
+  "dal": "12-20",
+  "al": "12-28",
+  "nome": "Vacanze di Natale in Europa",
+  "luogo": "",
+  "nota": "Voli dall'Europa più cari",
+  "voli_alta": true
  }
 ]

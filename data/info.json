@@ -1,98 +1,86 @@
 [
  {
-  "sezione": "Date",
-  "voce": "Periodo",
-  "valore": "Ottobre 2027, circa 15 giorni, in 5 persone",
-  "fonte": "Decisione del gruppo"
+  "sezione": "Quando andare",
+  "voce": "Primavera",
+  "valore": "Ciliegi tra fine marzo e metà aprile (più tardi al nord): bellissimo ma il periodo più caro e affollato, Golden Week compresa (29 aprile–5 maggio)",
+  "fonte": "Stagionalità"
  },
  {
-  "sezione": "Date",
-  "voce": "Giorni di partenza",
-  "valore": "Meglio martedì o mercoledì: 5-6, 12-13, 19-20 o 26-27 ottobre 2027",
-  "fonte": "Guide sui voli per il Giappone"
+  "sezione": "Quando andare",
+  "voce": "Estate",
+  "valore": "Piogge tra giugno e metà luglio, poi caldo umido; tifoni possibili da metà agosto. Hokkaido e Alpi sono più freschi",
+  "fonte": "Stagionalità"
  },
  {
-  "sezione": "Date",
-  "voce": "Giorni affollati in Giappone",
-  "valore": "Weekend lungo del 9-11 ottobre (festa dello Sport) e il 3 novembre (festa nazionale)",
-  "fonte": "Calendario festività"
+  "sezione": "Quando andare",
+  "voce": "Autunno",
+  "valore": "Foliage da fine settembre in Hokkaido, a fine ottobre in montagna, a metà-fine novembre a Kyoto e Tokyo; clima mite e stabile",
+  "fonte": "Stagionalità"
  },
  {
-  "sezione": "Date",
-  "voce": "Foliage",
-  "valore": "Fine ottobre in montagna (Nikko, Takayama, Shirakawa-go); a Kyoto e Tokyo il picco è a metà-fine novembre",
+  "sezione": "Quando andare",
+  "voce": "Inverno",
+  "valore": "Cielo terso e prezzi più bassi, neve al nord e nelle Alpi; evitate i primi giorni di gennaio, quando molto è chiuso",
   "fonte": "Stagionalità"
  },
  {
   "sezione": "Voli",
   "voce": "Quando prenotare",
-  "valore": "Avvisi prezzo da subito, prenotazione tra maggio e luglio 2027 (3-5 mesi prima)",
-  "fonte": "ShopBack"
+  "valore": "Impostate avvisi di prezzo appena i voli escono (circa 11 mesi prima) e prenotate di solito 3-5 mesi prima; per ciliegi e Golden Week anche prima",
+  "fonte": "Guide sui voli per il Giappone"
  },
  {
   "sezione": "Voli",
-  "voce": "Volo diretto da Milano",
-  "valore": "Solo ANA, Malpensa–Haneda, 6 voli a settimana: va controllato quale giorno manca",
-  "fonte": "The Flight Club"
- },
- {
-  "sezione": "Voli",
-  "voce": "Alternative con scalo",
-  "valore": "Finnair via Helsinki, Turkish via Istanbul, Air France via Parigi, Lufthansa/Swiss",
-  "fonte": "FTN News, Aeroclass"
+  "voce": "Giorni di partenza",
+  "valore": "Martedì e mercoledì sono spesso i giorni più economici",
+  "fonte": "Guide sui voli per il Giappone"
  },
  {
   "sezione": "Voli",
   "voce": "Open-jaw",
-  "valore": "Andata su Haneda e ritorno da Osaka Kansai: conviene con A, C e D se costa al massimo 120-150 € in più a persona",
-  "fonte": "Confronto in chat"
+  "valore": "Arrivo a Tokyo e ripartenza da Osaka (o il contrario) evita di tornare indietro in treno: conviene se costa al massimo 100-150 € in più a persona",
+  "fonte": "Confronto con il prezzo dello Shinkansen"
  },
  {
   "sezione": "Voli",
-  "voce": "Per un gruppo di 5",
-  "valore": "Un solo biglietto per tutti, scali di almeno 1h30-2h, controllare che ci siano 5 posti alla stessa tariffa",
-  "fonte": "Consigli in chat"
+  "voce": "In gruppo",
+  "valore": "Un solo biglietto per tutti, scali di almeno 1h30-2h, controllate che ci siano abbastanza posti alla stessa tariffa",
+  "fonte": "Consiglio generale"
  },
  {
   "sezione": "Bagagli",
-  "voce": "Zaino principale",
-  "valore": "Zaino da viaggio 38-40 L con apertura a libro: Osprey Farpoint 40, Deuter Aviant Access 38, Forclaz Travel 500",
-  "fonte": "Negozi online"
- },
- {
-  "sezione": "Bagagli",
-  "voce": "Zainetto",
-  "valore": "15-20 L da portare davanti: Osprey Farpoint/Fairview Daypack o Forclaz pieghevole 20 L",
-  "fonte": "Negozi online"
+  "voce": "Zaino o valigia",
+  "valore": "Uno zaino da 35-45 L o una valigia piccola rende più facili treni e cambi di base; lo spazio per valigie grandi sullo Shinkansen va prenotato",
+  "fonte": "Regole JR"
  },
  {
   "sezione": "Bagagli",
   "voce": "Takkyubin",
-  "valore": "Zaini spediti da una città all'altra con consegna il giorno dopo; utile per saltare Hakone e le Alpi con il solo zainetto",
-  "fonte": "Japan Experience, Yamato"
+  "valore": "Bagagli spediti da un hotel all'altro con consegna il giorno dopo: utile per fare Hakone o le Alpi con il solo zainetto",
+  "fonte": "Yamato Transport"
  },
  {
   "sezione": "Bagagli",
   "voce": "Regole in treno",
   "valore": "Zaini tolti dalle spalle in metro; sullo Shinkansen in alto o negli spazi dedicati",
-  "fonte": "Consigli in chat"
+  "fonte": "Consiglio generale"
  },
  {
   "sezione": "Prenotazioni",
   "voce": "Alloggi",
-  "valore": "Aprile-giugno 2027, prima ryokan e Kyoto; appartamenti o camere familiari per 5, con reception che accetta pacchi",
-  "fonte": "Consigli in chat"
+  "valore": "3-6 mesi prima, prima i ryokan e Kyoto; in gruppo cercate appartamenti o camere familiari, con reception che accetta pacchi",
+  "fonte": "Consiglio generale"
  },
  {
   "sezione": "Prenotazioni",
   "voce": "Treni",
-  "valore": "Biglietti Shinkansen singoli più IC card (Suica/ICOCA), di solito più convenienti del JR Pass; posti riservati per sedersi vicini",
+  "valore": "Biglietti Shinkansen singoli più IC card (Suica/ICOCA) sono spesso più convenienti del JR Pass; fate il conto con il vostro percorso",
   "fonte": "Da verificare sulle tariffe attuali"
  },
  {
   "sezione": "Prenotazioni",
   "voce": "Taxi",
-  "valore": "In 5 non si entra in un taxi normale: servono due auto o un taxi grande",
-  "fonte": "Consigli in chat"
+  "valore": "In un taxi normale si entra al massimo in 4: dai 5 in su servono due auto o un taxi grande",
+  "fonte": "Consiglio generale"
  }
 ]

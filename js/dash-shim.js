@@ -1,7 +1,7 @@
 /* Piccolo runtime che fornisce all'app i dati (cartella data/) e lo stato del percorso.
    Lo stato vive nell'URL (?r=...) per poterlo condividere, e nel browser per ritrovarlo. */
 (function () {
-  const DATASETS = ['catalogo', 'basi', 'tratte', 'parametri', 'giappone', 'citta', 'info', 'eventi', 'stagione', 'percorsi'];
+  const DATASETS = ['catalogo', 'basi', 'tratte', 'parametri', 'giappone', 'citta', 'info', 'eventi', 'stagione', 'percorsi', 'partenze'];
   const store = {};
   DATASETS.forEach((id) => { store[id] = { status: 'loading', data: [] }; });
   const callbacks = [];
