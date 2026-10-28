@@ -67,9 +67,19 @@
 
   if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
     window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
-    // quando una versione nuova dell'app prende il controllo, ricarica una volta per non mescolare file vecchi e nuovi
-    const hadController = !!navigator.serviceWorker.controller;
-    let reloaded = false;
-    navigator.serviceWorker.addEventListener('controllerchange', () => { if (hadController && !reloaded) { reloaded = true; location.reload(); } });
+    // quando una versione nuova sostituisce quella con cui la pagina è partita, lo si dice senza ricaricare:
+    // decide l'utente quando aggiornare
+    let ctrl = navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      const prev = ctrl; ctrl = navigator.serviceWorker.controller;
+      if (!prev || document.getElementById('jp-update')) return;
+      const bar = document.createElement('div'); bar.id = 'jp-update'; bar.className = 'jp-update'; bar.setAttribute('role', 'status');
+      const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'jp-btn'; btn.textContent = 'Aggiorna';
+      btn.addEventListener('click', () => location.reload());
+      const no = document.createElement('button'); no.type = 'button'; no.className = 'jp-link'; no.textContent = 'Più tardi';
+      no.addEventListener('click', () => bar.remove());
+      bar.append('È disponibile una nuova versione dell\'app', btn, no);
+      document.body.appendChild(bar);
+    });
   }
 })();
