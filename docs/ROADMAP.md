@@ -26,6 +26,10 @@ Valori oggi fissi e cosa diventano:
 - **Stagionalità generica**: oggi foliage soltanto. Aggiungere `stagione.json` per sakura, piogge (tsuyu), tifoni, neve, così avvisi e consigli valgono per qualsiasi mese.
 - **Retrocompatibilità link**: `norm()` completa i parametri mancanti, così i link `?r=` già condivisi continuano a funzionare.
 
+## Appunti dal test della Fase 1
+- [x] **Durata massima**: notti da 3 a 365, con il numero anche scrivibile a mano nel pannello del viaggio.
+- [x] **Mappa per regioni**: accanto a Percorso e Giappone un menu "Regioni" con una vista per ogni regione del catalogo (Hokkaido, Tohoku, Tokyo e dintorni, Alpi e Giappone centrale, Kansai, Chugoku e Shikoku, Kyushu, Okinawa), inquadrata in automatico sulle sue mete.
+
 ## Fase 2 — Onboarding e modelli
 - Primo avvio: wizard in 4 passi (date e durata → quanti siete e da dove partite → stile e interessi → modello di partenza o "da zero"). Riusa il pannello `#settings`.
 - **Interessi** (templi, natura, onsen, cibo, città, anime, famiglia) come tag in `catalogo.json` → il picker evidenzia le mete adatte.

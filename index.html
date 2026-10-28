@@ -51,7 +51,7 @@
     <div class="sheet-head"><h2>Il vostro viaggio</h2><button type="button" class="sheet-close" id="closesettings" aria-label="Chiudi">✕</button></div>
     <div class="jp-controls" id="controls">
       <label class="field"><span>Arrivo in Giappone</span><input type="date" class="jp-date" id="arrivo"></label>
-      <div class="field"><span>Notti</span><div class="jp-step big"><button type="button" id="nminus" aria-label="Una notte in meno">−</button><span id="nval">—</span><button type="button" id="nplus" aria-label="Una notte in più">+</button></div></div>
+      <div class="field"><span>Notti</span><div class="jp-step big"><button type="button" id="nminus" aria-label="Una notte in meno">−</button><input type="number" id="nval" min="3" max="365" inputmode="numeric" aria-label="Numero di notti"><button type="button" id="nplus" aria-label="Una notte in più">+</button></div></div>
       <div class="field"><span>Viaggiatori</span><div class="jp-step big"><button type="button" id="pminus" aria-label="Una persona in meno">−</button><span id="pval">—</span><button type="button" id="pplus" aria-label="Una persona in più">+</button></div></div>
       <label class="field"><span>Partenza da</span><select class="jp-date" id="da"></select></label>
       <div class="field"><span>Arrivo a</span><div class="jp-seg" id="arrseg"><button type="button" data-arr="tokyo">Tokyo</button><button type="button" data-arr="osaka">Osaka</button></div></div>
@@ -87,7 +87,8 @@
         <div class="mapcard">
           <div class="jp-map dash-skeleton" id="map" data-source="giappone citta"></div>
           <div class="map-tools">
-            <div class="jp-seg" id="viewseg"><button type="button" data-view="route" aria-pressed="true">Percorso</button><button type="button" data-view="all" aria-pressed="false">Giappone</button><button type="button" data-view="kansai" aria-pressed="false">Kansai</button></div>
+            <div class="jp-seg" id="viewseg"><button type="button" data-view="route" aria-pressed="true">Percorso</button><button type="button" data-view="all" aria-pressed="false">Giappone</button></div>
+            <select class="jp-date mapreg" id="regsel" aria-label="Inquadra una regione"><option value="">Regioni…</option></select>
             <div class="zoom"><button type="button" id="zplus" aria-label="Ingrandisci la mappa">+</button><button type="button" id="zminus" aria-label="Riduci la mappa">−</button></div>
           </div>
           <span class="maptitle" id="maptitle">Il vostro percorso</span>

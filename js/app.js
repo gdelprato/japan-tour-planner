@@ -19,7 +19,7 @@
   const accent = () => dash.colors[0];
   const LONG_LEG = 2.5;
   const DAY = 86400000;
-  const NMIN = 3, NMAX = 30, PMAX = 10;
+  const NMIN = 3, NMAX = 365, PMAX = 10;
   // città di arrivo e ritorno: base in cui si dorme e aeroporto collegato nei dati delle tratte
   const AIR = {
     tokyo: { city: 'Tokyo', air: 'Haneda', code: 'HND', nome: 'Tokyo Haneda' },
@@ -100,6 +100,8 @@
   const toggleList = (key, list, id) => { const s = new Set(list); if (s.has(id)) s.delete(id); else s.add(id); setP({ [key]: Array.from(s) }); };
   document.getElementById('nminus').addEventListener('click', () => { const n = P().notti; if (n > NMIN) setP({ notti: n - 1 }); });
   document.getElementById('nplus').addEventListener('click', () => { const n = P().notti; if (n < NMAX) setP({ notti: n + 1 }); });
+  const nval = document.getElementById('nval');
+  nval.addEventListener('change', () => { const n = Math.round(Number(nval.value)); if (n) setP({ notti: Math.min(NMAX, Math.max(NMIN, n)) }); else nval.value = P().notti; });
   document.getElementById('pminus').addEventListener('click', () => { const n = P().persone; if (n > 1) setP({ persone: n - 1 }); });
   document.getElementById('pplus').addEventListener('click', () => { const n = P().persone; if (n < PMAX) setP({ persone: n + 1 }); });
   document.querySelectorAll('#arrseg button').forEach(b => b.addEventListener('click', () => setP({ arrivo: b.dataset.arr })));
@@ -113,6 +115,8 @@
   arrivo.addEventListener('change', () => { if (arrivo.value && arrivo.validity.valid) setP({ partenza: arrivo.value }); });
   arrivo.addEventListener('blur', () => { arrivo.value = P().partenza; });
   document.querySelectorAll('#viewseg button').forEach(b => b.addEventListener('click', () => { view = b.dataset.view; frameView(view); }));
+  const regSel = document.getElementById('regsel');
+  regSel.addEventListener('change', () => { if (regSel.value) { view = regSel.value; frameView(view); } });
   const zoomBy = (f) => { MAPZ.user = true; if (MAPZ.svg && MAPZ.zoom) MAPZ.svg.transition().duration(reduce ? 0 : 300).call(MAPZ.zoom.scaleBy, f); };
   document.getElementById('zplus').addEventListener('click', () => zoomBy(1.8));
   document.getElementById('zminus').addEventListener('click', () => zoomBy(1 / 1.8));
@@ -372,9 +376,10 @@
     p.textContent = '';
     if (!R) return;
     const a = Date.parse(R.p.partenza + 'T00:00:00Z');
-    const f = new Intl.DateTimeFormat('it-IT', { day: 'numeric', month: 'short', timeZone: 'UTC' });
+    const z = a + R.p.notti * DAY;
+    const f = new Intl.DateTimeFormat('it-IT', { day: 'numeric', month: 'short', year: new Date(a).getUTCFullYear() !== new Date(z).getUTCFullYear() ? 'numeric' : undefined, timeZone: 'UTC' });
     const chip = (t, cls) => p.appendChild(el('span', 'chip' + (cls ? ' ' + cls : ''), t));
-    chip(f.format(new Date(a)) + ' – ' + f.format(new Date(a + R.p.notti * 86400000)));
+    chip(f.format(new Date(a)) + ' – ' + f.format(new Date(z)));
     chip(nn(R.p.notti));
     chip(R.p.persone + (R.p.persone === 1 ? ' persona' : ' persone'));
     chip(R.all.length + ' alloggi');
@@ -386,7 +391,7 @@
   // ---------- controls ----------
   function drawControls() {
     const p = P();
-    document.getElementById('nval').textContent = p.notti;
+    if (nval !== document.activeElement) nval.value = p.notti;
     document.getElementById('nminus').disabled = p.notti <= NMIN;
     document.getElementById('nplus').disabled = p.notti >= NMAX;
     document.getElementById('pval').textContent = p.persone;
@@ -510,6 +515,21 @@
     all: { lon0: 127.4, lon1: 146.0, lat0: 26.0, lat1: 45.6, title: 'Tutto il Giappone' },
     kansai: { lon0: 134.5, lon1: 136.15, lat0: 34.12, lat1: 35.12, title: 'Kansai: Kyoto, Osaka, Nara, Kobe e dintorni' }
   };
+  // una vista per regione del catalogo, inquadrata sulle sue mete
+  function regionViews() {
+    if (VIEWS.regReady || D.cat.status !== 'ok' || D.ct.status !== 'ok') return;
+    const pos = new Map(D.ct.data.map(c => [c.luogo, c]));
+    d3.group(D.cat.data, c => c.regione).forEach((items, reg) => {
+      const pts = items.flatMap(i => split(i.luoghi)).map(l => pos.get(l)).filter(Boolean);
+      if (!pts.length) return;
+      const lon = d3.extent(pts, q => Number(q.lon)), lat = d3.extent(pts, q => Number(q.lat));
+      const pl = Math.max(0.25, (0.8 - (lon[1] - lon[0])) / 2), pa = Math.max(0.2, (0.6 - (lat[1] - lat[0])) / 2);
+      VIEWS['r:' + reg] = { lon0: lon[0] - pl, lon1: lon[1] + pl, lat0: lat[0] - pa, lat1: lat[1] + pa, title: reg, reg: true };
+    });
+    regSel.length = 1;
+    Object.keys(VIEWS).filter(k => VIEWS[k].reg).forEach(k => { const o = el('option', null, VIEWS[k].title); o.value = k; regSel.appendChild(o); });
+    VIEWS.regReady = true;
+  }
   const MAPZ = { t: null, w: 0, zoom: null, svg: null, frame: null, wantView: null, user: false, routeT: null, routeKey: '' };
   function frameView(name) {
     if (!MAPZ.svg || !MAPZ.frame) { MAPZ.wantView = name; return; }
@@ -532,6 +552,7 @@
     if (MAPZ.w && MAPZ.w !== W) MAPZ.t = null;
     MAPZ.w = W;
     const vw = VIEWS.all;
+    regionViews();
     const mx = (lon) => lon * Math.PI / 180;
     const my = (lat) => -Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360));
     const pad = 10;
@@ -725,9 +746,12 @@
     setHL(hl);
   }
   function updateZoomUi(k) {
-    const near = (t) => t && Math.abs(k - t.k) / t.k < 0.04;
-    const v = !MAPZ.user && near(MAPZ.routeT) ? 'route' : (MAPZ.frame && near(MAPZ.frame(VIEWS.kansai)) ? 'kansai' : (MAPZ.frame && near(MAPZ.frame(VIEWS.all)) ? 'all' : null));
+    const cur = MAPZ.t || { x: 0, y: 0 };
+    const near = (t) => t && Math.abs(k - t.k) / t.k < 0.04 && Math.abs(cur.x - t.x) < 24 && Math.abs(cur.y - t.y) < 24;
+    const keys = Object.keys(VIEWS).filter(n => VIEWS[n].title && n !== 'kansai');
+    const v = (!MAPZ.user && near(MAPZ.routeT) ? 'route' : (MAPZ.frame ? keys.find(n => near(MAPZ.frame(VIEWS[n]))) : null)) || null;
     document.querySelectorAll('#viewseg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === v)));
+    regSel.value = v && VIEWS[v] && VIEWS[v].reg ? v : '';
     const tl = document.getElementById('maptitle');
     if (tl) tl.textContent = v === 'route' ? 'Il vostro percorso' : (v ? VIEWS[v].title : 'Zoom ×' + k.toFixed(1).replace('.', ','));
     const zm = document.getElementById('zminus'); if (zm) zm.disabled = k <= 0.95;

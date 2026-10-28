@@ -57,6 +57,6 @@ Le scelte e i percorsi aggiunti al confronto restano salvati sul dispositivo di 
 - Feste e periodi affollati: `data/eventi.json` (`MM-GG` si ripete ogni anno, `regola: "lun:2:10"` è il weekend lungo del secondo lunedì di ottobre, `voli_alta` segna l'alta stagione dei voli)
 - Ciliegi, foliage e clima: `data/stagione.json`
 - Modelli di viaggio: `data/percorsi.json` · percorso di esempio al primo avvio: `data/params.json`
-- Dopo una modifica, aumenta il numero in `CACHE = 'japan-tour-planner-v3'` dentro `sw.js` (per esempio `japan-tour-planner-v4`), così i telefoni scaricano i dati nuovi.
+- Dopo una modifica, aumenta il numero in `CACHE = 'japan-tour-planner-v4'` dentro `sw.js` (per esempio `japan-tour-planner-v5`), così i telefoni scaricano i dati nuovi.
 
 Prezzi, tempi dei treni, ciliegi e foliage sono stime aggiornate a ottobre 2026, da verificare quando prenotate.
