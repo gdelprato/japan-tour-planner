@@ -31,8 +31,7 @@
     setParams: (o) => { params = Object.assign({}, params, o); persist(); fire(); },
     resetParams: () => { params = clone(defaults); persist(); fire(); },
     setLink: (name) => { try { history.replaceState(null, '', location.pathname + location.search + '#' + name); } catch (e) { /* ignora */ } },
-    shareUrl: () => location.origin + location.pathname + '?r=' + b64(params),
-    colorsReady: true
+    shareUrl: () => location.origin + location.pathname + '?r=' + b64(params)
   };
 
   let t = null;

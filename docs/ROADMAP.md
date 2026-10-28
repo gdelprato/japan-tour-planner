@@ -30,6 +30,17 @@ Valori oggi fissi e cosa diventano:
 - [x] **Durata massima**: notti da 3 a 365, con il numero anche scrivibile a mano nel pannello del viaggio.
 - [x] **Mappa per regioni**: accanto a Percorso e Giappone un menu "Regioni" con una vista per ogni regione del catalogo (Hokkaido, Tohoku, Tokyo e dintorni, Alpi e Giappone centrale, Kansai, Chugoku e Shikoku, Kyushu, Okinawa), inquadrata in automatico sulle sue mete.
 
+## Preconcetti ereditati dalla dashboard iniziale ✅ corretti
+- Takkyubin non più sempre nel budget: scelta "Bagagli" (spediti tra gli hotel / sempre con voi).
+- Notti in più distribuite in base a quanto c'è da fare, non ai gusti del gruppo originale (`priorita_extra` solo come spareggio).
+- Alloggio: sconto a persona da 3 persone in su (`camera_gruppo`), oltre al rincaro per chi viaggia da solo.
+- Orario di atterraggio e del volo di ritorno (mattina / pomeriggio o sera) invece del solo arrivo serale.
+- Cambio yen/euro modificabile nel budget.
+- Descrizioni del catalogo senza riferimenti a ottobre; tolto il campo `default` del vecchio percorso.
+- Tratte stimate e tratte in aereo segnalate nelle tappe e nel calendario.
+- Rimossi i residui della dashboard (`mark()`, attributi `data-*`, `colorsReady`, testo inglese "Failed to load").
+- Restano da valutare: più valute, tono al singolare per chi viaggia da solo.
+
 ## Fase 2 — Onboarding e modelli
 - Primo avvio: wizard in 4 passi (date e durata → quanti siete e da dove partite → stile e interessi → modello di partenza o "da zero"). Riusa il pannello `#settings`.
 - **Interessi** (templi, natura, onsen, cibo, città, anime, famiglia) come tag in `catalogo.json` → il picker evidenzia le mete adatte.

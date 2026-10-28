@@ -2,9 +2,7 @@
 (function () {
   const root = document.getElementById('jproot');
   const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
-  const mark = (e, src, field, where) => { e.setAttribute('data-source', src); if (field) e.setAttribute('data-field', field); if (where) e.setAttribute('data-where', where); return e; };
-  const fail = (box) => { box.textContent = ''; box.appendChild(el('div', 'jp-fail', 'Failed to load')); };
-  const enc = (s) => String(s).replace(/%/g, '%25').replace(/&/g, '%26').replace(/=/g, '%3D');
+  const fail = (box) => { box.textContent = ''; box.appendChild(el('div', 'jp-fail', 'Impossibile caricare i dati')); };
   const num = (x) => Number(x) || 0;
   const yes = (x) => x === true || x === 'sì' || x === 'si' || x === 'true';
   const split = (s) => Array.isArray(s) ? s.map(String) : String(s || '').split(',').map(x => x.trim()).filter(Boolean);
@@ -83,6 +81,9 @@
     arrivo: AIR[p.arrivo] ? p.arrivo : 'tokyo', ritorno: AIR[p.ritorno] ? p.ritorno : 'osaka',
     persone: Math.min(PMAX, Math.max(1, Math.round(Number(p.persone)) || 2)),
     da: String(p.da || 'milano'), stile: STILI[p.stile] ? p.stile : 'medio',
+    bagagli: p.bagagli === 'valigia' ? 'valigia' : 'spedizioni',
+    oraArrivo: p.ora_arrivo === 'mattina' ? 'mattina' : 'sera', oraRitorno: p.ora_ritorno === 'sera' ? 'sera' : 'mattina',
+    cambio: Number(p.cambio) > 0 ? Number(p.cambio) : null,
     pernotto: split(p.pernotto), gc: split(p.giorni_citta), gcit: split(p.giornata_citta),
     partenza: /^\d{4}-\d{2}-\d{2}$/.test(String(p.partenza || '')) ? String(p.partenza) : defaultStart()
   });
@@ -107,6 +108,11 @@
   document.querySelectorAll('#arrseg button').forEach(b => b.addEventListener('click', () => setP({ arrivo: b.dataset.arr })));
   document.querySelectorAll('#retseg button').forEach(b => b.addEventListener('click', () => setP({ ritorno: b.dataset.rit })));
   document.querySelectorAll('#stileseg button').forEach(b => b.addEventListener('click', () => setP({ stile: b.dataset.stile })));
+  document.querySelectorAll('#bagseg button').forEach(b => b.addEventListener('click', () => setP({ bagagli: b.dataset.bag })));
+  document.querySelectorAll('#oraarrseg button').forEach(b => b.addEventListener('click', () => setP({ ora_arrivo: b.dataset.ora })));
+  document.querySelectorAll('#orarSeg button').forEach(b => b.addEventListener('click', () => setP({ ora_ritorno: b.dataset.ora })));
+  const cambioIn = document.getElementById('cambio');
+  cambioIn.addEventListener('change', () => { const v = Number(String(cambioIn.value).replace(',', '.')); setP({ cambio: v > 0 ? v : null }); });
   const daSel = document.getElementById('da');
   daSel.addEventListener('change', () => setP({ da: daSel.value }));
   document.getElementById('reset').addEventListener('click', () => { animateNext = true; dash.resetParams(); });
@@ -150,7 +156,7 @@
   function graph(tratte) {
     if (adjCache && adjCache.src === tratte) return adjCache.adj;
     const adj = new Map();
-    tratte.forEach(t => [[t.da, t.a], [t.a, t.da]].forEach(([a, b]) => { if (!adj.has(a)) adj.set(a, []); adj.get(a).push({ to: b, ore: num(t.ore), yen: num(t.yen) }); }));
+    tratte.forEach(t => [[t.da, t.a], [t.a, t.da]].forEach(([a, b]) => { if (!adj.has(a)) adj.set(a, []); adj.get(a).push({ to: b, ore: num(t.ore), yen: num(t.yen), stima: /stima/i.test(t.note || ''), volo: /volo/i.test(t.note || '') }); }));
     adjCache = { src: tratte, adj };
     return adj;
   }
@@ -168,7 +174,7 @@
     if (!dist.has(to)) return null;
     const legs = []; let cur = to;
     while (cur !== from) { const pv = prev.get(cur); legs.unshift(pv.e); cur = pv.from; }
-    return { ore: d3.sum(legs, l => l.ore), yen: d3.sum(legs, l => l.yen) };
+    return { ore: d3.sum(legs, l => l.ore), yen: d3.sum(legs, l => l.yen), stima: legs.some(l => l.stima), volo: legs.some(l => l.volo) };
   }
   // ordine delle tappe con meno ore di treno: la prima è fissa (città di arrivo), l'ultima tratta va verso `end`.
   // A parità di ore vince l'ordine geografico di basi.json.
@@ -249,18 +255,24 @@
     const stops = order([first].concat(Array.from(bases.values()).filter(s => s !== first)), roundTrip ? A1.city : A1.air, tratte, rank);
     const endHome = roundTrip ? 1 : 0;
     // legs first (order is known), then nights
-    stops.forEach((s, i) => { s.from = i === 0 ? A0.air : stops[i - 1].base; s.legIn = shortest(tratte, s.from, s.base); s.ts = i === 0 ? 0 : (s.legIn && s.legIn.ore > LONG_LEG ? 1 : 2); s.zona = (bInfo.get(s.base) || {}).zona; });
+    // mezze giornate utili il giorno di arrivo: con l'atterraggio al mattino resta il pomeriggio
+    const arrSlots = p.oraArrivo === 'mattina' ? 1 : 0;
+    stops.forEach((s, i) => { s.from = i === 0 ? A0.air : stops[i - 1].base; s.legIn = shortest(tratte, s.from, s.base); s.ts = i === 0 ? arrSlots : (s.legIn && s.legIn.ore > LONG_LEG ? 1 : 2); s.zona = (bInfo.get(s.base) || {}).zona; });
     stops.forEach((s, i) => {
-      s.minN = i === 0 ? Math.ceil(s.need - 1e-9) + 1 : Math.max(1, 1 + Math.ceil(s.need - s.ts / 2 - 1e-9));
+      s.minN = Math.max(1, 1 + Math.ceil(s.need - s.ts / 2 - 1e-9));
       s.nights = s.minN;
     });
     const minTotal = d3.sum(stops, s => s.nights) + endHome;
     const maxN = (pm.get('max_notti') || { min: 5 }).min;
     let extra = p.notti - minTotal;
+    // notti in più: a chi ne ha avute meno rispetto a quanto c'è da fare, poi alle basi con più mete;
+    // priorita_extra di basi.json serve solo da ultimo spareggio
     const prio = (s) => (bInfo.get(s.base) || { prio: 99 }).prio;
+    const share = (s) => (s.nights - s.minN) / (s.need + 1);
+    const pick = (a, b) => (share(a) - share(b)) || (b.need - a.need) || (prio(a) - prio(b));
     while (extra > 0) {
-      let c = stops.filter(s => s.nights < maxN).sort((a, b) => prio(a) - prio(b));
-      if (!c.length) c = stops.slice().sort((a, b) => (a.nights - b.nights) || (prio(a) - prio(b)));
+      let c = stops.filter(s => s.nights < maxN).sort(pick);
+      if (!c.length) c = stops.slice().sort((a, b) => (a.nights - b.nights) || pick(a, b));
       c[0].nights += 1; extra -= 1;
     }
     const deficit = Math.max(0, minTotal - p.notti);
@@ -279,10 +291,11 @@
     const airport = A1.air;
     const last = shortest(tratte, all[all.length - 1].base, airport);
     const moving = all.slice(1).map(s => s.legIn).filter(Boolean);
-    const rate = (pm.get('cambio') || { min: 176 }).min;
+    const rate = p.cambio || (pm.get('cambio') || { min: 176 }).min;
     const G = p.notti + 1;
     const g = (id) => pm.get(id) || { min: 0, max: 0 };
-    const sty = STILI[p.stile], solo = p.persone === 1 ? g('camera_singola') : { min: 1, max: 1 };
+    // il prezzo base è a persona in camera doppia: da soli si paga di più, in gruppo (appartamenti, camere familiari) meno
+    const sty = STILI[p.stile], solo = p.persone === 1 ? g('camera_singola') : (p.persone >= 3 ? g('camera_gruppo') : { min: 1, max: 1 });
     const dep = (D.dep.data || []).find(d => d.id === p.da) || (D.dep.data || [])[0] || { nome: '?', min: 0, max: 0 };
     const alta = during((D.ev.data || []).filter(e => yes(e.voli_alta)), p);
     const fAlta = alta.length ? g('alta_stagione') : { min: 1, max: 1 };
@@ -294,19 +307,19 @@
     const cambi = all.length - 1;
     const cost = [
       { cat: 'Voli', min: dep.min * fAlta.min + oj.min, max: dep.max * fAlta.max + oj.max, how: 'Da ' + dep.nome + ', ' + (roundTrip ? 'andata e ritorno su ' + A0.nome : 'arrivo a ' + A0.nome + ' e ritorno da ' + A1.nome) + (alta.length ? '; alta stagione (' + alta.map(e => e.nome).join(', ') + ')' : '') },
-      { cat: 'Alloggi', min: solo.min * (hoN * sty.hotel * g('notte_hotel').min + ryN * sty.ryokan * g('notte_ryokan').min) / rate, max: solo.max * (hoN * sty.hotel * g('notte_hotel').max + ryN * sty.ryokan * g('notte_ryokan').max) / rate, how: hoN + ' notti in ' + sty.how + (ryN ? ' + ' + ryN + ' in ryokan o minshuku' : '') + (p.persone === 1 ? ', camera singola' : '') },
+      { cat: 'Alloggi', min: solo.min * (hoN * sty.hotel * g('notte_hotel').min + ryN * sty.ryokan * g('notte_ryokan').min) / rate, max: solo.max * (hoN * sty.hotel * g('notte_hotel').max + ryN * sty.ryokan * g('notte_ryokan').max) / rate, how: hoN + ' notti in ' + sty.how + (ryN ? ' + ' + ryN + ' in ryokan o minshuku' : '') + (p.persone === 1 ? ', camera singola' : (p.persone >= 3 ? ', appartamento o camera familiare' : '')) },
       { cat: 'Treni tra le basi', min: trainYen / rate, max: trainYen / rate, how: 'Aeroporti inclusi, circa ' + yen(trainYen) },
       { cat: 'Gite in giornata', min: tripYen / rate, max: tripYen / rate, how: 'Andata e ritorno dalle basi, circa ' + yen(tripYen) },
       { cat: 'Trasporti locali', min: G * g('locali').min / rate, max: G * g('locali').max / rate, how: G + ' giorni di metro e bus' },
       { cat: 'Cibo', min: G * sty.cibo * g('cibo').min / rate, max: G * sty.cibo * g('cibo').max / rate, how: G + ' giorni, stile ' + sty.nome.toLowerCase() },
       { cat: 'Ingressi', min: G * g('ingressi').min / rate, max: G * g('ingressi').max / rate, how: G + ' giorni' },
-      { cat: 'Takkyubin', min: cambi * g('takkyubin').min, max: cambi * g('takkyubin').max, how: cambi + ' spedizioni dello zaino, una per cambio' },
       { cat: 'Assicurazione', min: g('assicurazione').min * G / 15, max: g('assicurazione').max * G / 15, how: 'Riproporzionata su ' + G + ' giorni' },
       { cat: 'eSIM e varie', min: g('esim').min + G * g('varie').min / rate, max: g('esim').max + G * g('varie').max / rate, how: 'eSIM, bibite, snack, armadietti' },
     ];
+    if (p.bagagli === 'spedizioni') cost.splice(7, 0, { cat: 'Takkyubin', min: cambi * g('takkyubin').min, max: cambi * g('takkyubin').max, how: cambi + ' spedizioni dei bagagli, una per cambio' });
     const tot = { min: d3.sum(cost, c => c.min), max: d3.sum(cost, c => c.max) };
-    return { p, A0, A1, dep, stops, all, endStop, last, airport, deficit, minTotal, items, moving, cost, tot, cambi, G, maxN,
-      oreBagagli: d3.sum(moving, l => l.ore), free: d3.sum(stops, s => Math.max(0, s.free)), overMax: stops.filter(s => s.nights > maxN && s.nights > s.minN) };
+    return { p, A0, A1, dep, rate, stops, all, endStop, last, airport, deficit, minTotal, items, moving, cost, tot, cambi, G, maxN,
+      oreBagagli: d3.sum(moving, l => l.ore), free: d3.sum(stops, s => Math.max(0, s.free)) + (p.oraRitorno === 'sera' ? 0.5 : 0), overMax: stops.filter(s => s.nights > maxN && s.nights > s.minN) };
   }
 
   // ---------- day by day ----------
@@ -333,8 +346,8 @@
         const day = { n: d, date: dateOf(d), stop: s, first: d === s.dal, parts: [] };
         let slots = 2;
         if (d === s.dal) {
-          if (idx === 0) { day.travel = 'Atterraggio a ' + r.A0.air + (s.legIn ? ', poi ' + hrs(s.legIn.ore) + ' fino in città' : ''); slots = 0; }
-          else { day.travel = 'Treno da ' + s.from + ' (' + (s.legIn ? hrs(s.legIn.ore) : '?') + ')'; slots = s.ts; }
+          if (idx === 0) { day.travel = 'Atterraggio a ' + r.A0.air + (r.p.oraArrivo === 'mattina' ? ' al mattino' : ' nel pomeriggio o la sera') + (s.legIn ? ', poi ' + hrs(s.legIn.ore) + ' fino in città' : ''); slots = s.ts; }
+          else { day.travel = (s.legIn && s.legIn.volo ? 'Volo o treno da ' : 'Treno da ') + s.from + ' (' + (s.legIn ? hrs(s.legIn.ore) : '?') + ')'; slots = s.ts; }
         }
         const taken = [];
         let rem = slots;
@@ -346,13 +359,14 @@
         }
         if (!(idx === 0 && d === s.dal)) lastTrip = taken.some(x => x.kind === 'gita' || x.units === 2);
         taken.forEach(x => { const lastp = day.parts[day.parts.length - 1]; if (x.units === 2) day.parts.push({ ...x, full: true }); else if (lastp && lastp.t === x.t && !lastp.full) lastp.full = true; else day.parts.push({ ...x, full: false }); });
-        if (idx === 0 && d === s.dal) day.parts.push({ t: 'Serata libera e riposo', kind: 'libero', full: false });
+        if (idx === 0 && d === s.dal && !slots) day.parts.push({ t: 'Serata libera e riposo', kind: 'libero', full: false });
         days.push(day);
       }
       s.overflow = d3.sum(q.filter(x => x.kind !== 'libero'), x => x.units) / 2;
     });
     const lastStop = r.all[r.all.length - 1];
-    days.push({ n: r.p.notti + 1, date: dateOf(r.p.notti + 1), stop: null, first: true, travel: 'Treno per ' + r.A1.nome + (r.last ? ' (' + hrs(r.last.ore) + ')' : '') + ' e volo di ritorno', parts: [] });
+    const late = r.p.oraRitorno === 'sera';
+    days.push({ n: r.p.notti + 1, date: dateOf(r.p.notti + 1), stop: null, first: true, travel: (late ? 'Nel pomeriggio treno per ' : 'Treno per ') + r.A1.nome + (r.last ? ' (' + hrs(r.last.ore) + ')' : '') + ' e volo di ritorno', parts: late ? [{ t: 'Mattina libera a ' + lastStop.base, kind: 'libero', full: false }] : [] });
     return days;
   }
   function notesFor(day) {
@@ -361,11 +375,11 @@
     const here = new Set();
     if (day.stop) { here.add(day.stop.base); day.parts.forEach(pt => { const it = (D.cat.data || []).find(c => c.nome === pt.t); if (it) split(it.luoghi).forEach(l => here.add(l)); }); }
     if (D.ev.status === 'ok') D.ev.data.forEach(e => {
-      if (onDay(e, iso) && (!e.luogo || here.has(e.luogo))) out.push({ kind: 'ev', t: e.nome, nota: e.nota, w: 'nome=' + enc(e.nome) });
+      if (onDay(e, iso) && (!e.luogo || here.has(e.luogo))) out.push({ kind: 'ev', t: e.nome, nota: e.nota });
     });
     if (D.st.status === 'ok') D.st.data.forEach(s => {
       if (s.tipo === 'clima' || !here.has(s.luogo) || !day.parts.some(pt => pt.kind !== 'libero' || day.stop.base === s.luogo)) return;
-      if (onDay(s, iso)) out.push({ kind: s.tipo === 'sakura' ? 'sk' : 'fo', t: (s.tipo === 'sakura' ? 'Ciliegi a ' : 'Foliage a ') + s.luogo, w: 'luogo=' + enc(s.luogo) });
+      if (onDay(s, iso)) out.push({ kind: s.tipo === 'sakura' ? 'sk' : 'fo', t: (s.tipo === 'sakura' ? 'Ciliegi a ' : 'Foliage a ') + s.luogo });
     });
     return out;
   }
@@ -400,6 +414,9 @@
     document.querySelectorAll('#arrseg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.arr === p.arrivo)));
     document.querySelectorAll('#retseg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.rit === p.ritorno)));
     document.querySelectorAll('#stileseg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.stile === p.stile)));
+    document.querySelectorAll('#bagseg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.bag === p.bagagli)));
+    document.querySelectorAll('#oraarrseg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.ora === p.oraArrivo)));
+    document.querySelectorAll('#orarSeg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.ora === p.oraRitorno)));
     const deps = D.dep.data || [];
     if (daSel.options.length !== deps.length) { daSel.textContent = ''; deps.forEach(d => { const o = el('option', null, d.nome); o.value = d.id; daSel.appendChild(o); }); }
     daSel.value = deps.some(d => d.id === p.da) ? p.da : (deps[0] || {}).id || '';
@@ -410,8 +427,8 @@
   function drawPicker() {
     const box = document.getElementById('picker');
     box.textContent = '';
-    if (D.cat.status !== 'ok') { if (D.cat.status === 'error') fail(box); else box.classList.add('dash-skeleton'); return; }
-    box.classList.remove('dash-skeleton');
+    if (D.cat.status !== 'ok') { if (D.cat.status === 'error') fail(box); else box.classList.add('jp-skeleton'); return; }
+    box.classList.remove('jp-skeleton');
     const p = P(); const sel = new Set(p.sel), pern = new Set(p.pernotto), gcit = new Set(p.gcit);
     const where = new Map();
     if (R) R.all.forEach(s => { s.city.forEach(c => where.set(c.id, s.base)); s.trips.forEach(t => where.set(t.id, s.base)); });
@@ -423,7 +440,6 @@
       const sm = el('summary'); sm.append(el('span', 'rn', reg), el('span', 'jp-tag', nSel ? nSel + ' su ' + items.length : items.length + ' mete'));
       sec.appendChild(sm);
       items.forEach(it => {
-        const w = 'id=' + enc(it.id);
         const on = sel.has(it.id);
         const row = el('div', 'jp-item' + (on ? ' on' : ''));
         row.addEventListener('mouseenter', () => setHL(split(it.luoghi)[0]));
@@ -431,7 +447,7 @@
         const cb = el('input'); cb.type = 'checkbox'; cb.id = 'cb-' + it.id; cb.checked = on;
         cb.addEventListener('change', () => toggleSel(it.id));
         const lab = el('label'); lab.htmlFor = cb.id;
-        lab.appendChild(mark(el('span', null, it.nome), 'catalogo', 'nome', w));
+        lab.appendChild(el('span', null, it.nome));
         if (it.tipo === 'citta') lab.appendChild(el('span', 'jp-tag', 'città'));
         row.append(cb, lab);
         const m = el('div', 'm');
@@ -446,16 +462,16 @@
           st.append(mi, v, pl);
           m.append(st, (d === 1 ? 'giorno' : 'giorni') + ' in città');
           if (on && gcit.has(it.id) && where.get(it.id)) m.append(' · in giornata da ' + where.get(it.id));
-          if (d !== num(it.giorni)) m.append(' · consigliati ', mark(el('span', null, String(num(it.giorni))), 'catalogo', 'giorni', w));
+          if (d !== num(it.giorni)) m.append(' · consigliati ', el('span', null, String(num(it.giorni))));
         } else {
-          m.append(mark(el('span', null, gg(num(it.giorni))), 'catalogo', 'giorni', w));
+          m.append(el('span', null, gg(num(it.giorni))));
           const b = where.get(it.id);
           const sulPosto = yes(it.notte_possibile) && pern.has(it.id) && on;
           if (sulPosto) m.append(' · dormite lì');
-          else m.append(' · ', mark(el('span', null, hrs(num(it.ore_tratta))), 'catalogo', 'ore_tratta', w), ' di viaggio da ' + (on && b ? b : split(it.basi)[0]));
+          else m.append(' · ', el('span', null, hrs(num(it.ore_tratta))), ' di viaggio da ' + (on && b ? b : split(it.basi)[0]));
         }
         row.appendChild(m);
-        row.appendChild(mark(el('div', 'x', it.descrizione), 'catalogo', 'descrizione', w));
+        row.appendChild(el('div', 'x', it.descrizione));
         if (yes(it.notte_possibile)) {
           const lb = el('label', 'pn' + (on ? '' : ' off'));
           const pc = el('input'); pc.type = 'checkbox'; pc.checked = on && pern.has(it.id); pc.disabled = !on;
@@ -498,10 +514,10 @@
   }
   function drawKpis() {
     const box = document.getElementById('kpis'); box.textContent = '';
-    if (!R) { for (let i = 0; i < 5; i++) box.appendChild(el('div', 'jp-kpibox dash-skeleton')); return; }
+    if (!R) { for (let i = 0; i < 5; i++) box.appendChild(el('div', 'jp-kpibox jp-skeleton')); return; }
     kpi(box, 'Notti', String(R.p.notti), (R.p.notti + 1) + ' giorni');
     kpi(box, 'Alloggi', String(R.all.length), R.cambi + (R.cambi === 1 ? ' cambio' : ' cambi'));
-    kpi(box, 'Treno con i bagagli', hrs(R.oreBagagli), 'tra le basi');
+    kpi(box, 'Treno tra le basi', hrs(R.oreBagagli), R.p.bagagli === 'valigia' ? 'con i bagagli' : 'bagagli spediti');
     kpi(box, 'Giorni liberi', String(R.free).replace('.', ','), 'oltre alle mete scelte');
     kpi(box, 'A persona', eur(R.tot.min), 'fino a ' + eur(R.tot.max));
     const w = document.getElementById('warn'); w.textContent = '';
@@ -544,10 +560,10 @@
     MAPZ.svg = null;
     const { jp, ct } = D;
     if (jp.status !== 'ok' || ct.status !== 'ok' || !R) {
-      if ([jp, ct].some(x => x.status === 'error')) { box.classList.remove('dash-skeleton'); fail(box); }
+      if ([jp, ct].some(x => x.status === 'error')) { box.classList.remove('jp-skeleton'); fail(box); }
       return;
     }
-    box.classList.remove('dash-skeleton');
+    box.classList.remove('jp-skeleton');
     const W = Math.max(300, box.clientWidth || 700);
     if (MAPZ.w && MAPZ.w !== W) MAPZ.t = null;
     MAPZ.w = W;
@@ -804,7 +820,11 @@
     R.all.forEach(s => {
       const c = el('article', 'jp-stopcard'); c.setAttribute('data-city', s.base);
       c.addEventListener('mouseenter', () => setHL(s.base)); c.addEventListener('mouseleave', () => setHL(null));
-      if (s.legIn) c.appendChild(el('div', 'leg', (s.from === R.A0.air ? 'Atterraggio a ' + R.A0.air + ', poi ' : 'Da ' + s.from + ': ') + 'treno ' + hrs(s.legIn.ore) + ' · ~' + yen(s.legIn.yen)));
+      if (s.legIn) {
+        const lg = el('div', 'leg', (s.from === R.A0.air ? 'Atterraggio a ' + R.A0.air + ', poi ' : 'Da ' + s.from + ': ') + (s.legIn.volo ? 'volo o treno ' : 'treno ') + hrs(s.legIn.ore) + ' · ~' + yen(s.legIn.yen));
+        if (s.legIn.stima) { lg.append(' '); lg.appendChild(el('span', 'jp-tag', 'stima')); }
+        c.appendChild(lg);
+      }
       const hd = el('div', 'hd');
       const n = el('span', 'jp-num', String(s.ordine)); n.style.background = A; n.style.width = '1.7rem'; n.style.height = '1.7rem';
       hd.append(n, el('b', null, s.base));
@@ -812,13 +832,13 @@
       c.appendChild(hd);
       c.appendChild(el('div', 'dd', 'Giorni ' + s.dal + '–' + s.al + ' · ' + nn(s.nights)));
       const ul = el('ul');
-      if (s.ordine === 1) ul.appendChild(el('li', null, 'Arrivo e prima serata'));
-      s.city.forEach(it => { const li = el('li'); li.append(mark(el('b', null, it.nome), 'catalogo', 'nome', 'id=' + enc(it.id)), el('span', null, ' · ' + gg(it.gg) + ' in città')); ul.appendChild(li); });
-      s.trips.forEach(it => { const li = el('li'); li.append(mark(el('b', null, it.nome), 'catalogo', 'nome', 'id=' + enc(it.id)), el('span', null, it.sulPosto ? ' · dormite lì' : ' · in giornata, ' + hrs(num(it.ore_tratta)) + ' a tratta')); ul.appendChild(li); });
+      if (s.ordine === 1) ul.appendChild(el('li', null, R.p.oraArrivo === 'mattina' ? 'Arrivo al mattino' : 'Arrivo e prima serata'));
+      s.city.forEach(it => { const li = el('li'); li.append(el('b', null, it.nome), el('span', null, ' · ' + gg(it.gg) + ' in città')); ul.appendChild(li); });
+      s.trips.forEach(it => { const li = el('li'); li.append(el('b', null, it.nome), el('span', null, it.sulPosto ? ' · dormite lì' : ' · in giornata, ' + hrs(num(it.ore_tratta)) + ' a tratta')); ul.appendChild(li); });
       if (s.finale) ul.appendChild(el('li', null, 'Ultima serata a ' + s.base));
       if (ul.children.length) c.appendChild(ul);
       if (s.free >= 0.5) c.appendChild(el('div', 'free', (s.free === 0.5 ? 'Mezza giornata libera' : String(s.free).replace('.', ',') + ' giorni liberi')));
-      if (s.zona) { const z = el('div', 'zona'); z.append(el('span', null, 'Dove dormire: '), mark(el('span', null, s.zona), 'basi', 'zona', 'base=' + enc(s.base))); z.lastChild.style.color = 'var(--color-fg)'; c.appendChild(z); }
+      if (s.zona) { const z = el('div', 'zona'); z.append(el('span', null, 'Dove dormire: '), el('span', null, s.zona)); z.lastChild.style.color = 'var(--color-fg)'; c.appendChild(z); }
       box.appendChild(c);
     });
     const end = el('div', 'jp-end');
@@ -855,8 +875,8 @@
       const notes = notesFor(day);
       notes.forEach(nt => {
         const d = el('div');
-        if (nt.kind === 'ev') { d.append(mark(el('span', 'jp-tag ev', nt.t), 'eventi', 'nome', nt.w)); d.append(' ', mark(el('span', null, nt.nota), 'eventi', 'nota', nt.w)); }
-        else d.append(mark(el('span', 'jp-tag ' + nt.kind, nt.t), 'stagione', 'luogo', nt.w));
+        if (nt.kind === 'ev') { d.append(el('span', 'jp-tag ev', nt.t)); d.append(' ', el('span', null, nt.nota)); }
+        else d.append(el('span', 'jp-tag ' + nt.kind, nt.t));
         td3.appendChild(d);
         if (nt.kind === 'ev' && day.travel && day.stop && !day.stop.finale && day.n > 1) flags.push(fmtDate.format(day.date) + ': spostamento durante "' + nt.t + '"');
       });
@@ -878,7 +898,7 @@
     const tb = document.querySelector('#cmptab tbody'); tb.textContent = '';
     if (!R) return;
     const list = [];
-    if (D.per.status === 'ok') D.per.data.forEach(r => list.push({ ...routeFromSaved(r), saved: true, w: 'nome=' + enc(r.nome) }));
+    if (D.per.status === 'ok') D.per.data.forEach(r => list.push({ ...routeFromSaved(r), saved: true }));
     pinned.forEach((x, i) => list.push({ ...x, idx: i }));
     list.push({ nome: 'Percorso attuale', params: dash.params() || {}, current: true });
     const rows = list.map(x => ({ ...x, r: build(norm(Object.assign({}, dash.params(), x.params))) }));
@@ -889,7 +909,7 @@
       const r = x.r;
       const tr = el('tr', x.current ? 'cur' : null);
       const td0 = el('td');
-      td0.appendChild(x.saved ? mark(el('b', null, x.nome), 'percorsi', 'nome', x.w) : el('b', null, x.nome));
+      td0.appendChild(x.saved ? el('b', null, x.nome) : el('b', null, x.nome));
       td0.appendChild(el('div', 'jp-note', x.saved ? (x.note || 'Modello di viaggio') : (x.current ? 'Quello che state costruendo' : 'Salvato su questo dispositivo')));
       td0.lastChild.style.margin = '0';
       tr.appendChild(td0);
@@ -926,12 +946,16 @@
     const pt = document.querySelector('#ptab tbody'); pt.textContent = '';
     if (D.par.status !== 'ok') { if (D.par.status === 'error') fail(bars); }
     else D.par.data.forEach(r => {
-      const tr = el('tr'); tr.setAttribute('data-key', r.id);
+      const tr = el('tr');
       [r.voce, nf.format(num(r.min)), nf.format(num(r.max)), r.unita, r.fonte].forEach(v => tr.appendChild(el('td', null, v)));
       pt.appendChild(tr);
     });
     if (!R) return;
     const N = R.p.persone;
+    const base = (par().get('cambio') || { min: 176 }).min;
+    if (cambioIn !== document.activeElement) cambioIn.value = R.rate;
+    const cr = (D.par.data || []).find(x => x.id === 'cambio');
+    document.getElementById('cambionote').textContent = R.p.cambio ? 'scelto da voi (stima dell\'app: ' + base + ')' : 'stima dell\'app' + (cr && cr.fonte ? ', ' + cr.fonte : '') + ': cambiatelo con quello del giorno';
     const dtr = el('tr');
     ['Volo da ' + R.dep.nome + ' andata e ritorno, bassa stagione', nf.format(num(R.dep.min)), nf.format(num(R.dep.max)), 'eur', 'Stima: ' + (R.dep.nota || '')].forEach(v => dtr.appendChild(el('td', null, v)));
     pt.insertBefore(dtr, pt.firstChild);
@@ -963,18 +987,17 @@
     const box = document.getElementById('info');
     box.textContent = '';
     const inf = D.inf;
-    if (inf.status !== 'ok') { const c = el('div', 'jp-card'); if (inf.status === 'error') fail(c); else c.classList.add('dash-skeleton'); box.appendChild(c); return; }
+    if (inf.status !== 'ok') { const c = el('div', 'jp-card'); if (inf.status === 'error') fail(c); else c.classList.add('jp-skeleton'); box.appendChild(c); return; }
     if (R) box.appendChild(tripCard(R));
     d3.group(inf.data, r => r.sezione).forEach((items, sez) => {
       const c = el('div', 'jp-card');
       c.appendChild(el('h3', null, sez));
       const dl = el('dl');
       items.forEach(r => {
-        const w = 'voce=' + enc(r.voce);
-        dl.appendChild(mark(el('dt', null, r.voce), 'info', 'voce', w));
+        dl.appendChild(el('dt', null, r.voce));
         const dd = el('dd');
-        dd.appendChild(mark(el('span', null, r.valore), 'info', 'valore', w));
-        dd.appendChild(mark(el('small', null, r.fonte), 'info', 'fonte', w));
+        dd.appendChild(el('span', null, r.valore));
+        dd.appendChild(el('small', null, r.fonte));
         dl.appendChild(dd);
       });
       c.appendChild(dl);

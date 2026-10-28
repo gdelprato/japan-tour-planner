@@ -12,7 +12,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Sapporo",
-  "default": "no",
   "descrizione": "Birra, ramen al miso, mercato del pesce e parco Odori",
   "basi_giornata": ""
  },
@@ -29,7 +28,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Otaru",
-  "default": "no",
   "descrizione": "Canale con magazzini in pietra, vetro e dolci; mezza giornata",
   "basi_giornata": ""
  },
@@ -46,8 +44,7 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Biei",
-  "default": "no",
-  "descrizione": "Colline e Stagno Blu; a ottobre colori autunnali, fiori finiti",
+  "descrizione": "Colline coltivate, campi di fiori in estate e lo Stagno Blu",
   "basi_giornata": ""
  },
  {
@@ -63,7 +60,6 @@
   "base_notte": "Noboribetsu",
   "tipo_notte": "ryokan",
   "luoghi": "Noboribetsu",
-  "default": "no",
   "descrizione": "Valle dell'inferno fumante e terme tra le più famose",
   "basi_giornata": ""
  },
@@ -80,7 +76,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Hakodate",
-  "default": "no",
   "descrizione": "Vista notturna dal monte, forte a stella e mercato del mattino",
   "basi_giornata": ""
  },
@@ -97,7 +92,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Sendai",
-  "default": "no",
   "descrizione": "Città verde del nord, lingua di manzo e mausoleo Zuihoden",
   "basi_giornata": ""
  },
@@ -114,7 +108,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Matsushima",
-  "default": "no",
   "descrizione": "Baia con oltre 200 isolette di pini, uno dei tre panorami del Giappone",
   "basi_giornata": ""
  },
@@ -131,7 +124,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Hiraizumi",
-  "default": "no",
   "descrizione": "Templi UNESCO di Chuson-ji e giardino Motsu-ji",
   "basi_giornata": ""
  },
@@ -148,8 +140,7 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Kakunodate",
-  "default": "no",
-  "descrizione": "Quartiere dei samurai con case nere e foglie rosse a fine ottobre",
+  "descrizione": "Quartiere dei samurai con case nere e grandi alberi lungo le strade",
   "basi_giornata": ""
  },
  {
@@ -165,7 +156,6 @@
   "base_notte": "Ginzan Onsen",
   "tipo_notte": "ryokan",
   "luoghi": "Ginzan Onsen",
-  "default": "no",
   "descrizione": "Villaggio termale in legno lungo il fiume, magico la sera",
   "basi_giornata": ""
  },
@@ -182,7 +172,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Tokyo",
-  "default": "sì",
   "descrizione": "Shibuya, Shinjuku, Asakusa, Harajuku, Ueno, Akihabara: tre giorni pieni oltre all'arrivo",
   "basi_giornata": ""
  },
@@ -199,8 +188,7 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Nikko",
-  "default": "sì",
-  "descrizione": "Santuari UNESCO nella foresta e cascate; a fine ottobre primi colori in montagna",
+  "descrizione": "Santuari UNESCO nella foresta, cascate e lago in montagna",
   "basi_giornata": ""
  },
  {
@@ -216,7 +204,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Kamakura",
-  "default": "sì",
   "descrizione": "Grande Buddha, templi zen e l'isola di Enoshima sul mare",
   "basi_giornata": ""
  },
@@ -233,7 +220,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Yokohama",
-  "default": "no",
   "descrizione": "Porto, Chinatown e il museo del ramen; mezza giornata",
   "basi_giornata": ""
  },
@@ -250,7 +236,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Kawagoe",
-  "default": "no",
   "descrizione": "La piccola Edo: case dei mercanti e via dei dolci",
   "basi_giornata": ""
  },
@@ -267,8 +252,7 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Takao",
-  "default": "no",
-  "descrizione": "Escursione facile con tempio in vetta; foliage a novembre",
+  "descrizione": "Escursione facile con tempio in vetta e vista su Tokyo",
   "basi_giornata": ""
  },
  {
@@ -284,7 +268,6 @@
   "base_notte": "Hakone",
   "tipo_notte": "ryokan",
   "luoghi": "Hakone",
-  "default": "no",
   "descrizione": "Lago Ashi, funivia, onsen e vista sul Fuji se il cielo è limpido",
   "basi_giornata": ""
  },
@@ -301,7 +284,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Kawaguchiko",
-  "default": "no",
   "descrizione": "Laghi ai piedi del Fuji, pagoda Chureito e panorami classici",
   "basi_giornata": ""
  },
@@ -318,7 +300,6 @@
   "base_notte": "Kusatsu",
   "tipo_notte": "ryokan",
   "luoghi": "Kusatsu",
-  "default": "no",
   "descrizione": "Terme di montagna con il campo di sorgenti fumanti in centro",
   "basi_giornata": ""
  },
@@ -335,7 +316,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Matsumoto",
-  "default": "no",
   "descrizione": "Il castello del corvo, originale del 1500, e la via Nakamachi",
   "basi_giornata": ""
  },
@@ -352,8 +332,7 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Kamikochi",
-  "default": "no",
-  "descrizione": "Valle alpina con passerelle e cime innevate; aperta fino a metà novembre",
+  "descrizione": "Valle alpina con passerelle e cime; aperta da metà aprile a metà novembre",
   "basi_giornata": ""
  },
  {
@@ -369,7 +348,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Jigokudani",
-  "default": "no",
   "descrizione": "Le scimmie delle nevi nelle terme e il tempio Zenko-ji di Nagano",
   "basi_giornata": ""
  },
@@ -386,7 +364,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Tsumago",
-  "default": "no",
   "descrizione": "Antica via postale tra due villaggi di legno, 8 km a piedi",
   "basi_giornata": ""
  },
@@ -403,7 +380,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Kanazawa",
-  "default": "sì",
   "descrizione": "Giardino Kenroku-en, quartiere delle geishe e mercato Omicho",
   "basi_giornata": ""
  },
@@ -420,7 +396,6 @@
   "base_notte": "Shirakawa-go",
   "tipo_notte": "ryokan",
   "luoghi": "Shirakawa-go",
-  "default": "sì",
   "descrizione": "Villaggio UNESCO di case dal tetto di paglia; si può dormire in una casa gassho",
   "basi_giornata": ""
  },
@@ -437,7 +412,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Takayama",
-  "default": "no",
   "descrizione": "Centro storico in legno, mercati del mattino, sake e manzo di Hida",
   "basi_giornata": ""
  },
@@ -454,8 +428,7 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Shinhotaka",
-  "default": "no",
-  "descrizione": "Funivia sulle Alpi del Nord, foliage in quota a ottobre",
+  "descrizione": "Funivia a due piani sulle Alpi del Nord, con vista sulle cime",
   "basi_giornata": ""
  },
  {
@@ -471,7 +444,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Nagoya",
-  "default": "no",
   "descrizione": "Castello, museo Toyota e cucina locale (miso katsu)",
   "basi_giornata": ""
  },
@@ -488,7 +460,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Ise",
-  "default": "no",
   "descrizione": "Il santuario shintoista più sacro del Giappone, nella foresta",
   "basi_giornata": ""
  },
@@ -505,7 +476,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Kyoto",
-  "default": "sì",
   "descrizione": "Fushimi Inari, Kiyomizu-dera, Gion, Arashiyama, Kinkaku-ji",
   "basi_giornata": "Osaka"
  },
@@ -522,7 +492,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Nara",
-  "default": "sì",
   "descrizione": "Parco dei daini e il grande Buddha del Todai-ji",
   "basi_giornata": ""
  },
@@ -539,7 +508,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Uji",
-  "default": "no",
   "descrizione": "Tè verde e tempio Byodo-in; mezza giornata tranquilla",
   "basi_giornata": ""
  },
@@ -556,7 +524,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Osaka",
-  "default": "sì",
   "descrizione": "Castello, Dotonbori e street food, Shinsekai",
   "basi_giornata": "Kyoto"
  },
@@ -573,7 +540,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Kobe",
-  "default": "sì",
   "descrizione": "Porto e manzo di Kobe; mezza giornata",
   "basi_giornata": ""
  },
@@ -590,7 +556,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Himeji",
-  "default": "no",
   "descrizione": "Il castello originale più bello del Giappone; mezza giornata",
   "basi_giornata": ""
  },
@@ -607,7 +572,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Koyasan",
-  "default": "no",
   "descrizione": "Monastero buddhista sul monte e cimitero nella foresta",
   "basi_giornata": ""
  },
@@ -624,7 +588,6 @@
   "base_notte": "Kinosaki",
   "tipo_notte": "ryokan",
   "luoghi": "Kinosaki",
-  "default": "no",
   "descrizione": "Si gira in yukata tra sette bagni pubblici lungo il canale",
   "basi_giornata": ""
  },
@@ -641,7 +604,6 @@
   "base_notte": "Hiroshima",
   "tipo_notte": "hotel",
   "luoghi": "Hiroshima, Miyajima",
-  "default": "sì",
   "descrizione": "Parco della Pace e torii sull'acqua; dormendo lì vedete Miyajima la sera",
   "basi_giornata": ""
  },
@@ -658,7 +620,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Okayama",
-  "default": "no",
   "descrizione": "Giardino Korakuen, uno dei tre più belli del Giappone, e castello nero",
   "basi_giornata": "Osaka"
  },
@@ -675,7 +636,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Kurashiki",
-  "default": "no",
   "descrizione": "Canale con salici e magazzini bianchi; mezza giornata",
   "basi_giornata": ""
  },
@@ -692,7 +652,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Naoshima",
-  "default": "no",
   "descrizione": "Isola dell'arte contemporanea, zucca di Kusama e musei di Ando",
   "basi_giornata": ""
  },
@@ -709,7 +668,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Onomichi",
-  "default": "no",
   "descrizione": "Città dei templi in collina e partenza della ciclabile Shimanami",
   "basi_giornata": ""
  },
@@ -726,7 +684,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Takamatsu",
-  "default": "no",
   "descrizione": "Grande giardino Ritsurin e udon di Sanuki",
   "basi_giornata": ""
  },
@@ -743,7 +700,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Matsuyama",
-  "default": "no",
   "descrizione": "Le terme più antiche del Giappone e castello in collina",
   "basi_giornata": ""
  },
@@ -760,7 +716,6 @@
   "base_notte": "Iya",
   "tipo_notte": "ryokan",
   "luoghi": "Iya",
-  "default": "no",
   "descrizione": "Gole, ponti di liane e villaggi sospesi nelle montagne di Shikoku",
   "basi_giornata": ""
  },
@@ -777,7 +732,6 @@
   "base_notte": "Matsue",
   "tipo_notte": "hotel",
   "luoghi": "Matsue, Izumo",
-  "default": "no",
   "descrizione": "Castello di Matsue e santuario di Izumo, tra i più antichi",
   "basi_giornata": ""
  },
@@ -794,7 +748,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Fukuoka",
-  "default": "no",
   "descrizione": "Bancarelle yatai la sera, ramen tonkotsu e santuari",
   "basi_giornata": ""
  },
@@ -811,7 +764,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Dazaifu",
-  "default": "no",
   "descrizione": "Santuario Tenmangu e museo nazionale; mezza giornata",
   "basi_giornata": ""
  },
@@ -828,7 +780,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Nagasaki",
-  "default": "no",
   "descrizione": "Parco della Pace, Dejima, Glover Garden e vista notturna",
   "basi_giornata": "Fukuoka"
  },
@@ -845,7 +796,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Kumamoto",
-  "default": "no",
   "descrizione": "Castello imponente e giardino Suizenji",
   "basi_giornata": ""
  },
@@ -862,7 +812,6 @@
   "base_notte": "Beppu",
   "tipo_notte": "ryokan",
   "luoghi": "Beppu, Yufuin",
-  "default": "no",
   "descrizione": "Gli inferni termali di Beppu e il villaggio di Yufuin",
   "basi_giornata": ""
  },
@@ -879,7 +828,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Kagoshima",
-  "default": "no",
   "descrizione": "Vulcano attivo in mezzo alla baia, raggiungibile in traghetto",
   "basi_giornata": ""
  },
@@ -896,7 +844,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Naha",
-  "default": "no",
   "descrizione": "Castello di Shuri, via Kokusai e cucina di Okinawa; si arriva in aereo",
   "basi_giornata": ""
  },
@@ -913,7 +860,6 @@
   "base_notte": "",
   "tipo_notte": "",
   "luoghi": "Motobu",
-  "default": "no",
   "descrizione": "Uno degli acquari più grandi al mondo e mare tropicale",
   "basi_giornata": ""
  }
