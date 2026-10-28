@@ -40,6 +40,14 @@
   "fonte": "Stima"
  },
  {
+  "id": "camera_gruppo",
+  "voce": "Sconto a persona sull'alloggio da 3 persone in su (appartamenti, camere familiari)",
+  "min": 0.8,
+  "max": 0.9,
+  "unita": "fattore",
+  "fonte": "Stima"
+ },
+ {
   "id": "cibo",
   "voce": "Cibo al giorno",
   "min": 4000,
@@ -89,7 +97,7 @@
  },
  {
   "id": "takkyubin",
-  "voce": "Takkyubin, una spedizione dello zaino",
+  "voce": "Takkyubin, una spedizione dei bagagli a persona",
   "min": 10,
   "max": 17,
   "unita": "eur",
@@ -109,6 +117,6 @@
   "min": 5,
   "max": 5,
   "unita": "notti",
-  "fonte": "Regola scelta"
+  "fonte": "Regola dell'app, modificabile"
  }
 ]

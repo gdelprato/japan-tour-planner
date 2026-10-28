@@ -1,6 +1,6 @@
 # Japan Tour Planner
 
-Costruttore del percorso per qualsiasi viaggio in Giappone: scegli date, notti, numero di viaggiatori, città di partenza, arrivo e ritorno (Tokyo o Osaka), stile di viaggio e mete, e l'app calcola basi, notti, l'ordine delle tappe con meno ore di treno, calendario con feste, ciliegi e foliage, scadenze di prenotazione e budget.
+Costruttore del percorso per qualsiasi viaggio in Giappone: scegli date, notti, numero di viaggiatori, città di partenza, arrivo e ritorno (Tokyo o Osaka) con l'orario dei voli, bagagli spediti o sempre con sé, stile di viaggio, cambio yen/euro e mete, e l'app calcola basi, notti, l'ordine delle tappe con meno ore di treno, calendario con feste, ciliegi e foliage, scadenze di prenotazione e budget.
 
 È una web app statica (HTML, CSS, JavaScript e dati JSON), senza server né account. Si può installare sul telefono come un'app e funziona anche offline.
 
