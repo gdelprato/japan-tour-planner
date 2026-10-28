@@ -24,7 +24,7 @@
   }
 
   window.dash = {
-    colors: ['#c8553d', '#2f6f8f', '#7a9e3a', '#b5838d', '#e0a458', '#5c6bc0', '#8d6e63', '#26a69a'],
+    colors: ['#0e8c83', '#c8553d', '#7a9e3a', '#b5838d', '#e0a458', '#5c6bc0', '#8d6e63', '#26a69a'],
     data: (id) => store[id] || { status: 'missing', data: [] },
     onData: (fn) => { callbacks.push(fn); fn(); },
     params: () => params,

@@ -30,6 +30,25 @@
   const savePinned = () => { try { localStorage.setItem(PKEY, JSON.stringify(pinned)); } catch (e) { /* ignora */ } };
   const openRegs = { init: new Set(), open: new Set() };
 
+  // ---------- side panel tabs ----------
+  document.querySelectorAll('.side-tab').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.side-tab').forEach(x => x.setAttribute('aria-selected', String(x === b)));
+    ['mete', 'tappe'].forEach(k => { const e = document.getElementById('side-' + k); if (e) e.hidden = b.dataset.side !== k; });
+  }));
+
+  // ---------- settings sheet ----------
+  const sheet = document.getElementById('settings'), scrim = document.getElementById('scrim'), openBtn = document.getElementById('opensettings');
+  const setSheet = (open) => {
+    if (!sheet) return;
+    sheet.hidden = !open; if (scrim) scrim.hidden = !open;
+    if (openBtn) openBtn.setAttribute('aria-expanded', String(open));
+    if (open) { const f = sheet.querySelector('input'); if (f) f.focus(); } else if (openBtn) openBtn.focus();
+  };
+  if (openBtn) openBtn.addEventListener('click', () => setSheet(sheet.hidden));
+  const closeBtn = document.getElementById('closesettings'); if (closeBtn) closeBtn.addEventListener('click', () => setSheet(false));
+  if (scrim) scrim.addEventListener('click', () => setSheet(false));
+  document.addEventListener('keydown', (ev) => { if (ev.key === 'Escape' && sheet && !sheet.hidden) setSheet(false); });
+
   // ---------- tabs ----------
   const tabs = Array.from(document.querySelectorAll('.jp-tab'));
   function showTab(name, push) {
@@ -37,7 +56,7 @@
     tab = name;
     tabs.forEach(t => t.setAttribute('aria-selected', String(t.dataset.tab === name)));
     document.querySelectorAll('.jp-pane').forEach(p => { p.hidden = p.id !== name; });
-    if (push) dash.setLink(name);
+    if (push) { dash.setLink(name); window.scrollTo({ top: 0 }); }
     if (name === 'percorso') animateNext = true;
     render();
   }
@@ -76,9 +95,10 @@
     let ok = false;
     try { await navigator.clipboard.writeText(url); ok = true; } catch (e) { ok = false; }
     if (!ok && navigator.share) { try { await navigator.share({ title: 'Japan Tour Planner', url }); ok = true; } catch (e) { /* annullato */ } }
-    shareBtn.textContent = ok ? 'Link copiato ✓' : 'Copia non riuscita';
-    if (!ok) { const i = document.getElementById('savename'); if (i) { i.value = url; i.select(); } }
-    setTimeout(() => { shareBtn.textContent = 'Copia link del percorso'; }, 1800);
+    const lab = document.getElementById('sharelabel') || shareBtn;
+    if (!ok) window.prompt('Copiate questo link e mandatelo agli altri:', url);
+    lab.textContent = ok ? 'Link copiato' : 'Copia link';
+    setTimeout(() => { lab.textContent = 'Copia link'; }, 1800);
   });
   const saveBtn = document.getElementById('savebtn'), saveName = document.getElementById('savename');
   saveBtn.addEventListener('click', () => {
@@ -270,12 +290,15 @@
     const p = document.getElementById('takeaway');
     p.textContent = '';
     if (!R) return;
-    p.classList.remove('dash-skeleton');
     const a = Date.parse(R.p.partenza + 'T00:00:00Z');
-    const f = new Intl.DateTimeFormat('it-IT', { day: 'numeric', month: 'long', timeZone: 'UTC' });
-    p.append('Il vostro percorso: dal ', el('b', null, f.format(new Date(a))), ' al ', el('b', null, f.format(new Date(a + R.p.notti * 86400000))), ', ',
-      el('b', null, nn(R.p.notti)), ', ', el('b', null, R.all.length + ' alloggi'), ', ', el('b', null, R.items.length + ' mete'),
-      ', circa ', el('b', null, eur(R.tot.min) + '–' + eur(R.tot.max)), ' a persona. Ritorno da ' + (R.p.ritorno === 'tokyo' ? 'Tokyo' : 'Osaka') + '.');
+    const f = new Intl.DateTimeFormat('it-IT', { day: 'numeric', month: 'short', timeZone: 'UTC' });
+    const chip = (t, cls) => p.appendChild(el('span', 'chip' + (cls ? ' ' + cls : ''), t));
+    chip(f.format(new Date(a)) + ' – ' + f.format(new Date(a + R.p.notti * 86400000)));
+    chip(nn(R.p.notti));
+    chip(R.all.length + ' alloggi');
+    chip(R.items.length + ' mete');
+    if (R.deficit > 0) chip('mancano ' + nn(R.deficit), 'alert');
+    chip(eur(R.tot.min) + '–' + eur(R.tot.max) + ' a testa', 'strong');
   }
 
   // ---------- controls ----------
@@ -419,7 +442,9 @@
     const mx = (lon) => lon * Math.PI / 180;
     const my = (lat) => -Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360));
     const pad = 10;
-    const H = Math.round(Math.min(Math.max(W * 0.66, 340), 660));
+    const H = Math.round(box.clientHeight > 200 ? box.clientHeight : Math.min(Math.max(W * 0.66, 340), 660));
+    if (MAPZ.h && MAPZ.h !== H) MAPZ.t = null;
+    MAPZ.h = H;
     const dxr = mx(vw.lon1) - mx(vw.lon0), dyr = my(vw.lat0) - my(vw.lat1);
     const k0 = Math.min((W - 2 * pad) / dxr, (H - 2 * pad) / dyr);
     const ox = (W - k0 * dxr) / 2, oy = (H - k0 * dyr) / 2;
@@ -594,6 +619,12 @@
     svg.call(zoom).on('dblclick.zoom', null);
     svg.on('dblclick', (ev) => { const [x, y] = d3.pointer(ev, svg.node()); svg.transition().duration(reduce ? 0 : 350).call(zoom.scaleBy, 2, [x, y]); });
     MAPZ.zoom = zoom; MAPZ.svg = svg;
+    MAPZ.focus = (name) => {
+      const pl = byName.get(name); if (!pl) return;
+      const k = Math.max(MAPZ.t ? MAPZ.t.k : 1, 7);
+      MAPZ.user = true;
+      svg.transition().duration(reduce ? 0 : 600).call(zoom.transform, d3.zoomIdentity.translate(W / 2, H / 2).scale(k).translate(-pl.x0, -pl.y0));
+    };
     svg.call(zoom.transform, t0);
     place(t0);
     updateZoomUi(t0.k);
@@ -613,6 +644,38 @@
     hl = name;
     document.querySelectorAll('#map .jp-stop').forEach(g => g.classList.toggle('on', g.getAttribute('data-city') === name));
     document.querySelectorAll('#route .jp-stopcard').forEach(c => c.classList.toggle('on', c.getAttribute('data-city') === name));
+    document.querySelectorAll('#line .st').forEach(c => c.classList.toggle('on', c.getAttribute('data-city') === name));
+  }
+
+  // ---------- the route as a railway line ----------
+  function drawLine() {
+    const box = document.getElementById('line');
+    if (!box) return;
+    box.textContent = '';
+    if (!R) return;
+    const track = el('div', 'line-track');
+    const station = (cls, num, code, name, subs, city) => {
+      const s = el('button', 'st' + (cls ? ' ' + cls : '')); s.type = 'button';
+      if (city) s.setAttribute('data-city', city);
+      s.append(el('span', 'dot', num), el('span', 'code', code), el('span', 'nm', name));
+      subs.forEach(t => s.appendChild(el('span', 'sub', t)));
+      s.addEventListener('mouseenter', () => setHL(city));
+      s.addEventListener('mouseleave', () => setHL(null));
+      s.addEventListener('click', () => { if (MAPZ.focus) MAPZ.focus(city); });
+      return s;
+    };
+    const seg = (leg, cls) => { const d = el('div', 'seg' + (cls ? ' ' + cls : '')); if (leg) d.appendChild(el('span', 't', hrs(leg.ore))); return d; };
+    track.appendChild(station('air', '✈', 'HND', 'Haneda', ['Giorno 1', 'Arrivo'], 'Haneda'));
+    R.all.forEach((s, i) => {
+      track.appendChild(seg(s.legIn, i === 0 ? 'air' : null));
+      const trips = s.trips.filter(t => !t.sulPosto).length;
+      track.appendChild(station(null, String(s.ordine), 'JT' + String(s.ordine).padStart(2, '0'), s.base,
+        ['Giorni ' + s.dal + '–' + s.al, nn(s.nights) + (trips ? ' · ' + trips + (trips === 1 ? ' gita' : ' gite') : '')], s.base));
+    });
+    track.appendChild(seg(R.last, 'air'));
+    const ap = R.airport === 'Kansai' ? ['KIX', 'Kansai'] : ['HND', 'Haneda'];
+    track.appendChild(station('air', '✈', ap[0], ap[1], ['Giorno ' + (R.p.notti + 1), 'Volo di ritorno'], R.airport));
+    box.appendChild(track);
   }
 
   // ---------- route cards ----------
@@ -801,7 +864,7 @@
     R = ready ? build(P()) : null;
     drawTakeaway();
     drawControls();
-    if (tab === 'percorso') { drawPicker(); drawKpis(); drawMap(); drawRoute(); }
+    if (tab === 'percorso') { drawPicker(); drawKpis(); drawMap(); drawLine(); drawRoute(); }
     if (tab === 'calendario') drawCalendar();
     if (tab === 'confronto') drawCompare();
     if (tab === 'budget') drawBudget();

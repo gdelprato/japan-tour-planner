@@ -9,7 +9,8 @@ Costruttore del percorso per il viaggio in Giappone di ottobre 2027: scegli le m
 | Cartella / file | A cosa serve |
 |---|---|
 | `index.html` | La pagina |
-| `css/app.css` | Stile, con tema chiaro e scuro automatico |
+| `css/app.css` | Stile dei contenuti, con tema chiaro e scuro automatico |
+| `css/shell.css` | Guscio da app: barra, navigazione laterale o in basso, mappa a tutta altezza, linea del percorso |
 | `js/app.js` | La logica: costruzione del percorso, mappa, calendario, confronto, budget |
 | `js/dash-shim.js` | Carica i dati e salva le scelte nel link e nel browser |
 | `js/d3.v7.min.js` | Libreria per mappa e grafici (inclusa, così funziona offline) |

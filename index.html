@@ -5,69 +5,92 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Japan Tour Planner</title>
 <meta name="description" content="Japan Tour Planner: costruisci e confronta il percorso del viaggio in Giappone, con mappa, calendario e budget.">
-<meta name="theme-color" content="#c8553d">
+<meta name="theme-color" content="#1d2b53">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Japan Tour Planner">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Japan Tour">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
 <link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/shell.css">
 </head>
 <body>
-<div id="dash-root">
-<div class="jp" id="jproot">
-  <header class="jp-head">
-    <h1 id="titolo">Japan Tour Planner</h1>
-    <p id="takeaway" class="dash-skeleton">—</p>
+<div id="dash-root" class="app">
+ <div class="jp" id="jproot">
+  <header class="bar">
+    <a class="brand" href="./" aria-label="Japan Tour Planner, torna all'inizio">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="currentColor"/><path d="M5 20c5-8 9 0 13-6s6-6 9-7" fill="none" stroke="var(--bar)" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.5" cy="20" r="2.6" fill="var(--bar)"/><circle cx="26.5" cy="7.5" r="2.6" fill="var(--bar)"/></svg>
+      <span class="brand-name">Japan Tour Planner</span>
+    </a>
+    <div class="summary" id="takeaway" aria-live="polite"></div>
+    <div class="bar-actions">
+      <button type="button" class="bar-btn" id="opensettings" aria-expanded="false" aria-controls="settings">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Date e notti</span>
+      </button>
+      <button type="button" class="bar-btn primary" id="sharebtn">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span id="sharelabel">Copia link</span>
+      </button>
+    </div>
   </header>
 
-  <div class="jp-topbar">
-    <nav class="jp-tabs" role="tablist" id="tabs">
-      <button class="jp-tab" role="tab" data-tab="percorso" aria-selected="true">Costruisci il percorso</button>
-      <button class="jp-tab" role="tab" data-tab="calendario" aria-selected="false">Calendario</button>
-      <button class="jp-tab" role="tab" data-tab="confronto" aria-selected="false">Confronto</button>
-      <button class="jp-tab" role="tab" data-tab="budget" aria-selected="false">Budget</button>
-      <button class="jp-tab" role="tab" data-tab="logistica" aria-selected="false">Logistica</button>
-    </nav>
-  </div>
+  <nav class="rail jp-tabs" role="tablist" id="tabs" aria-label="Sezioni">
+      <button class="jp-tab" role="tab" data-tab="percorso" aria-selected="true"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 18c3-6 6-1 9-6s5-5 7-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="4" cy="18" r="2.2" fill="currentColor"/><circle cx="20" cy="6" r="2.2" fill="currentColor"/></svg><span>Percorso</span></button>
+      <button class="jp-tab" role="tab" data-tab="calendario" aria-selected="false"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Calendario</span></button>
+      <button class="jp-tab" role="tab" data-tab="confronto" aria-selected="false"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 4v16M12 9v11M18 6v14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span>Confronto</span></button>
+      <button class="jp-tab" role="tab" data-tab="budget" aria-selected="false"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18" stroke="currentColor" stroke-width="2"/><circle cx="16.5" cy="14.5" r="1.4" fill="currentColor"/></svg><span>Budget</span></button>
+      <button class="jp-tab" role="tab" data-tab="logistica" aria-selected="false"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6M12 7.5v.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span>Info utili</span></button>
+  </nav>
 
-  <div class="jp-card jp-controls" id="controls">
-    <div class="jp-ctl"><span>Arrivo in Giappone</span><input type="date" class="jp-date" id="arrivo" min="2027-09-01" max="2027-12-31" aria-label="Data di arrivo in Giappone"></div>
-    <div class="jp-ctl"><span>Notti</span><div class="jp-step"><button type="button" id="nminus" aria-label="Una notte in meno">−</button><span id="nval">—</span><button type="button" id="nplus" aria-label="Una notte in più">+</button></div></div>
-    <div class="jp-ctl"><span>Ritorno da</span><div class="jp-seg" id="retseg"><button type="button" data-rit="osaka">Osaka</button><button type="button" data-rit="tokyo">Tokyo</button></div></div>
-    <div class="jp-ctl jp-save"><input type="text" id="savename" maxlength="40" placeholder="Nome del percorso" aria-label="Nome del percorso da confrontare"><button type="button" class="jp-btn" id="savebtn">Aggiungi al confronto</button></div>
-    <button type="button" class="jp-btn" id="sharebtn">Copia link del percorso</button>
-    <button type="button" class="jp-link" id="reset">Ripristina</button>
+  <div class="sheet" id="settings" hidden>
+    <div class="sheet-head"><h2>Il vostro viaggio</h2><button type="button" class="sheet-close" id="closesettings" aria-label="Chiudi">✕</button></div>
+    <div class="jp-controls" id="controls">
+      <label class="field"><span>Arrivo in Giappone</span><input type="date" class="jp-date" id="arrivo" min="2027-09-01" max="2027-12-31"></label>
+      <div class="field"><span>Notti</span><div class="jp-step big"><button type="button" id="nminus" aria-label="Una notte in meno">−</button><span id="nval">—</span><button type="button" id="nplus" aria-label="Una notte in più">+</button></div></div>
+      <div class="field"><span>Ritorno da</span><div class="jp-seg" id="retseg"><button type="button" data-rit="osaka">Osaka</button><button type="button" data-rit="tokyo">Tokyo</button></div></div>
+      <div class="field"><span>Salva per confrontarlo</span><div class="jp-save"><input type="text" id="savename" maxlength="40" placeholder="Nome del percorso"><button type="button" class="jp-btn" id="savebtn">Aggiungi al confronto</button></div></div>
+      <button type="button" class="jp-link" id="reset">Torna al percorso di partenza</button>
+    </div>
   </div>
+  <div class="scrim" id="scrim" hidden></div>
 
+  <main class="main">
   <!-- PERCORSO -->
   <section class="jp-pane" id="percorso" role="tabpanel">
-    <div class="jp-builder">
-      <aside class="jp-card">
-        <h2 class="jp-h2">Cosa volete fare</h2>
-        <p class="jp-note">Spuntate le mete: basi, notti e ordine delle tappe si calcolano da soli. Potete anche cliccare i luoghi sulla mappa.</p>
-        <div class="jp-picker" id="picker" data-source="catalogo"></div>
+    <div class="plan">
+      <aside class="side">
+        <div class="side-tabs" role="tablist" aria-label="Pannello">
+          <button type="button" class="side-tab" data-side="mete" aria-selected="true">Mete</button>
+          <button type="button" class="side-tab" data-side="tappe" aria-selected="false">Tappe</button>
+        </div>
+        <div class="side-body" id="side-mete">
+          <p class="jp-note">Spuntate le mete: basi, notti e ordine delle tappe si calcolano da soli. Potete anche toccare i luoghi sulla mappa.</p>
+          <div class="jp-picker" id="picker" data-source="catalogo"></div>
+        </div>
+        <div class="side-body" id="side-tappe" hidden>
+          <p class="jp-note">Le notti coprono prima le mete scelte; quelle in più diventano giorni liberi, al massimo 5 per base. Tempi e prezzi dei treni sono indicativi.</p>
+          <div class="jp-route" id="route" data-source="tratte basi"></div>
+        </div>
       </aside>
-      <div class="jp-right">
+      <div class="stage">
         <div class="jp-kpirow" id="kpis"></div>
         <div class="jp-warn" id="warn" hidden></div>
-        <div class="jp-card jp-mapcard">
-          <div class="jp-mapbar"><span id="maptitle">Il vostro percorso</span><div class="jp-zoomctl"><div class="jp-seg" id="viewseg"><button type="button" data-view="route" aria-pressed="true">Percorso</button><button type="button" data-view="all" aria-pressed="false">Giappone</button><button type="button" data-view="kansai" aria-pressed="false">Kansai</button></div><div class="jp-step"><button type="button" id="zminus" aria-label="Riduci la mappa">−</button><button type="button" id="zplus" aria-label="Ingrandisci la mappa">+</button></div></div></div>
-          <p class="jp-maphint">Trascinate per spostarvi; per ingrandire usate i pulsanti, il doppio clic, due dita sul touchpad o sul telefono, oppure Ctrl + rotella.</p>
+        <div class="mapcard">
           <div class="jp-map dash-skeleton" id="map" data-source="giappone citta"></div>
-          <div class="jp-maplegend">
-            <span><svg width="14" height="14"><circle cx="7" cy="7" r="6" fill="var(--jp-accent)"/></svg>Dove dormite, in ordine</span>
-            <span><svg width="14" height="14"><circle cx="7" cy="7" r="3.5" fill="var(--color-bg)" stroke="var(--jp-accent)" stroke-width="1.8"/></svg>Gita in giornata</span>
-            <span><svg width="14" height="14"><circle cx="7" cy="7" r="3" fill="var(--color-fg-muted)" opacity=".45"/></svg>Non scelta (clic per aggiungerla)</span>
-            <span><svg width="14" height="14"><rect x="3" y="3" width="8" height="8" rx="1.5" fill="var(--color-fg-muted)"/></svg>Aeroporto</span>
+          <div class="map-tools">
+            <div class="jp-seg" id="viewseg"><button type="button" data-view="route" aria-pressed="true">Percorso</button><button type="button" data-view="all" aria-pressed="false">Giappone</button><button type="button" data-view="kansai" aria-pressed="false">Kansai</button></div>
+            <div class="zoom"><button type="button" id="zplus" aria-label="Ingrandisci la mappa">+</button><button type="button" id="zminus" aria-label="Riduci la mappa">−</button></div>
           </div>
+          <span class="maptitle" id="maptitle">Il vostro percorso</span>
+          <p class="jp-maphint">Trascinate per spostarvi, due dita o doppio clic per ingrandire.</p>
         </div>
+        <div class="line" id="line" aria-label="Il percorso come linea ferroviaria"></div>
       </div>
-    </div>
-    <div>
-      <h2 class="jp-h2">Il percorso, tappa per tappa</h2>
-      <p class="jp-note">Le notti coprono prima le mete scelte; quelle in più diventano giorni liberi, al massimo 5 notti per base. Se il trasferimento supera 2h30, quel giorno resta solo mezza giornata. Tempi e prezzi dei treni sono indicativi.</p>
-      <div class="jp-route" id="route" data-source="tratte basi"></div>
     </div>
   </section>
 
@@ -137,8 +160,9 @@
       <div class="jp-grid jp-info" id="info" data-source="info"></div>
     </div>
   </section>
-</div>
-<footer class="jp-foot">Prezzi, tempi dei treni e periodi del foliage sono stime raccolte a ottobre 2026, da verificare quando prenotate. Le scelte restano su questo dispositivo; il link condiviso porta con sé il percorso.</footer>
+  <footer class="jp-foot">Prezzi, tempi dei treni e periodi del foliage sono stime raccolte a ottobre 2026, da verificare quando prenotate. Le scelte restano su questo dispositivo; il link condiviso porta con sé il percorso.</footer>
+  </main>
+ </div>
 </div>
 <script src="js/dash-shim.js"></script>
 <script src="js/d3.v7.min.js"></script>
