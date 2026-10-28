@@ -1,11 +1,11 @@
 /* Service worker: rende l'app installabile e utilizzabile anche offline.
    Prima risponde dalla cache, poi aggiorna in background (stale-while-revalidate). */
-const CACHE = 'japan-tour-planner-v2';
+const CACHE = 'japan-tour-planner-v4';
 const SHELL = [
   './', 'index.html', 'css/app.css', 'css/shell.css', 'js/dash-shim.js', 'js/d3.v7.min.js', 'js/app.js', 'manifest.webmanifest',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png',
   'data/params.json', 'data/catalogo.json', 'data/basi.json', 'data/tratte.json', 'data/parametri.json',
-  'data/giappone.json', 'data/citta.json', 'data/info.json', 'data/eventi.json', 'data/stagione.json', 'data/percorsi.json'
+  'data/giappone.json', 'data/citta.json', 'data/info.json', 'data/eventi.json', 'data/stagione.json', 'data/percorsi.json', 'data/partenze.json'
 ];
 
 self.addEventListener('install', (e) => {

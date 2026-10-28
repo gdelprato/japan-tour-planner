@@ -1,7 +1,7 @@
 {
   "name": "Japan Tour Planner",
   "short_name": "Japan Tour",
-  "description": "Costruisci e confronta il percorso del viaggio in Giappone: mappa, calendario e budget.",
+  "description": "Costruisci e confronta il tuo viaggio in Giappone: mappa, calendario, eventi e budget.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

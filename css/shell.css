@@ -76,6 +76,7 @@ body { font-family: var(--font-anthropic-sans); }
 .mapcard .jp-map svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 .map-tools { position: absolute; top: 10px; right: 10px; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; z-index: 2; }
 .map-tools .jp-seg { box-shadow: var(--cds-shadow-popover); background: var(--color-panel); }
+.map-tools .mapreg { box-shadow: var(--cds-shadow-popover); background: var(--color-panel); padding: 6px 12px; max-width: 220px; }
 .zoom { display: flex; flex-direction: column; background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: 12px; overflow: hidden; box-shadow: var(--cds-shadow-popover); }
 .zoom button { font: inherit; width: 38px; height: 38px; border: 0; background: none; color: var(--color-fg); font-size: 20px; cursor: pointer; }
 .zoom button + button { border-top: 1px solid var(--color-border-line); }

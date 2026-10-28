@@ -134,6 +134,8 @@ button { -webkit-tap-highlight-color: transparent; }
 .jp-step { display: inline-flex; align-items: center; border: 1px solid var(--color-border-line); border-radius: 999px; background: var(--color-bg); }
 .jp-step button { font: inherit; border: 0; background: none; color: var(--color-fg); width: 2rem; height: 1.8rem; cursor: pointer; font-size: 1rem; }
 .jp-step button:disabled { opacity: .3; cursor: default; }
+.jp-step input[type=number] { font: inherit; width: 3.4rem; border: 0; background: none; color: var(--color-fg); font-weight: 600; text-align: center; font-variant-numeric: tabular-nums; -moz-appearance: textfield; }
+.jp-step input[type=number]::-webkit-inner-spin-button, .jp-step input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 .jp-step span { min-width: 2.2rem; text-align: center; color: var(--color-fg); font-weight: 600; font-variant-numeric: tabular-nums; }
 .jp-date { font: inherit; font-size: var(--cds-font-size-caption); border: 1px solid var(--color-border-line); border-radius: 999px; padding: 4px 10px; background: var(--color-bg); color: var(--color-fg); }
 .jp-link { font: inherit; font-size: var(--cds-font-size-caption); background: none; border: 0; color: var(--color-fg-muted); text-decoration: underline; cursor: pointer; padding: 0; }
@@ -163,6 +165,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .jp-tag { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--color-border-line); color: var(--color-fg-muted); margin-left: 4px; font-weight: 400; vertical-align: 1px; }
 .jp-tag.ev { border-color: color-mix(in srgb, var(--color-warn) 50%, transparent); color: var(--color-warn); }
 .jp-tag.fo { border-color: color-mix(in srgb, var(--color-ok) 50%, transparent); color: var(--color-ok); }
+.jp-tag.sk { border-color: color-mix(in srgb, #c2507a 50%, transparent); color: #c2507a; }
 .jp-right { display: flex; flex-direction: column; gap: var(--cds-gap-md); min-width: 0; }
 .jp-kpirow { display: grid; grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr)); gap: var(--cds-gap-sm); }
 .jp-kpibox { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-sm) var(--cds-pad-md); display: flex; flex-direction: column; gap: 2px; min-height: 4.6rem; }
