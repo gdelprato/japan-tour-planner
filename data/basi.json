@@ -1,0 +1,158 @@
+[
+ {
+  "base": "Tokyo",
+  "ordine": 1,
+  "priorita_extra": 2,
+  "zona": "Shinjuku o Ueno: comodi per treni e aeroporti"
+ },
+ {
+  "base": "Kusatsu",
+  "ordine": 2,
+  "priorita_extra": 20,
+  "zona": "Ryokan vicino allo Yubatake, il campo di sorgenti"
+ },
+ {
+  "base": "Sendai",
+  "ordine": 3,
+  "priorita_extra": 12,
+  "zona": "Vicino alla stazione, comoda per le gite"
+ },
+ {
+  "base": "Ginzan Onsen",
+  "ordine": 4,
+  "priorita_extra": 20,
+  "zona": "Ryokan in legno lungo il fiume"
+ },
+ {
+  "base": "Hakodate",
+  "ordine": 5,
+  "priorita_extra": 14,
+  "zona": "Vicino alla stazione o alla baia dei magazzini rossi"
+ },
+ {
+  "base": "Sapporo",
+  "ordine": 6,
+  "priorita_extra": 7,
+  "zona": "Odori o Susukino, comodi per la sera"
+ },
+ {
+  "base": "Noboribetsu",
+  "ordine": 7,
+  "priorita_extra": 20,
+  "zona": "Ryokan con bagni termali sulla valle"
+ },
+ {
+  "base": "Hakone",
+  "ordine": 8,
+  "priorita_extra": 9,
+  "zona": "Gora o Hakone-Yumoto, in un ryokan con onsen"
+ },
+ {
+  "base": "Matsumoto",
+  "ordine": 9,
+  "priorita_extra": 11,
+  "zona": "Vicino alla stazione, a 15 minuti a piedi dal castello"
+ },
+ {
+  "base": "Kanazawa",
+  "ordine": 10,
+  "priorita_extra": 4,
+  "zona": "Vicino alla stazione, a 15 minuti a piedi dal centro"
+ },
+ {
+  "base": "Shirakawa-go",
+  "ordine": 11,
+  "priorita_extra": 20,
+  "zona": "In una casa gassho del villaggio, con cena"
+ },
+ {
+  "base": "Takayama",
+  "ordine": 12,
+  "priorita_extra": 5,
+  "zona": "Centro storico, a piedi dalla stazione"
+ },
+ {
+  "base": "Nagoya",
+  "ordine": 13,
+  "priorita_extra": 13,
+  "zona": "Vicino alla stazione, nodo per tutte le direzioni"
+ },
+ {
+  "base": "Kinosaki",
+  "ordine": 14,
+  "priorita_extra": 20,
+  "zona": "Ryokan sul canale, con pass per i bagni pubblici"
+ },
+ {
+  "base": "Kyoto",
+  "ordine": 15,
+  "priorita_extra": 1,
+  "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera"
+ },
+ {
+  "base": "Osaka",
+  "ordine": 16,
+  "priorita_extra": 3,
+  "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni"
+ },
+ {
+  "base": "Okayama",
+  "ordine": 17,
+  "priorita_extra": 10,
+  "zona": "Vicino alla stazione, base per Kurashiki e Naoshima"
+ },
+ {
+  "base": "Iya",
+  "ordine": 18,
+  "priorita_extra": 20,
+  "zona": "Ryokan sulla gola, spesso con cena inclusa"
+ },
+ {
+  "base": "Matsue",
+  "ordine": 19,
+  "priorita_extra": 20,
+  "zona": "Vicino al lago Shinji, bello al tramonto"
+ },
+ {
+  "base": "Matsuyama",
+  "ordine": 20,
+  "priorita_extra": 15,
+  "zona": "Dogo Onsen per le terme o il centro per il castello"
+ },
+ {
+  "base": "Hiroshima",
+  "ordine": 21,
+  "priorita_extra": 6,
+  "zona": "Vicino alla stazione, comoda per Miyajima"
+ },
+ {
+  "base": "Fukuoka",
+  "ordine": 22,
+  "priorita_extra": 8,
+  "zona": "Hakata per i treni o Tenjin per la sera"
+ },
+ {
+  "base": "Beppu",
+  "ordine": 23,
+  "priorita_extra": 20,
+  "zona": "Ryokan con onsen privato, o a Yufuin più tranquilla"
+ },
+ {
+  "base": "Nagasaki",
+  "ordine": 24,
+  "priorita_extra": 16,
+  "zona": "Vicino alla stazione o al porto"
+ },
+ {
+  "base": "Kagoshima",
+  "ordine": 25,
+  "priorita_extra": 17,
+  "zona": "Vicino alla stazione Kagoshima-Chuo"
+ },
+ {
+  "base": "Naha",
+  "ordine": 26,
+  "priorita_extra": 18,
+  "zona": "Via Kokusai o vicino alla monorotaia"
+ }
+]

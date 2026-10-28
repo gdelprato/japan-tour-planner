@@ -1,0 +1,25 @@
+{
+  "name": "Japan Tour Planner",
+  "short_name": "Japan Tour",
+  "description": "Costruisci e confronta il percorso del viaggio in Giappone: mappa, calendario e budget.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#faf9f6",
+  "theme_color": "#c8553d",
+  "lang": "it",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

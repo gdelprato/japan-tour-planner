@@ -1,0 +1,338 @@
+[
+ {
+  "da": "Haneda",
+  "a": "Tokyo",
+  "ore": 0.5,
+  "yen": 500,
+  "note": "Monorotaia o Keikyu"
+ },
+ {
+  "da": "Tokyo",
+  "a": "Hakone",
+  "ore": 1.5,
+  "yen": 2500,
+  "note": "Romancecar da Shinjuku (stima)"
+ },
+ {
+  "da": "Tokyo",
+  "a": "Kanazawa",
+  "ore": 2.5,
+  "yen": 14700,
+  "note": "Hokuriku Shinkansen, Ekitan"
+ },
+ {
+  "da": "Tokyo",
+  "a": "Kyoto",
+  "ore": 2.25,
+  "yen": 14000,
+  "note": "Tokaido Shinkansen"
+ },
+ {
+  "da": "Tokyo",
+  "a": "Osaka",
+  "ore": 2.5,
+  "yen": 14500,
+  "note": "Tokaido Shinkansen"
+ },
+ {
+  "da": "Tokyo",
+  "a": "Hiroshima",
+  "ore": 4,
+  "yen": 18540,
+  "note": "Nozomi, Ekitan"
+ },
+ {
+  "da": "Tokyo",
+  "a": "Nagoya",
+  "ore": 1.6,
+  "yen": 11000,
+  "note": "Tokaido Shinkansen (stima)"
+ },
+ {
+  "da": "Hakone",
+  "a": "Nagoya",
+  "ore": 1.5,
+  "yen": 9000,
+  "note": "Via Odawara (stima)"
+ },
+ {
+  "da": "Nagoya",
+  "a": "Takayama",
+  "ore": 2.3,
+  "yen": 6000,
+  "note": "Espresso Hida (stima)"
+ },
+ {
+  "da": "Nagoya",
+  "a": "Kyoto",
+  "ore": 0.6,
+  "yen": 5500,
+  "note": "Tokaido Shinkansen (stima)"
+ },
+ {
+  "da": "Kanazawa",
+  "a": "Shirakawa-go",
+  "ore": 1.25,
+  "yen": 2800,
+  "note": "Bus Nohi/Hokutetsu (stima)"
+ },
+ {
+  "da": "Shirakawa-go",
+  "a": "Takayama",
+  "ore": 0.85,
+  "yen": 2800,
+  "note": "Bus Nohi (stima)"
+ },
+ {
+  "da": "Kanazawa",
+  "a": "Kyoto",
+  "ore": 2,
+  "yen": 7800,
+  "note": "Hokuriku Shinkansen + Thunderbird via Tsuruga, 6.500-9.000 ¥"
+ },
+ {
+  "da": "Kyoto",
+  "a": "Osaka",
+  "ore": 0.5,
+  "yen": 600,
+  "note": "Treno locale"
+ },
+ {
+  "da": "Kyoto",
+  "a": "Hiroshima",
+  "ore": 1.75,
+  "yen": 11500,
+  "note": "Sanyo Shinkansen (stima)"
+ },
+ {
+  "da": "Osaka",
+  "a": "Hiroshima",
+  "ore": 1.5,
+  "yen": 11000,
+  "note": "Sanyo Shinkansen, Ekitan"
+ },
+ {
+  "da": "Osaka",
+  "a": "Kansai",
+  "ore": 1,
+  "yen": 2000,
+  "note": "Haruka o Nankai (stima)"
+ },
+ {
+  "da": "Kyoto",
+  "a": "Kansai",
+  "ore": 1.3,
+  "yen": 3000,
+  "note": "Haruka (stima)"
+ },
+ {
+  "da": "Tokyo",
+  "a": "Sendai",
+  "ore": 1.5,
+  "yen": 11400,
+  "note": "Tohoku Shinkansen (stima)"
+ },
+ {
+  "da": "Sendai",
+  "a": "Hakodate",
+  "ore": 2.75,
+  "yen": 16000,
+  "note": "Hokkaido Shinkansen + navetta (stima)"
+ },
+ {
+  "da": "Hakodate",
+  "a": "Sapporo",
+  "ore": 3.75,
+  "yen": 9000,
+  "note": "Espresso Hokuto (stima)"
+ },
+ {
+  "da": "Tokyo",
+  "a": "Sapporo",
+  "ore": 3,
+  "yen": 15000,
+  "note": "Volo low cost con trasferimenti (stima)"
+ },
+ {
+  "da": "Sapporo",
+  "a": "Osaka",
+  "ore": 3.5,
+  "yen": 18000,
+  "note": "Volo low cost con trasferimenti (stima)"
+ },
+ {
+  "da": "Sapporo",
+  "a": "Noboribetsu",
+  "ore": 1.25,
+  "yen": 4500,
+  "note": "Espresso Suzuran (stima)"
+ },
+ {
+  "da": "Sendai",
+  "a": "Ginzan Onsen",
+  "ore": 2.5,
+  "yen": 5000,
+  "note": "Treno per Oishida e bus (stima)"
+ },
+ {
+  "da": "Tokyo",
+  "a": "Ginzan Onsen",
+  "ore": 4,
+  "yen": 13000,
+  "note": "Yamagata Shinkansen e bus (stima)"
+ },
+ {
+  "da": "Tokyo",
+  "a": "Kusatsu",
+  "ore": 2.5,
+  "yen": 3500,
+  "note": "Bus diretto (stima)"
+ },
+ {
+  "da": "Tokyo",
+  "a": "Matsumoto",
+  "ore": 2.75,
+  "yen": 6600,
+  "note": "Espresso Azusa (stima)"
+ },
+ {
+  "da": "Matsumoto",
+  "a": "Nagoya",
+  "ore": 2,
+  "yen": 6000,
+  "note": "Espresso Shinano (stima)"
+ },
+ {
+  "da": "Matsumoto",
+  "a": "Kanazawa",
+  "ore": 2.25,
+  "yen": 12000,
+  "note": "Via Nagano con lo Shinkansen (stima)"
+ },
+ {
+  "da": "Matsumoto",
+  "a": "Takayama",
+  "ore": 2.5,
+  "yen": 3900,
+  "note": "Bus (stima)"
+ },
+ {
+  "da": "Nagoya",
+  "a": "Osaka",
+  "ore": 0.85,
+  "yen": 6700,
+  "note": "Tokaido Shinkansen (stima)"
+ },
+ {
+  "da": "Kyoto",
+  "a": "Kinosaki",
+  "ore": 2.5,
+  "yen": 7700,
+  "note": "Espresso Kinosaki (stima)"
+ },
+ {
+  "da": "Osaka",
+  "a": "Kinosaki",
+  "ore": 2.75,
+  "yen": 7000,
+  "note": "Espresso Konotori (stima)"
+ },
+ {
+  "da": "Osaka",
+  "a": "Okayama",
+  "ore": 0.75,
+  "yen": 6000,
+  "note": "Sanyo Shinkansen (stima)"
+ },
+ {
+  "da": "Okayama",
+  "a": "Hiroshima",
+  "ore": 0.6,
+  "yen": 6000,
+  "note": "Sanyo Shinkansen (stima)"
+ },
+ {
+  "da": "Okayama",
+  "a": "Matsuyama",
+  "ore": 2.75,
+  "yen": 7000,
+  "note": "Espresso Shiokaze (stima)"
+ },
+ {
+  "da": "Hiroshima",
+  "a": "Matsuyama",
+  "ore": 1.25,
+  "yen": 8000,
+  "note": "Traghetto veloce (stima)"
+ },
+ {
+  "da": "Okayama",
+  "a": "Iya",
+  "ore": 2.5,
+  "yen": 7000,
+  "note": "Espresso Nanpu e bus (stima)"
+ },
+ {
+  "da": "Okayama",
+  "a": "Matsue",
+  "ore": 2.75,
+  "yen": 6600,
+  "note": "Espresso Yakumo (stima)"
+ },
+ {
+  "da": "Hiroshima",
+  "a": "Fukuoka",
+  "ore": 1.1,
+  "yen": 9000,
+  "note": "Sanyo Shinkansen (stima)"
+ },
+ {
+  "da": "Osaka",
+  "a": "Fukuoka",
+  "ore": 2.5,
+  "yen": 15000,
+  "note": "Sanyo Shinkansen (stima)"
+ },
+ {
+  "da": "Fukuoka",
+  "a": "Nagasaki",
+  "ore": 1.5,
+  "yen": 6000,
+  "note": "Kamome con cambio (stima)"
+ },
+ {
+  "da": "Fukuoka",
+  "a": "Beppu",
+  "ore": 2,
+  "yen": 6000,
+  "note": "Espresso Sonic (stima)"
+ },
+ {
+  "da": "Fukuoka",
+  "a": "Kagoshima",
+  "ore": 1.5,
+  "yen": 10500,
+  "note": "Kyushu Shinkansen (stima)"
+ },
+ {
+  "da": "Naha",
+  "a": "Osaka",
+  "ore": 3.5,
+  "yen": 15000,
+  "note": "Volo con trasferimenti (stima)"
+ },
+ {
+  "da": "Naha",
+  "a": "Tokyo",
+  "ore": 4,
+  "yen": 15000,
+  "note": "Volo con trasferimenti (stima)"
+ },
+ {
+  "da": "Naha",
+  "a": "Fukuoka",
+  "ore": 3,
+  "yen": 12000,
+  "note": "Volo con trasferimenti (stima)"
+ }
+]

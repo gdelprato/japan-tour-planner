@@ -1,0 +1,20 @@
+{
+ "sel": [
+  "tokyo",
+  "nikko",
+  "kamakura",
+  "kanazawa",
+  "shirakawa",
+  "kyoto",
+  "nara",
+  "osaka",
+  "kobe",
+  "hiroshima"
+ ],
+ "notti": 14,
+ "ritorno": "osaka",
+ "partenza": "2027-10-13",
+ "pernotto": [],
+ "giorni_citta": [],
+ "giornata_citta": []
+}

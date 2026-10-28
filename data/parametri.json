@@ -1,0 +1,98 @@
+[
+ {
+  "id": "voli",
+  "voce": "Volo Milano-Giappone andata e ritorno",
+  "min": 900,
+  "max": 1200,
+  "unita": "eur",
+  "fonte": "KAYAK, ottobre"
+ },
+ {
+  "id": "notte_hotel",
+  "voce": "Notte in hotel o appartamento, a persona",
+  "min": 7000,
+  "max": 14000,
+  "unita": "yen",
+  "fonte": "SelfGuideJapan 2026, camere condivise"
+ },
+ {
+  "id": "notte_ryokan",
+  "voce": "Notte in ryokan o minshuku con cena, a persona",
+  "min": 20000,
+  "max": 35000,
+  "unita": "yen",
+  "fonte": "Stima"
+ },
+ {
+  "id": "cibo",
+  "voce": "Cibo al giorno",
+  "min": 4000,
+  "max": 6000,
+  "unita": "yen",
+  "fonte": "SelfGuideJapan 2026"
+ },
+ {
+  "id": "ingressi",
+  "voce": "Ingressi al giorno",
+  "min": 1000,
+  "max": 2000,
+  "unita": "yen",
+  "fonte": "SelfGuideJapan 2026"
+ },
+ {
+  "id": "locali",
+  "voce": "Metro e bus in città al giorno",
+  "min": 800,
+  "max": 1500,
+  "unita": "yen",
+  "fonte": "Stima"
+ },
+ {
+  "id": "varie",
+  "voce": "Bibite, snack e armadietti al giorno",
+  "min": 500,
+  "max": 1000,
+  "unita": "yen",
+  "fonte": "SelfGuideJapan 2026"
+ },
+ {
+  "id": "esim",
+  "voce": "eSIM per tutto il viaggio",
+  "min": 10,
+  "max": 20,
+  "unita": "eur",
+  "fonte": "Stima"
+ },
+ {
+  "id": "assicurazione",
+  "voce": "Assicurazione viaggio per 15 giorni",
+  "min": 35,
+  "max": 60,
+  "unita": "eur",
+  "fonte": "HelloSafe"
+ },
+ {
+  "id": "takkyubin",
+  "voce": "Takkyubin, una spedizione dello zaino",
+  "min": 10,
+  "max": 17,
+  "unita": "eur",
+  "fonte": "Tariffe Yamato 2026"
+ },
+ {
+  "id": "cambio",
+  "voce": "Cambio yen per euro",
+  "min": 176,
+  "max": 176,
+  "unita": "yen_per_eur",
+  "fonte": "CoinCodex, ottobre 2026"
+ },
+ {
+  "id": "max_notti",
+  "voce": "Notti massime per base quando si aggiungono giorni liberi",
+  "min": 5,
+  "max": 5,
+  "unita": "notti",
+  "fonte": "Regola scelta"
+ }
+]

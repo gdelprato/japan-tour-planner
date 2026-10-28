@@ -1,0 +1,415 @@
+[
+ {
+  "luogo": "Tokyo",
+  "lat": 35.681,
+  "lon": 139.767,
+  "tipo": "base",
+  "etichetta": "n"
+ },
+ {
+  "luogo": "Kanazawa",
+  "lat": 36.578,
+  "lon": 136.648,
+  "tipo": "base",
+  "etichetta": "w"
+ },
+ {
+  "luogo": "Hakone",
+  "lat": 35.232,
+  "lon": 139.107,
+  "tipo": "base",
+  "etichetta": "w"
+ },
+ {
+  "luogo": "Takayama",
+  "lat": 36.146,
+  "lon": 137.252,
+  "tipo": "base",
+  "etichetta": "s"
+ },
+ {
+  "luogo": "Kyoto",
+  "lat": 34.986,
+  "lon": 135.759,
+  "tipo": "base",
+  "etichetta": "n"
+ },
+ {
+  "luogo": "Osaka",
+  "lat": 34.703,
+  "lon": 135.496,
+  "tipo": "base",
+  "etichetta": "se"
+ },
+ {
+  "luogo": "Hiroshima",
+  "lat": 34.397,
+  "lon": 132.475,
+  "tipo": "base",
+  "etichetta": "n"
+ },
+ {
+  "luogo": "Nikko",
+  "lat": 36.75,
+  "lon": 139.6,
+  "tipo": "gita",
+  "etichetta": "n"
+ },
+ {
+  "luogo": "Kamakura",
+  "lat": 35.319,
+  "lon": 139.547,
+  "tipo": "gita",
+  "etichetta": "s"
+ },
+ {
+  "luogo": "Shirakawa-go",
+  "lat": 36.258,
+  "lon": 136.906,
+  "tipo": "gita",
+  "etichetta": "n"
+ },
+ {
+  "luogo": "Nara",
+  "lat": 34.685,
+  "lon": 135.805,
+  "tipo": "gita",
+  "etichetta": "e"
+ },
+ {
+  "luogo": "Kobe",
+  "lat": 34.69,
+  "lon": 135.195,
+  "tipo": "gita",
+  "etichetta": "w"
+ },
+ {
+  "luogo": "Miyajima",
+  "lat": 34.296,
+  "lon": 132.32,
+  "tipo": "gita",
+  "etichetta": "s"
+ },
+ {
+  "luogo": "Haneda",
+  "lat": 35.549,
+  "lon": 139.78,
+  "tipo": "aeroporto",
+  "etichetta": "e"
+ },
+ {
+  "luogo": "Kansai",
+  "lat": 34.434,
+  "lon": 135.244,
+  "tipo": "aeroporto",
+  "etichetta": "sw"
+ },
+ {
+  "luogo": "Yokohama",
+  "lat": 35.444,
+  "lon": 139.638,
+  "tipo": "gita",
+  "etichetta": "w"
+ },
+ {
+  "luogo": "Kawaguchiko",
+  "lat": 35.497,
+  "lon": 138.768,
+  "tipo": "gita",
+  "etichetta": "n"
+ },
+ {
+  "luogo": "Himeji",
+  "lat": 34.839,
+  "lon": 134.694,
+  "tipo": "gita",
+  "etichetta": "n"
+ },
+ {
+  "luogo": "Uji",
+  "lat": 34.884,
+  "lon": 135.8,
+  "tipo": "gita",
+  "etichetta": "e"
+ },
+ {
+  "luogo": "Koyasan",
+  "lat": 34.213,
+  "lon": 135.586,
+  "tipo": "gita",
+  "etichetta": "s"
+ },
+ {
+  "luogo": "Shinhotaka",
+  "lat": 36.287,
+  "lon": 137.574,
+  "tipo": "gita",
+  "etichetta": "e"
+ },
+ {
+  "luogo": "Sapporo",
+  "lat": 43.062,
+  "lon": 141.354,
+  "tipo": "gita",
+  "etichetta": "n"
+ },
+ {
+  "luogo": "Otaru",
+  "lat": 43.19,
+  "lon": 140.994,
+  "tipo": "gita",
+  "etichetta": "w"
+ },
+ {
+  "luogo": "Biei",
+  "lat": 43.588,
+  "lon": 142.467,
+  "tipo": "gita",
+  "etichetta": "e"
+ },
+ {
+  "luogo": "Noboribetsu",
+  "lat": 42.459,
+  "lon": 141.163,
+  "tipo": "gita",
+  "etichetta": "e"
+ },
+ {
+  "luogo": "Hakodate",
+  "lat": 41.769,
+  "lon": 140.729,
+  "tipo": "gita",
+  "etichetta": "s"
+ },
+ {
+  "luogo": "Sendai",
+  "lat": 38.268,
+  "lon": 140.87,
+  "tipo": "gita",
+  "etichetta": "w"
+ },
+ {
+  "luogo": "Matsushima",
+  "lat": 38.368,
+  "lon": 141.064,
+  "tipo": "gita",
+  "etichetta": "e"
+ },
+ {
+  "luogo": "Hiraizumi",
+  "lat": 38.987,
+  "lon": 141.113,
+  "tipo": "gita",
+  "etichetta": "e"
+ },
+ {
+  "luogo": "Kakunodate",
+  "lat": 39.594,
+  "lon": 140.562,
+  "tipo": "gita",
+  "etichetta": "w"
+ },
+ {
+  "luogo": "Ginzan Onsen",
+  "lat": 38.57,
+  "lon": 140.53,
+  "tipo": "gita",
+  "etichetta": "w"
+ },
+ {
+  "luogo": "Kawagoe",
+  "lat": 35.925,
+  "lon": 139.486,
+  "tipo": "gita",
+  "etichetta": "w"
+ },
+ {
+  "luogo": "Takao",
+  "lat": 35.625,
+  "lon": 139.243,
+  "tipo": "gita",
+  "etichetta": "s"
+ },
+ {
+  "luogo": "Kusatsu",
+  "lat": 36.622,
+  "lon": 138.596,
+  "tipo": "gita",
+  "etichetta": "n"
+ },
+ {
+  "luogo": "Matsumoto",
+  "lat": 36.238,
+  "lon": 137.972,
+  "tipo": "gita",
+  "etichetta": "e"
+ },
+ {
+  "luogo": "Kamikochi",
+  "lat": 36.249,
+  "lon": 137.638,
+  "tipo": "gita",
+  "etichetta": "s"
+ },
+ {
+  "luogo": "Jigokudani",
+  "lat": 36.733,
+  "lon": 138.462,
+  "tipo": "gita",
+  "etichetta": "e"
+ },
+ {
+  "luogo": "Tsumago",
+  "lat": 35.577,
+  "lon": 137.594,
+  "tipo": "gita",
+  "etichetta": "w"
+ },
+ {
+  "luogo": "Nagoya",
+  "lat": 35.171,
+  "lon": 136.882,
+  "tipo": "gita",
+  "etichetta": "s"
+ },
+ {
+  "luogo": "Ise",
+  "lat": 34.455,
+  "lon": 136.725,
+  "tipo": "gita",
+  "etichetta": "e"
+ },
+ {
+  "luogo": "Kinosaki",
+  "lat": 35.627,
+  "lon": 134.811,
+  "tipo": "gita",
+  "etichetta": "n"
+ },
+ {
+  "luogo": "Okayama",
+  "lat": 34.666,
+  "lon": 133.918,
+  "tipo": "gita",
+  "etichetta": "n"
+ },
+ {
+  "luogo": "Kurashiki",
+  "lat": 34.596,
+  "lon": 133.772,
+  "tipo": "gita",
+  "etichetta": "s"
+ },
+ {
+  "luogo": "Naoshima",
+  "lat": 34.459,
+  "lon": 133.995,
+  "tipo": "gita",
+  "etichetta": "s"
+ },
+ {
+  "luogo": "Onomichi",
+  "lat": 34.409,
+  "lon": 133.205,
+  "tipo": "gita",
+  "etichetta": "n"
+ },
+ {
+  "luogo": "Matsue",
+  "lat": 35.468,
+  "lon": 133.049,
+  "tipo": "gita",
+  "etichetta": "n"
+ },
+ {
+  "luogo": "Izumo",
+  "lat": 35.402,
+  "lon": 132.686,
+  "tipo": "gita",
+  "etichetta": "w"
+ },
+ {
+  "luogo": "Takamatsu",
+  "lat": 34.343,
+  "lon": 134.047,
+  "tipo": "gita",
+  "etichetta": "e"
+ },
+ {
+  "luogo": "Matsuyama",
+  "lat": 33.842,
+  "lon": 132.766,
+  "tipo": "gita",
+  "etichetta": "s"
+ },
+ {
+  "luogo": "Iya",
+  "lat": 33.875,
+  "lon": 133.833,
+  "tipo": "gita",
+  "etichetta": "s"
+ },
+ {
+  "luogo": "Fukuoka",
+  "lat": 33.59,
+  "lon": 130.42,
+  "tipo": "gita",
+  "etichetta": "n"
+ },
+ {
+  "luogo": "Dazaifu",
+  "lat": 33.513,
+  "lon": 130.535,
+  "tipo": "gita",
+  "etichetta": "e"
+ },
+ {
+  "luogo": "Nagasaki",
+  "lat": 32.75,
+  "lon": 129.878,
+  "tipo": "gita",
+  "etichetta": "w"
+ },
+ {
+  "luogo": "Kumamoto",
+  "lat": 32.803,
+  "lon": 130.708,
+  "tipo": "gita",
+  "etichetta": "e"
+ },
+ {
+  "luogo": "Beppu",
+  "lat": 33.284,
+  "lon": 131.491,
+  "tipo": "gita",
+  "etichetta": "e"
+ },
+ {
+  "luogo": "Yufuin",
+  "lat": 33.266,
+  "lon": 131.369,
+  "tipo": "gita",
+  "etichetta": "s"
+ },
+ {
+  "luogo": "Kagoshima",
+  "lat": 31.597,
+  "lon": 130.557,
+  "tipo": "gita",
+  "etichetta": "s"
+ },
+ {
+  "luogo": "Naha",
+  "lat": 26.212,
+  "lon": 127.679,
+  "tipo": "gita",
+  "etichetta": "w"
+ },
+ {
+  "luogo": "Motobu",
+  "lat": 26.694,
+  "lon": 127.878,
+  "tipo": "gita",
+  "etichetta": "n"
+ }
+]
