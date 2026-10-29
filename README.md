@@ -16,6 +16,7 @@ Costruttore del percorso per qualsiasi viaggio in Giappone: scegli date, notti, 
 | `js/d3.v7.min.js` | Libreria per mappa e grafici (inclusa, così funziona offline) |
 | `data/*.json` | Tutti i dati: mete, treni, basi, costi, feste, foliage, percorsi salvati |
 | `manifest.webmanifest`, `sw.js`, `icons/` | Installazione come app e funzionamento offline |
+| `docs/PIANO_DI_SVILUPPO.md` | Piano di sviluppo: release, funzioni di prodotto e basate su AI; `docs/ROADMAP.md` è la storia della prima fase |
 
 ## Pubblicarla gratis
 

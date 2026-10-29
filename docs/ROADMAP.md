@@ -1,5 +1,7 @@
 # Roadmap: Japan Tour Planner per qualsiasi viaggio in Giappone
 
+> **Nota (ottobre 2026):** le prossime release sono pianificate in [`PIANO_DI_SVILUPPO.md`](PIANO_DI_SVILUPPO.md), che riprende le fasi 2–6 di questo documento e aggiunge fondamenta tecniche e funzioni basate su AI. Questo file resta come storia della Fase 1 e dei suoi dettagli.
+
 ## Contesto
 Oggi l'app è cucita sul viaggio di Giacomo: ottobre 2027, 5 persone, partenza da Milano, arrivo a Tokyo, percorso di partenza già scelto. L'obiettivo è un **planner generico per il Giappone**: chiunque (amici e conoscenti, gratis, senza account, link condivisibile) crea il proprio viaggio scegliendo date, durata, numero di viaggiatori, città di partenza e stile. Il punto di forza resta il Giappone (mete, treni, foliage, eventi), quindi si riusa quasi tutto il codice.
 
