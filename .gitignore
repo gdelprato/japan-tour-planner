@@ -1,3 +1,25 @@
-.DS_Store
-*.zip
+# Ambiente e segreti
+.env
+.env.*
+!.env.example
+
+# Dipendenze e strumenti
 node_modules/
+.venv/
+__pycache__/
+.ruff_cache/
+.pytest_cache/
+
+# Risultati di test e report
+test-results/
+playwright-report/
+coverage/
+
+# Dati scaricati dalla pipeline prezzi (grezzi, non versionati) e output generati localmente
+data/raw/*
+!data/raw/.gitkeep
+data/processed/
+
+# Sistema
+.DS_Store
+Thumbs.db

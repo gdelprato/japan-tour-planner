@@ -1,0 +1,28 @@
+{
+  "name": "japan-tour-planner",
+  "version": "0.4.0",
+  "description": "Costruttore del percorso per un viaggio in Giappone: web app statica, offline, senza account",
+  "scripts": {
+    "test": "node --test 'tests/unit/*.test.mjs'",
+    "lint": "eslint .",
+    "check-data": "node scripts/check-data.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gdelprato/japan-tour-planner.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gdelprato/japan-tour-planner/issues"
+  },
+  "homepage": "https://github.com/gdelprato/japan-tour-planner#readme",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "eslint": "9.39.5",
+    "globals": "16.5.0",
+    "playwright": "1.63.0",
+    "prettier": "3.9.10"
+  }
+}

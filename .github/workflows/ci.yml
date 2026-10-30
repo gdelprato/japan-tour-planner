@@ -1,0 +1,31 @@
+name: Controlli
+
+on:
+  pull_request:
+  push:
+    branches-ignore: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Lint e validazione dei dati
+        run: make lint
+      - name: Unit test
+        run: make test
+      - name: Browser per i test di integrazione
+        run: npx playwright install --with-deps chromium
+      - name: Smoke test nel browser
+        run: make test-integration
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshot
+          path: test-results/
+          if-no-files-found: ignore

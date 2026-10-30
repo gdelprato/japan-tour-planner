@@ -1,0 +1,24 @@
+{
+  "aeroporti": ["Haneda", "Kansai"],
+  "arrivi_ammessi": ["tokyo", "osaka"],
+  "coordinate": { "lat": [24, 46], "lon": [122, 146] },
+  "parametri_richiesti": [
+    "alta_stagione",
+    "open_jaw",
+    "notte_hotel",
+    "notte_ryokan",
+    "camera_singola",
+    "camera_gruppo",
+    "cibo",
+    "ingressi",
+    "locali",
+    "varie",
+    "esim",
+    "assicurazione",
+    "takkyubin",
+    "cambio",
+    "max_notti"
+  ],
+  "richiedi_data_aggiornamento": false,
+  "eta_massima_prezzi_mesi": 6
+}
