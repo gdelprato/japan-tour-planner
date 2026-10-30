@@ -50,7 +50,11 @@ async function open(url, viewport) {
     if (m.type() === 'error') errors.push(m.text());
   });
   await page.goto(url);
-  await page.waitForSelector('#kpis .jp-kpi, #kpis > *', { timeout: 15000 });
+  // la mappa e le tappe si disegnano subito dopo i KPI, in un task separato
+  await page.waitForSelector('#kpis .jp-kpibox:not(.jp-skeleton)', { timeout: 15000 });
+  // le schede delle tappe stanno nel pannello "Tappe", nascosto: basta che esistano
+  await page.waitForSelector('#route .jp-stopcard', { state: 'attached', timeout: 15000 });
+  await page.waitForSelector('#map svg', { timeout: 15000 });
   return { page, errors };
 }
 
@@ -126,9 +130,44 @@ test('dopo la prima visita l’app funziona offline, moduli del motore compresi'
   await context.setOffline(true);
   await page.reload();
   await page.waitForSelector('#kpis .jp-kpibox', { timeout: 15000 });
+  await page.waitForSelector('#route .jp-stopcard', { state: 'attached', timeout: 15000 });
   const chips = (await page.locator('#takeaway .chip').allTextContents()).join(' | ');
   assert.match(chips, /nott/);
   assert.ok((await page.locator('#route').textContent()).length > 50, 'tappe non disegnate offline');
   assert.deepEqual(errors, []);
   await context.close();
+});
+
+test('la PWA è installabile: manifest letto senza errori e service worker che controlla la pagina', async () => {
+  // Lighthouse 12 non ha più la categoria PWA e Chromium non segnala più i criteri mancanti:
+  // i campi del manifest e le icone sono verificati da check-data, qui il comportamento nel browser (ADR-007)
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto(BASE);
+  await page.evaluate(() => navigator.serviceWorker.ready);
+  await page.reload();
+  await page.waitForFunction(() => !!navigator.serviceWorker.controller, null, { timeout: 15000 });
+  const cdp = await context.newCDPSession(page);
+  const manifest = await cdp.send('Page.getAppManifest');
+  assert.deepEqual(manifest.errors, []);
+  assert.match(manifest.url, /manifest\.webmanifest$/);
+  const m = JSON.parse(manifest.data);
+  assert.equal(m.display, 'standalone');
+  // il service worker ha un gestore fetch: risponde lui alla pagina iniziale
+  const daSw = await page.evaluate(async () => (await fetch('./', { cache: 'no-store' })).ok);
+  assert.ok(daSw);
+  await context.close();
+});
+
+test('nessuna richiesta a server esterni: font e librerie sono serviti dal sito', async () => {
+  const page = await browser.newPage();
+  const esterne = [];
+  page.on('request', (r) => {
+    if (!r.url().startsWith(BASE) && !r.url().startsWith('data:')) esterne.push(r.url());
+  });
+  await page.goto(BASE);
+  await page.waitForSelector('#map svg', { timeout: 15000 });
+  await page.evaluate(() => document.fonts.ready);
+  assert.deepEqual(esterne, []);
+  await page.close();
 });

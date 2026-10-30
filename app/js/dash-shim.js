@@ -24,7 +24,7 @@
   }
 
   window.dash = {
-    colors: ['#0e8c83', '#c8553d', '#7a9e3a', '#b5838d', '#e0a458', '#5c6bc0', '#8d6e63', '#26a69a'],
+    colors: ['#0a7069', '#c8553d', '#7a9e3a', '#b5838d', '#e0a458', '#5c6bc0', '#8d6e63', '#26a69a'],
     data: (id) => store[id] || { status: 'missing', data: [] },
     onData: (fn) => { callbacks.push(fn); fn(); },
     params: () => params,
@@ -38,6 +38,16 @@
   window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(fire, 150); });
 
   async function load() {
+    // tutti i file partono insieme: il percorso di esempio non aspetta e non fa aspettare gli altri dati
+    const datasets = Promise.all(DATASETS.map(async (id) => {
+      try {
+        const res = await fetch('data/' + id + '.json', { cache: 'no-cache' });
+        if (!res.ok) throw new Error(res.status);
+        store[id] = { status: 'ok', data: await res.json() };
+      } catch (e) {
+        store[id] = { status: 'error', data: [], message: String(e) };
+      }
+    }));
     try {
       const res = await fetch('data/params.json', { cache: 'no-cache' });
       defaults = await res.json();
@@ -51,15 +61,7 @@
         if (saved) params = Object.assign(clone(defaults), JSON.parse(saved));
       }
     } catch (e) { params = clone(defaults); }
-    await Promise.all(DATASETS.map(async (id) => {
-      try {
-        const res = await fetch('data/' + id + '.json', { cache: 'no-cache' });
-        if (!res.ok) throw new Error(res.status);
-        store[id] = { status: 'ok', data: await res.json() };
-      } catch (e) {
-        store[id] = { status: 'error', data: [], message: String(e) };
-      }
-    }));
+    await datasets;
     fire();
   }
   load();

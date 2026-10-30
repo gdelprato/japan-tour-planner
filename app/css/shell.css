@@ -4,8 +4,10 @@
   --font-anthropic-serif: "Zen Kaku Gothic New", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --bar: #1d2b53;
   --bar-fg: #ffffff;
-  --line: #0e8c83;
+  /* verde della linea: #0a7069 dà contrasto ≥ 4,5 sia come testo su --line-soft sia come sfondo del bianco */
+  --line: #0a7069;
   --line-soft: #d4ece9;
+  --line-fg: #ffffff;
   --color-fg: #172238; --color-fg-muted: #5b6478; --color-bg: #eef1f5; --color-panel: #ffffff; --color-border-line: #dce1e9;
   --color-ok: #3f7d2b; --color-warn: #a86c10; --color-bad: #c2413b;
   --cds-chart-grid: #e3e8ef; --cds-border: #dce1e9; --cds-text-secondary: #5b6478;
@@ -15,7 +17,7 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bar: #121a33; --line: #2fbcae; --line-soft: #163c3c;
+    --bar: #121a33; --line: #2fbcae; --line-soft: #163c3c; --line-fg: #0c1222;
     --color-fg: #e7eaf2; --color-fg-muted: #9aa3b8; --color-bg: #0c1222; --color-panel: #151d33; --color-border-line: #26304a;
     --color-ok: #79c25e; --color-warn: #e4a54a; --color-bad: #ee7a6f;
     --cds-chart-grid: #222b44; --cds-border: #26304a; --cds-surface-popover: #1b2440; --cds-text-secondary: #9aa3b8;
@@ -34,10 +36,12 @@ body { font-family: var(--font-anthropic-sans); }
 .brand { display: flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; flex: none; }
 .brand-mark { width: 30px; height: 30px; color: #ffffff; }
 .brand-name { font-weight: 900; font-size: 17px; letter-spacing: .01em; white-space: nowrap; }
-.summary { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0; padding: 4px 0; }
+/* altezze riservate (box-sizing: border-box) pari a quelle dopo il primo calcolo: il contenuto che arriva con i dati
+   non sposta la pagina (Cumulative Layout Shift, soglie Lighthouse in lighthouserc.json) */
+.summary { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0; padding: 4px 0; box-sizing: border-box; min-height: 35px; }
 .summary::-webkit-scrollbar { display: none; }
 .chip { flex: none; font-size: 13px; padding: 4px 11px; border-radius: 999px; background: rgba(255, 255, 255, .1); color: rgba(255, 255, 255, .9); white-space: nowrap; font-variant-numeric: tabular-nums; }
-.chip.strong { background: var(--line); color: #fff; font-weight: 700; }
+.chip.strong { background: var(--line); color: var(--line-fg); font-weight: 700; }
 .chip.alert { background: #a86c10; color: #fff; }
 .bar-actions { display: flex; gap: 8px; flex: none; }
 .bar-btn { font: inherit; font-size: 14px; display: inline-flex; align-items: center; gap: 7px; height: 38px; padding: 0 14px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, .25); background: transparent; color: #fff; cursor: pointer; }
@@ -68,7 +72,7 @@ body { font-family: var(--font-anthropic-sans); }
 .side-body[hidden] { display: none; }
 .side .jp-route { grid-template-columns: 1fr; }
 .stage { display: flex; flex-direction: column; gap: 10px; min-height: 0; min-width: 0; }
-.stage .jp-kpirow { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.stage .jp-kpirow { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; box-sizing: border-box; min-height: 82px; }
 .stage .jp-kpibox { min-height: 0; padding: 8px 12px; border-radius: 12px; }
 .stage .jp-kpibox .v { font-size: 1.3rem; font-weight: 700; }
 .mapcard { position: relative; flex: 1; min-height: 320px; border-radius: 16px; overflow: hidden; border: 1px solid var(--color-border-line); background: var(--jp-sea); }
@@ -85,7 +89,7 @@ body { font-family: var(--font-anthropic-sans); }
 .mapcard .jp-maphint { position: absolute; left: 12px; bottom: 8px; z-index: 2; border: 0; padding: 0; font-size: 11px; background: none; }
 
 /* ---------- the route as a railway line ---------- */
-.line { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: 16px; padding: 14px 16px 12px; overflow-x: auto; flex: none; scrollbar-width: thin; }
+.line { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: 16px; padding: 14px 16px 12px; overflow-x: auto; flex: none; scrollbar-width: thin; box-sizing: border-box; min-height: 125px; }
 .line-track { display: flex; align-items: flex-start; min-width: max-content; }
 .st { font: inherit; display: flex; flex-direction: column; align-items: center; width: 112px; flex: none; text-align: center; border: 0; background: none; color: var(--color-fg); padding: 0 4px; cursor: pointer; border-radius: 12px; }
 .st .dot { width: 28px; height: 28px; border-radius: 50%; border: 5px solid var(--line); background: var(--color-panel); display: grid; place-items: center; font-size: 11px; font-weight: 900; color: var(--line); font-variant-numeric: tabular-nums; transition: background .15s, color .15s; }
@@ -135,7 +139,8 @@ body { font-family: var(--font-anthropic-sans); }
   .bar { flex-wrap: wrap; gap: 8px 10px; padding: calc(env(safe-area-inset-top) + 8px) 12px 8px; }
   .brand-name { font-size: 16px; }
   .bar-actions { margin-left: auto; }
-  .bar-btn span { display: none; }
+  /* testo nascosto solo alla vista: resta il nome del pulsante per i lettori di schermo */
+  .bar-btn span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
   .bar-btn { width: 40px; padding: 0; justify-content: center; }
   .summary { order: 3; flex-basis: 100%; }
   .rail { top: auto; right: 0; bottom: 0; width: auto; height: calc(64px + env(safe-area-inset-bottom)); flex-direction: row; justify-content: space-around; padding: 6px 6px env(safe-area-inset-bottom); border-right: 0; border-top: 1px solid var(--color-border-line); }

@@ -197,16 +197,45 @@ export function runChecks(cfgPath = path.join(ROOT, 'configs', 'check-data.json'
     err(`params.json: città di partenza "${params.da}" non esiste in partenze.json`);
 
   // 9. Ogni file di codice e stile dell'app deve essere nel guscio offline (SHELL in sw.js)
-  const shell = new Set([...sw.matchAll(/'([^']+\.(?:js|css|html|png|webmanifest|json))'/g)].map((m) => m[1]));
+  const shell = new Set([...sw.matchAll(/'([^']+\.(?:js|css|html|png|webmanifest|json|woff2))'/g)].map((m) => m[1]));
   const walk = (dir) =>
     readdirSync(path.join(APP, dir), { withFileTypes: true }).flatMap((e) =>
       e.isDirectory() ? walk(path.join(dir, e.name)) : [path.join(dir, e.name).split(path.sep).join('/')]
     );
-  for (const f of [...walk('js'), ...walk('css')])
+  for (const f of [...walk('js'), ...walk('css'), ...walk('fonts').filter((f) => f.endsWith('.woff2'))])
     if (!shell.has(f)) err(`sw.js: "${f}" manca in SHELL (non funzionerebbe offline)`);
   for (const f of shell) if (!existsSync(path.join(APP, f))) err(`sw.js: SHELL elenca "${f}" che non esiste`);
 
-  // 10. Il segnaposto della cache offline deve restare nel sorgente (lo sostituisce il deploy)
+  // 10. Ogni modulo del motore è precaricato in index.html (modulepreload), e solo quelli che esistono
+  const html = readFileSync(path.join(APP, 'index.html'), 'utf8');
+  const pre = new Set([...html.matchAll(/<link rel="modulepreload" href="([^"]+)">/g)].map((m) => m[1]));
+  for (const f of walk('js').filter((f) => f.startsWith('js/engine/')))
+    if (!pre.has(f)) err(`index.html: manca <link rel="modulepreload" href="${f}">`);
+  for (const f of pre) if (!existsSync(path.join(APP, f))) err(`index.html: modulepreload di "${f}" che non esiste`);
+
+  // 11. Manifest della PWA: i criteri di installabilità classici (Chromium non li verifica più da solo, ADR-007)
+  let man = null;
+  try {
+    man = readJson(path.join(APP, 'manifest.webmanifest'));
+  } catch (e) {
+    err(`manifest.webmanifest: JSON non valido (${e.message})`);
+  }
+  if (man) {
+    if (!man.name && !man.short_name) err('manifest.webmanifest: manca name o short_name');
+    if (!man.start_url) err('manifest.webmanifest: manca start_url');
+    if (!['standalone', 'fullscreen', 'minimal-ui'].includes(man.display))
+      err(`manifest.webmanifest: display "${man.display}" non installabile`);
+    const icons = man.icons || [];
+    for (const size of ['192x192', '512x512']) {
+      const ic = icons.find((i) => String(i.sizes).split(' ').includes(size) && (i.type || '').includes('png'));
+      if (!ic) err(`manifest.webmanifest: manca un'icona PNG ${size}`);
+      else if (!existsSync(path.join(APP, ic.src))) err(`manifest.webmanifest: l'icona "${ic.src}" non esiste`);
+    }
+    if (!html.includes('<link rel="manifest" href="manifest.webmanifest">'))
+      err('index.html: manca il link al manifest');
+  }
+
+  // 12. Il segnaposto della cache offline deve restare nel sorgente (lo sostituisce il deploy)
   if (!sw.includes('__BUILD__')) err('sw.js: manca il segnaposto __BUILD__ nel nome della cache');
 
   return { errors, warnings };

@@ -279,6 +279,7 @@ import {
     Object.keys(VIEWS).filter(k => VIEWS[k].reg).forEach(k => { const o = el('option', null, VIEWS[k].title); o.value = k; regSel.appendChild(o); });
     VIEWS.regReady = true;
   }
+  const BASE = { src: null, poly: [] };
   const MAPZ = { t: null, w: 0, zoom: null, svg: null, frame: null, wantView: null, user: false, routeT: null, routeKey: '' };
   function frameView(name) {
     if (!MAPZ.svg || !MAPZ.frame) { MAPZ.wantView = name; return; }
@@ -324,12 +325,11 @@ import {
     svg.append('rect').attr('width', W).attr('height', H).attr('fill', 'transparent');
     const gMap = svg.append('g');
     const ns = (s) => s.attr('vector-effect', 'non-scaling-stroke');
-    jp.data.forEach(r => {
-      const pts = String(r.coords).trim().split(/\s+/).map(s => s.split(',').map(Number));
-      if (pts.length < 3) return;
-      ns(gMap.append('path').attr('d', 'M' + pts.map(([lo, la]) => X(lo).toFixed(2) + ',' + Y(la).toFixed(2)).join('L') + 'Z')
-        .attr('fill', 'var(--jp-land)').attr('stroke', 'var(--jp-coast)').attr('stroke-width', 0.9).attr('stroke-linejoin', 'round'));
-    });
+    // le coordinate dei poligoni si leggono una sola volta per dataset; tutte le terre sono un unico path
+    if (BASE.src !== jp.data) BASE.poly = jp.data.map(r => String(r.coords).trim().split(/\s+/).map(s => s.split(',').map(Number))).filter(p => p.length >= 3);
+    BASE.src = jp.data;
+    ns(gMap.append('path').attr('d', BASE.poly.map(pts => 'M' + pts.map(([lo, la]) => X(lo).toFixed(2) + ',' + Y(la).toFixed(2)).join('L') + 'Z').join(''))
+      .attr('fill', 'var(--jp-land)').attr('stroke', 'var(--jp-coast)').attr('stroke-width', 0.9).attr('stroke-linejoin', 'round'));
     const places = ct.data.map(p => ({ ...p, lat: Number(p.lat), lon: Number(p.lon), x0: X(Number(p.lon)), y0: Y(Number(p.lat)) }));
     const byName = new Map(places.map(p => [p.luogo, p]));
     const PT = (n) => { const p = byName.get(n); return p ? [p.x0, p.y0] : null; };
@@ -454,8 +454,11 @@ import {
       // hide lower-priority labels that collide with ones already kept
       const rank = { stop: 0, air: 1, trip: 2, off: 3 };
       const kept = [];
-      marks.filter(m => m.label && m.label.style('display') !== 'none').sort((a, b) => rank[a.kind] - rank[b.kind]).forEach(m => {
-        let bb; try { bb = m.label.node().getBBox(); } catch (e) { return; }
+      // prima si leggono tutte le dimensioni (un solo calcolo del layout), poi si decide e si scrive
+      const visible = marks.filter(m => m.label && m.label.style('display') !== 'none').sort((a, b) => rank[a.kind] - rank[b.kind]);
+      const boxes = visible.map(m => { try { return m.label.node().getBBox(); } catch (e) { return null; } });
+      visible.forEach((m, i) => {
+        let bb = boxes[i];
         if (!bb || !bb.width) return;
         // keep labels inside the map: nudge the main ones, hide the others
         const offX = bb.x < 2 ? 2 - bb.x : (bb.x + bb.width > W - 2 ? (W - 2) - (bb.x + bb.width) : 0);
@@ -488,9 +491,8 @@ import {
       MAPZ.user = true;
       svg.transition().duration(reduce ? 0 : 600).call(zoom.transform, d3.zoomIdentity.translate(W / 2, H / 2).scale(k).translate(-pl.x0, -pl.y0));
     };
+    // zoom.transform emette subito l'evento 'zoom', che chiama place() e updateZoomUi()
     svg.call(zoom.transform, t0);
-    place(t0);
-    updateZoomUi(t0.k);
     if (MAPZ.wantView) { const v = MAPZ.wantView; MAPZ.wantView = null; frameView(v); }
     setHL(hl);
   }
@@ -768,14 +770,20 @@ import {
   }
 
   // ---------- render ----------
+  // La scheda Percorso si disegna a tappe: prima riepilogo, KPI, avvisi e linea (leggeri, sono il contenuto più grande
+  // della prima schermata), poi mappa e mete in task separati, così la pagina non resta bloccata (Lighthouse: LCP e TBT).
+  // `gen` scarta i disegni rimasti indietro se nel frattempo è partito un altro render().
+  let gen = 0;
+  const poi = (g, fn) => setTimeout(() => { if (g === gen) fn(); }, 0);
   function render() {
     if (!D) return;
+    const g = ++gen;
     root.style.setProperty('--jp-accent', accent());
     const ready = ['cat', 'basi', 'tratte', 'par', 'dep'].every(k => D[k].status === 'ok');
     R = ready ? build(P()) : null;
     drawTakeaway();
     drawControls();
-    if (tab === 'percorso') { drawPicker(); drawKpis(); drawMap(); drawLine(); drawRoute(); }
+    if (tab === 'percorso') { drawKpis(); drawLine(); poi(g, drawMap); poi(g, () => { drawPicker(); drawRoute(); }); }
     if (tab === 'calendario') drawCalendar();
     if (tab === 'confronto') drawCompare();
     if (tab === 'budget') drawBudget();

@@ -12,11 +12,20 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Japan Tour">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
 <link rel="stylesheet" href="css/app.css">
 <link rel="stylesheet" href="css/shell.css">
+<!-- i moduli del motore si scaricano insieme ad app.js invece che a catena (check-data verifica l'elenco) -->
+<link rel="modulepreload" href="js/app.js">
+<link rel="modulepreload" href="js/engine/index.js">
+<link rel="modulepreload" href="js/engine/util.js">
+<link rel="modulepreload" href="js/engine/formato.js">
+<link rel="modulepreload" href="js/engine/costanti.js">
+<link rel="modulepreload" href="js/engine/parametri.js">
+<link rel="modulepreload" href="js/engine/grafo.js">
+<link rel="modulepreload" href="js/engine/calendario.js">
+<link rel="modulepreload" href="js/engine/percorso.js">
+<link rel="modulepreload" href="js/engine/giorni.js">
+<link rel="modulepreload" href="js/engine/avvisi.js">
 </head>
 <body>
 <div id="dash-root" class="app">
@@ -72,21 +81,20 @@
     <div class="plan">
       <aside class="side">
         <div class="side-tabs" role="tablist" aria-label="Pannello">
-          <button type="button" class="side-tab" data-side="mete" aria-selected="true">Mete</button>
-          <button type="button" class="side-tab" data-side="tappe" aria-selected="false">Tappe</button>
+          <button type="button" class="side-tab" role="tab" id="tab-mete" aria-controls="side-mete" data-side="mete" aria-selected="true">Mete</button>
+          <button type="button" class="side-tab" role="tab" id="tab-tappe" aria-controls="side-tappe" data-side="tappe" aria-selected="false">Tappe</button>
         </div>
-        <div class="side-body" id="side-mete">
+        <div class="side-body" id="side-mete" role="tabpanel" aria-labelledby="tab-mete">
           <p class="jp-note">Spuntate le mete: basi, notti e ordine delle tappe si calcolano da soli. Potete anche toccare i luoghi sulla mappa.</p>
           <div class="jp-picker" id="picker"></div>
         </div>
-        <div class="side-body" id="side-tappe" hidden>
+        <div class="side-body" id="side-tappe" role="tabpanel" aria-labelledby="tab-tappe" hidden>
           <p class="jp-note">Le notti coprono prima le mete scelte; quelle in più diventano giorni liberi, al massimo 5 per base. Tempi e prezzi dei treni sono indicativi.</p>
           <div class="jp-route" id="route"></div>
         </div>
       </aside>
       <div class="stage">
         <div class="jp-kpirow" id="kpis"></div>
-        <div class="jp-warn" id="warn" hidden></div>
         <div class="mapcard">
           <div class="jp-map jp-skeleton" id="map"></div>
           <div class="map-tools">
@@ -97,6 +105,8 @@
           <span class="maptitle" id="maptitle">Il vostro percorso</span>
           <p class="jp-maphint">Trascinate per spostarvi, due dita o doppio clic per ingrandire.</p>
         </div>
+        <!-- gli avvisi stanno sotto la mappa: comparendo dopo il calcolo non spostano KPI e mappa (CLS) -->
+        <div class="jp-warn" id="warn" hidden></div>
         <div class="line" id="line" aria-label="Il percorso come linea ferroviaria"></div>
       </div>
     </div>
@@ -173,8 +183,9 @@
   </main>
  </div>
 </div>
-<script src="js/dash-shim.js"></script>
-<script src="js/d3.v7.min.js"></script>
+<!-- defer: eseguiti in ordine dopo il parsing, prima del modulo app.js -->
+<script defer src="js/dash-shim.js"></script>
+<script defer src="js/d3.v7.min.js"></script>
 <script type="module" src="js/app.js"></script>
 </body>
 </html>
