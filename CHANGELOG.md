@@ -17,6 +17,10 @@ Le modifiche rilevanti al progetto sono documentate qui. Il formato segue [Keep 
 - Tooling `.claude/` (hook, subagent, slash command) e `CLAUDE.md` per lo sviluppo con Claude Code.
 - `docs/PIANO_DI_SVILUPPO.md`: piano per release con funzioni di prodotto, budget, pipeline dei prezzi e funzioni basate su AI.
 
+### Fixed
+- A parità di ore di treno il percorso sceglie l'ordine delle tappe che fa perdere meno notti: il modello "Kansai e Kyushu, 12 notti" non segnala più notti mancanti (#7).
+- Con una sola base e andata e ritorno sulla stessa città l'ultima notte resta nella stessa tappa: niente cambio d'albergo fittizio, né spedizione dei bagagli nel budget, né trasferimento "Osaka → Osaka" nel calendario (#8).
+
 ### Changed
 - `app.js` contiene solo l'interfaccia ed è caricato come modulo ES; nessun cambiamento visibile per chi usa l'app.
 - L'app pubblicata vive in `app/`; il workflow di Pages pubblica solo quella cartella e valida i dati prima del deploy (ADR-002).

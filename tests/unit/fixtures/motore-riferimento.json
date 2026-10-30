@@ -1,6 +1,6 @@
 {
  "descrizione": "Risultati del motore PRIMA dell'estrazione in app/js/engine (ADR-006), uno per scenario di tests/unit/scenari-motore.mjs, ridotti con tests/unit/proiezione-motore.mjs. Il motore estratto deve riprodurli esattamente. Rigenerare solo per un cambio di comportamento voluto: npm run aggiorna-riferimento-motore.",
- "generato_da": "app/js/app.js al commit cfe5d89, eseguito in Chromium",
+ "generato_da": "app/js/engine al commit 1dc1753 (Node)",
  "scenari": [
   {
    "nome": "percorso di esempio in Golden Week",
@@ -2160,19 +2160,87 @@
       ]
      },
      {
-      "base": "Fukuoka",
+      "base": "Kyoto",
       "ordine": 2,
       "dal": 5,
-      "al": 6,
+      "al": 8,
+      "notti": 3,
+      "minN": 3,
+      "need": 3,
+      "free": 0,
+      "ts": 2,
+      "from": "Osaka",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 600,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kyoto",
+        2
+       ]
+      ],
+      "gite": [
+       [
+        "nara",
+        1,
+        0.75,
+        1500,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Nagasaki",
+      "ordine": 3,
+      "dal": 8,
+      "al": 10,
+      "notti": 2,
+      "minN": 2,
+      "need": 1,
+      "free": 0.5,
+      "ts": 1,
+      "from": "Kyoto",
+      "legIn": {
+       "ore": 4.35,
+       "yen": 26500,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione o al porto",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "nagasaki",
+        1
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Fukuoka",
+      "ordine": 4,
+      "dal": 10,
+      "al": 11,
       "notti": 1,
       "minN": 1,
       "need": 1,
       "free": 0,
       "ts": 2,
-      "from": "Osaka",
+      "from": "Nagasaki",
       "legIn": {
-       "ore": 2.45,
-       "yen": 21000,
+       "ore": 1.5,
+       "yen": 6000,
        "stima": true,
        "volo": false
       },
@@ -2190,9 +2258,9 @@
      },
      {
       "base": "Beppu",
-      "ordine": 3,
-      "dal": 6,
-      "al": 7,
+      "ordine": 5,
+      "dal": 11,
+      "al": 12,
       "notti": 1,
       "minN": 1,
       "need": 1,
@@ -2223,88 +2291,20 @@
       ]
      },
      {
-      "base": "Nagasaki",
-      "ordine": 4,
-      "dal": 7,
-      "al": 9,
-      "notti": 2,
-      "minN": 2,
-      "need": 1,
-      "free": 0.5,
-      "ts": 1,
-      "from": "Beppu",
-      "legIn": {
-       "ore": 3.5,
-       "yen": 12000,
-       "stima": true,
-       "volo": false
-      },
-      "zona": "Vicino alla stazione o al porto",
-      "tipoNotte": "hotel",
-      "finale": false,
-      "overflow": 0,
-      "citta": [
-       [
-        "nagasaki",
-        1
-       ]
-      ],
-      "gite": []
-     },
-     {
-      "base": "Kyoto",
-      "ordine": 5,
-      "dal": 9,
-      "al": 13,
-      "notti": 4,
-      "minN": 4,
-      "need": 3,
-      "free": 0.5,
-      "ts": 1,
-      "from": "Nagasaki",
-      "legIn": {
-       "ore": 4.35,
-       "yen": 26500,
-       "stima": true,
-       "volo": false
-      },
-      "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera",
-      "tipoNotte": "hotel",
-      "finale": false,
-      "overflow": 0,
-      "citta": [
-       [
-        "kyoto",
-        2
-       ]
-      ],
-      "gite": [
-       [
-        "nara",
-        1,
-        0.75,
-        1500,
-        false,
-        false,
-        null
-       ]
-      ]
-     },
-     {
       "base": "Osaka",
       "ordine": 6,
-      "dal": 13,
-      "al": 14,
+      "dal": 12,
+      "al": 13,
       "notti": 1,
       "minN": null,
       "need": 0,
       "free": 0,
-      "ts": 2,
-      "from": "Kyoto",
+      "ts": 1,
+      "from": "Beppu",
       "legIn": {
-       "ore": 0.5,
-       "yen": 600,
-       "stima": false,
+       "ore": 4.45,
+       "yen": 27000,
+       "stima": true,
        "volo": false
       },
       "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
@@ -2322,8 +2322,8 @@
      "volo": false
     },
     "airport": "Kansai",
-    "deficit": 1,
-    "minTotal": 13,
+    "deficit": 0,
+    "minTotal": 12,
     "items": [
      "kyoto",
      "nara",
@@ -2404,7 +2404,7 @@
     "G": 13,
     "maxN": 5,
     "oreBagagli": 12.8,
-    "free": 1.5,
+    "free": 1,
     "overMax": [],
     "giorni": [
      {
@@ -2475,9 +2475,89 @@
      {
       "n": 5,
       "data": "2027-10-17",
+      "base": "Kyoto",
+      "first": true,
+      "travel": "Treno da Osaka (30 min)",
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 6,
+      "data": "2027-10-18",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Nara",
+        "gita",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 7,
+      "data": "2027-10-19",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 8,
+      "data": "2027-10-20",
+      "base": "Nagasaki",
+      "first": true,
+      "travel": "Treno da Kyoto (4h20)",
+      "parts": [
+       [
+        "Nagasaki",
+        "citta",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 9,
+      "data": "2027-10-21",
+      "base": "Nagasaki",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Nagasaki",
+        "citta",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 10,
+      "data": "2027-10-22",
       "base": "Fukuoka",
       "first": true,
-      "travel": "Treno da Osaka (2h25)",
+      "travel": "Treno da Nagasaki (1h30)",
       "parts": [
        [
         "Fukuoka",
@@ -2488,8 +2568,8 @@
       "note": []
      },
      {
-      "n": 6,
-      "data": "2027-10-18",
+      "n": 11,
+      "data": "2027-10-23",
       "base": "Beppu",
       "first": true,
       "travel": "Treno da Fukuoka (2h)",
@@ -2503,125 +2583,14 @@
       "note": []
      },
      {
-      "n": 7,
-      "data": "2027-10-19",
-      "base": "Nagasaki",
-      "first": true,
-      "travel": "Treno da Beppu (3h30)",
-      "parts": [
-       [
-        "Nagasaki",
-        "citta",
-        false
-       ]
-      ],
-      "note": []
-     },
-     {
-      "n": 8,
-      "data": "2027-10-20",
-      "base": "Nagasaki",
-      "first": false,
-      "travel": null,
-      "parts": [
-       [
-        "Nagasaki",
-        "citta",
-        false
-       ],
-       [
-        "Tempo libero",
-        "libero",
-        false
-       ]
-      ],
-      "note": []
-     },
-     {
-      "n": 9,
-      "data": "2027-10-21",
-      "base": "Kyoto",
-      "first": true,
-      "travel": "Treno da Nagasaki (4h20)",
-      "parts": [
-       [
-        "Kyoto",
-        "citta",
-        false
-       ]
-      ],
-      "note": []
-     },
-     {
-      "n": 10,
-      "data": "2027-10-22",
-      "base": "Kyoto",
-      "first": false,
-      "travel": null,
-      "parts": [
-       [
-        "Nara",
-        "gita",
-        true
-       ]
-      ],
-      "note": [
-       [
-        "ev",
-        "Jidai Matsuri e festa del fuoco di Kurama",
-        "Corteo storico in costume di giorno, fiaccole a Kurama la sera"
-       ]
-      ]
-     },
-     {
-      "n": 11,
-      "data": "2027-10-23",
-      "base": "Kyoto",
-      "first": false,
-      "travel": null,
-      "parts": [
-       [
-        "Kyoto",
-        "citta",
-        true
-       ]
-      ],
-      "note": []
-     },
-     {
       "n": 12,
       "data": "2027-10-24",
-      "base": "Kyoto",
-      "first": false,
-      "travel": null,
-      "parts": [
-       [
-        "Kyoto",
-        "citta",
-        false
-       ],
-       [
-        "Tempo libero",
-        "libero",
-        false
-       ]
-      ],
-      "note": []
-     },
-     {
-      "n": 13,
-      "data": "2027-10-25",
       "base": "Osaka",
       "first": true,
-      "travel": "Treno da Kyoto (30 min)",
+      "travel": "Treno da Beppu (4h25)",
       "parts": [
        [
         "Ultima serata a Osaka",
-        "libero",
-        false
-       ],
-       [
-        "Tempo libero",
         "libero",
         false
        ]
@@ -2638,12 +2607,7 @@
       "note": []
      }
     ],
-    "avvisi": [
-     [
-      "Mancano notti. ",
-      "Con queste mete servono almeno 13 notti: aggiungete 1 notte o togliete qualche meta."
-     ]
-    ]
+    "avvisi": []
    }
   },
   {
@@ -4390,11 +4354,11 @@
       "base": "Osaka",
       "ordine": 1,
       "dal": 1,
-      "al": 8,
-      "notti": 7,
+      "al": 9,
+      "notti": 8,
       "minN": 7,
       "need": 6,
-      "free": 0,
+      "free": 1,
       "ts": 0,
       "from": "Kansai",
       "legIn": {
@@ -4451,30 +4415,6 @@
         null
        ]
       ]
-     },
-     {
-      "base": "Osaka",
-      "ordine": 2,
-      "dal": 8,
-      "al": 9,
-      "notti": 1,
-      "minN": null,
-      "need": 0,
-      "free": 0,
-      "ts": 2,
-      "from": "Osaka",
-      "legIn": {
-       "ore": 0,
-       "yen": 0,
-       "stima": false,
-       "volo": false
-      },
-      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
-      "tipoNotte": "hotel",
-      "finale": true,
-      "overflow": 0,
-      "citta": [],
-      "gite": []
      }
     ],
     "last": {
@@ -4485,7 +4425,7 @@
     },
     "airport": "Kansai",
     "deficit": 0,
-    "minTotal": 8,
+    "minTotal": 7,
     "items": [
      "kyoto",
      "nara",
@@ -4537,12 +4477,6 @@
       "how": "9 giorni"
      },
      {
-      "cat": "Takkyubin",
-      "min": 10,
-      "max": 17,
-      "how": "1 spedizioni dei bagagli, una per cambio"
-     },
-     {
       "cat": "Assicurazione",
       "min": 21,
       "max": 36,
@@ -4556,15 +4490,17 @@
      }
     ],
     "tot": {
-     "min": 1498.386364,
-     "max": 2513.340909
+     "min": 1488.386364,
+     "max": 2496.340909
     },
-    "cambi": 1,
+    "cambi": 0,
     "G": 9,
     "maxN": 5,
     "oreBagagli": 0,
-    "free": 0,
-    "overMax": [],
+    "free": 1,
+    "overMax": [
+     "Osaka"
+    ],
     "giorni": [
      {
       "n": 1,
@@ -4680,18 +4616,13 @@
       "n": 8,
       "data": "2027-10-20",
       "base": "Osaka",
-      "first": true,
-      "travel": "Treno da Osaka (0 min)",
+      "first": false,
+      "travel": null,
       "parts": [
-       [
-        "Ultima serata a Osaka",
-        "libero",
-        false
-       ],
        [
         "Tempo libero",
         "libero",
-        false
+        true
        ]
       ],
       "note": []
@@ -4706,7 +4637,12 @@
       "note": []
      }
     ],
-    "avvisi": []
+    "avvisi": [
+     [
+      "Base lunga. ",
+      "Osaka 8 notti: più di 5 notti nello stesso posto. Potete aggiungere una meta o una tappa."
+     ]
+    ]
    }
   },
   {
@@ -7977,12 +7913,6 @@
       "min": 34.090909,
       "max": 68.181818,
       "how": "6 giorni"
-     },
-     {
-      "cat": "Takkyubin",
-      "min": 0,
-      "max": 0,
-      "how": "0 spedizioni dei bagagli, una per cambio"
      },
      {
       "cat": "Assicurazione",

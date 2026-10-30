@@ -71,7 +71,9 @@ export function build(p, dati) {
   const rank = (name) => (bInfo.get(name) || {}).ordine || 99;
   const first = bases.get(A0.city);
   const stops = order([first].concat(Array.from(bases.values()).filter((s) => s !== first)), roundTrip ? A1.city : A1.air, tratte, rank);
-  const endHome = roundTrip ? 1 : 0;
+  // andata e ritorno sulla stessa città: l'ultima notte si torna lì, a meno che l'ultima tappa non sia già quella
+  // città (viaggio con una sola base): allora resta nella stessa tappa, senza un cambio d'albergo (issue #8)
+  const endHome = roundTrip && stops[stops.length - 1].base !== A1.city ? 1 : 0;
   // 3. tratte prima (l'ordine è noto), poi notti.
   // Mezze giornate utili il giorno di arrivo: con l'atterraggio al mattino resta il pomeriggio
   const arrSlots = p.oraArrivo === 'mattina' ? 1 : 0;
@@ -209,7 +211,8 @@ export function build(p, dati) {
       how: 'eSIM, bibite, snack, armadietti',
     },
   ];
-  if (p.bagagli === 'spedizioni')
+  // spedizione dei bagagli: una per cambio d'albergo, nessuna voce se non si cambia mai (issue #8)
+  if (p.bagagli === 'spedizioni' && cambi > 0)
     cost.splice(7, 0, {
       cat: 'Takkyubin',
       min: cambi * g('takkyubin').min,

@@ -156,3 +156,74 @@ test('il motore non usa DOM, window, localStorage né d3', () => {
       assert.ok(!vietato.test(src), `${f} usa ${vietato}`);
   }
 });
+
+// ---------- regressioni ----------
+
+test('ogni modello di viaggio di percorsi.json sta nelle sue notti (issue #7)', () => {
+  // come routeFromSaved() in app.js: il modello porta il percorso, il resto sono i default
+  for (const m of leggi('app/data/percorsi.json')) {
+    const params = {
+      sel: m.sel,
+      notti: m.notti,
+      arrivo: m.arrivo,
+      ritorno: m.ritorno,
+      pernotto: m.pernotto,
+      giorni_citta: m.giorni_citta,
+      giornata_citta: m.giornata_citta,
+      partenza: '2027-10-13',
+    };
+    const { r, avvisi } = esegui(params);
+    assert.equal(r.deficit, 0, `${m.nome}: servono ${r.minTotal} notti`);
+    assert.ok(!avvisi.some(([t]) => t.startsWith('Mancano notti')), m.nome);
+  }
+});
+
+test('a parità di ore di treno vince l’ordine che fa perdere meno notti (issue #7)', () => {
+  const params = {
+    sel: 'kyoto,nara,osaka,himeji,hiroshima,fukuoka,nagasaki,beppu',
+    notti: 12,
+    arrivo: 'osaka',
+    ritorno: 'osaka',
+    pernotto: 'beppu',
+    partenza: '2027-10-13',
+  };
+  const { r } = esegui(params);
+  assert.equal(r.oreBagagli, 12.8); // le ore restano le minime possibili
+  assert.equal(r.minTotal, 12);
+});
+
+test('con una sola base e andata e ritorno sulla stessa città non c’è un cambio d’albergo (issue #8)', () => {
+  const params = {
+    sel: ['osaka', 'kyoto', 'nara', 'kobe', 'himeji'],
+    notti: 8,
+    arrivo: 'osaka',
+    ritorno: 'osaka',
+    giornata_citta: ['kyoto'],
+    partenza: '2027-10-13',
+  };
+  const { r, giorni } = esegui(params);
+  assert.deepEqual(
+    r.all.map((s) => [s.base, s.nights]),
+    [['Osaka', 8]]
+  );
+  assert.equal(r.cambi, 0);
+  assert.equal(r.endStop, null);
+  assert.ok(!r.cost.some((c) => c.cat === 'Takkyubin'), 'nessuna spedizione dei bagagli senza cambi');
+  assert.ok(!giorni.some((g) => /Treno da Osaka/.test(g.travel || '')), 'nessun trasferimento Osaka→Osaka');
+});
+
+test('con più basi e andata e ritorno sulla stessa città l’ultima notte si torna lì (issue #8)', () => {
+  const params = {
+    sel: 'tokyo,sapporo,otaru,biei,hakodate,noboribetsu',
+    notti: 12,
+    arrivo: 'tokyo',
+    ritorno: 'tokyo',
+    pernotto: 'noboribetsu',
+    partenza: '2027-10-13',
+  };
+  const { r } = esegui(params);
+  const ultima = r.all[r.all.length - 1];
+  assert.equal(ultima.base, 'Tokyo');
+  assert.ok(ultima.finale);
+  assert.equal(r.all[0].base, 'Tokyo');
+});
