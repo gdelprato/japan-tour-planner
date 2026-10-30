@@ -3,6 +3,8 @@ package-lock.json
 test-results/
 # Codice dell'app in stile compatto: si formatta quando il motore viene estratto in moduli (piano, Fase 0.1)
 app/
+# Fotografie generate dei risultati del motore
+tests/unit/fixtures/
 # Documenti e dati scritti a mano
 docs/
 *.md

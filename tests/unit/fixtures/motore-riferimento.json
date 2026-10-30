@@ -1,0 +1,9491 @@
+{
+ "descrizione": "Risultati del motore PRIMA dell'estrazione in app/js/engine (ADR-006), uno per scenario di tests/unit/scenari-motore.mjs, ridotti con tests/unit/proiezione-motore.mjs. Il motore estratto deve riprodurli esattamente. Rigenerare solo per un cambio di comportamento voluto: npm run aggiorna-riferimento-motore.",
+ "generato_da": "app/js/app.js al commit cfe5d89, eseguito in Chromium",
+ "scenari": [
+  {
+   "nome": "percorso di esempio in Golden Week",
+   "risultato": {
+    "p": {
+     "sel": [
+      "tokyo",
+      "nikko",
+      "hakone",
+      "kyoto",
+      "nara",
+      "osaka",
+      "hiroshima"
+     ],
+     "notti": 12,
+     "arrivo": "tokyo",
+     "ritorno": "osaka",
+     "persone": 2,
+     "da": "milano",
+     "stile": "medio",
+     "bagagli": "spedizioni",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": null,
+     "pernotto": [],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2027-04-28"
+    },
+    "A0": "HND",
+    "A1": "KIX",
+    "dep": "milano",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Tokyo",
+      "ordine": 1,
+      "dal": 1,
+      "al": 7,
+      "notti": 6,
+      "minN": 6,
+      "need": 5,
+      "free": 0,
+      "ts": 0,
+      "from": "Haneda",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 500,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "tokyo",
+        3
+       ]
+      ],
+      "gite": [
+       [
+        "nikko",
+        1,
+        2,
+        7000,
+        false,
+        false,
+        null
+       ],
+       [
+        "hakone",
+        1,
+        1.5,
+        7000,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Kyoto",
+      "ordine": 2,
+      "dal": 7,
+      "al": 11,
+      "notti": 4,
+      "minN": 3,
+      "need": 3,
+      "free": 1,
+      "ts": 2,
+      "from": "Tokyo",
+      "legIn": {
+       "ore": 2.2,
+       "yen": 16500,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kyoto",
+        2
+       ]
+      ],
+      "gite": [
+       [
+        "nara",
+        1,
+        0.75,
+        1500,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Osaka",
+      "ordine": 3,
+      "dal": 11,
+      "al": 13,
+      "notti": 2,
+      "minN": 2,
+      "need": 2,
+      "free": 0,
+      "ts": 2,
+      "from": "Kyoto",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 600,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "osaka",
+        1
+       ]
+      ],
+      "gite": [
+       [
+        "hiroshima",
+        1,
+        1.35,
+        25000,
+        false,
+        false,
+        "Okayama"
+       ]
+      ]
+     }
+    ],
+    "last": {
+     "ore": 1,
+     "yen": 2000,
+     "stima": true,
+     "volo": false
+    },
+    "airport": "Kansai",
+    "deficit": 0,
+    "minTotal": 11,
+    "items": [
+     "tokyo",
+     "nikko",
+     "hakone",
+     "kyoto",
+     "nara",
+     "osaka",
+     "hiroshima"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 937.5,
+      "max": 1830,
+      "how": "Da Milano, arrivo a Tokyo Haneda e ritorno da Osaka Kansai; alta stagione (Golden Week)"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 477.272727,
+      "max": 954.545455,
+      "how": "12 notti in hotel o appartamenti"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 111.363636,
+      "max": 111.363636,
+      "how": "Aeroporti inclusi, circa 19.600 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 230.113636,
+      "max": 230.113636,
+      "how": "Andata e ritorno dalle basi, circa 40.500 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 59.090909,
+      "max": 110.795455,
+      "how": "13 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 295.454545,
+      "max": 443.181818,
+      "how": "13 giorni, stile medio"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 73.863636,
+      "max": 147.727273,
+      "how": "13 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 20,
+      "max": 34,
+      "how": "2 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 30.333333,
+      "max": 52,
+      "how": "Riproporzionata su 13 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 46.931818,
+      "max": 93.863636,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 2281.924242,
+     "max": 4007.590909
+    },
+    "cambi": 2,
+    "G": 13,
+    "maxN": 5,
+    "oreBagagli": 2.7,
+    "free": 1,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-04-28",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Atterraggio a Haneda nel pomeriggio o la sera, poi 30 min fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 2,
+      "data": "2027-04-29",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Golden Week",
+        "La settimana di vacanze più affollata: Shinkansen pieni, alloggi cari. Prenotate i posti sui treni"
+       ]
+      ]
+     },
+     {
+      "n": 3,
+      "data": "2027-04-30",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Nikko",
+        "gita",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Golden Week",
+        "La settimana di vacanze più affollata: Shinkansen pieni, alloggi cari. Prenotate i posti sui treni"
+       ]
+      ]
+     },
+     {
+      "n": 4,
+      "data": "2027-05-01",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Golden Week",
+        "La settimana di vacanze più affollata: Shinkansen pieni, alloggi cari. Prenotate i posti sui treni"
+       ]
+      ]
+     },
+     {
+      "n": 5,
+      "data": "2027-05-02",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Hakone",
+        "gita",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Golden Week",
+        "La settimana di vacanze più affollata: Shinkansen pieni, alloggi cari. Prenotate i posti sui treni"
+       ]
+      ]
+     },
+     {
+      "n": 6,
+      "data": "2027-05-03",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Golden Week",
+        "La settimana di vacanze più affollata: Shinkansen pieni, alloggi cari. Prenotate i posti sui treni"
+       ]
+      ]
+     },
+     {
+      "n": 7,
+      "data": "2027-05-04",
+      "base": "Kyoto",
+      "first": true,
+      "travel": "Treno da Tokyo (2h10)",
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Golden Week",
+        "La settimana di vacanze più affollata: Shinkansen pieni, alloggi cari. Prenotate i posti sui treni"
+       ]
+      ]
+     },
+     {
+      "n": 8,
+      "data": "2027-05-05",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Nara",
+        "gita",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Golden Week",
+        "La settimana di vacanze più affollata: Shinkansen pieni, alloggi cari. Prenotate i posti sui treni"
+       ]
+      ]
+     },
+     {
+      "n": 9,
+      "data": "2027-05-06",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 10,
+      "data": "2027-05-07",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 11,
+      "data": "2027-05-08",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Treno da Kyoto (30 min)",
+      "parts": [
+       [
+        "Osaka",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 12,
+      "data": "2027-05-09",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Hiroshima e Miyajima",
+        "gita",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 13,
+      "data": "2027-05-10",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Osaka Kansai (1h) e volo di ritorno",
+      "parts": [],
+      "note": []
+     }
+    ],
+    "avvisi": [
+     [
+      "Periodi affollati. ",
+      "Golden Week: guardate il calendario e prenotate presto treni e alloggi."
+     ]
+    ]
+   }
+  },
+  {
+   "nome": "modello Prima volta",
+   "risultato": {
+    "p": {
+     "sel": [
+      "tokyo",
+      "kamakura",
+      "kyoto",
+      "nara",
+      "osaka"
+     ],
+     "notti": 10,
+     "arrivo": "tokyo",
+     "ritorno": "osaka",
+     "persone": 2,
+     "da": "milano",
+     "stile": "medio",
+     "bagagli": "spedizioni",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": null,
+     "pernotto": [],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2027-10-13"
+    },
+    "A0": "HND",
+    "A1": "KIX",
+    "dep": "milano",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Tokyo",
+      "ordine": 1,
+      "dal": 1,
+      "al": 6,
+      "notti": 5,
+      "minN": 5,
+      "need": 4,
+      "free": 0,
+      "ts": 0,
+      "from": "Haneda",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 500,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "tokyo",
+        3
+       ]
+      ],
+      "gite": [
+       [
+        "kamakura",
+        1,
+        1,
+        2000,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Kyoto",
+      "ordine": 2,
+      "dal": 6,
+      "al": 10,
+      "notti": 4,
+      "minN": 3,
+      "need": 3,
+      "free": 1,
+      "ts": 2,
+      "from": "Tokyo",
+      "legIn": {
+       "ore": 2.2,
+       "yen": 16500,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kyoto",
+        2
+       ]
+      ],
+      "gite": [
+       [
+        "nara",
+        1,
+        0.75,
+        1500,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Osaka",
+      "ordine": 3,
+      "dal": 10,
+      "al": 11,
+      "notti": 1,
+      "minN": 1,
+      "need": 1,
+      "free": 0,
+      "ts": 2,
+      "from": "Kyoto",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 600,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "osaka",
+        1
+       ]
+      ],
+      "gite": []
+     }
+    ],
+    "last": {
+     "ore": 1,
+     "yen": 2000,
+     "stima": true,
+     "volo": false
+    },
+    "airport": "Kansai",
+    "deficit": 0,
+    "minTotal": 9,
+    "items": [
+     "tokyo",
+     "kamakura",
+     "kyoto",
+     "nara",
+     "osaka"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 750,
+      "max": 1350,
+      "how": "Da Milano, arrivo a Tokyo Haneda e ritorno da Osaka Kansai"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 397.727273,
+      "max": 795.454545,
+      "how": "10 notti in hotel o appartamenti"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 111.363636,
+      "max": 111.363636,
+      "how": "Aeroporti inclusi, circa 19.600 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 19.886364,
+      "max": 19.886364,
+      "how": "Andata e ritorno dalle basi, circa 3500 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 50,
+      "max": 93.75,
+      "how": "11 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 250,
+      "max": 375,
+      "how": "11 giorni, stile medio"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 62.5,
+      "max": 125,
+      "how": "11 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 20,
+      "max": 34,
+      "how": "2 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 25.666667,
+      "max": 44,
+      "how": "Riproporzionata su 11 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 41.25,
+      "max": 82.5,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 1728.393939,
+     "max": 3030.954545
+    },
+    "cambi": 2,
+    "G": 11,
+    "maxN": 5,
+    "oreBagagli": 2.7,
+    "free": 1,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-10-13",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Atterraggio a Haneda nel pomeriggio o la sera, poi 30 min fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 2,
+      "data": "2027-10-14",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 3,
+      "data": "2027-10-15",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kamakura ed Enoshima",
+        "gita",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 4,
+      "data": "2027-10-16",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 5,
+      "data": "2027-10-17",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 6,
+      "data": "2027-10-18",
+      "base": "Kyoto",
+      "first": true,
+      "travel": "Treno da Tokyo (2h10)",
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 7,
+      "data": "2027-10-19",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Nara",
+        "gita",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 8,
+      "data": "2027-10-20",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 9,
+      "data": "2027-10-21",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 10,
+      "data": "2027-10-22",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Treno da Kyoto (30 min)",
+      "parts": [
+       [
+        "Osaka",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 11,
+      "data": "2027-10-23",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Osaka Kansai (1h) e volo di ritorno",
+      "parts": [],
+      "note": []
+     }
+    ],
+    "avvisi": []
+   }
+  },
+  {
+   "nome": "modello Classico completo",
+   "risultato": {
+    "p": {
+     "sel": [
+      "tokyo",
+      "nikko",
+      "hakone",
+      "kanazawa",
+      "shirakawa",
+      "kyoto",
+      "nara",
+      "osaka",
+      "hiroshima"
+     ],
+     "notti": 14,
+     "arrivo": "tokyo",
+     "ritorno": "osaka",
+     "persone": 2,
+     "da": "milano",
+     "stile": "medio",
+     "bagagli": "spedizioni",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": null,
+     "pernotto": [
+      "hakone"
+     ],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2027-10-13"
+    },
+    "A0": "HND",
+    "A1": "KIX",
+    "dep": "milano",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Tokyo",
+      "ordine": 1,
+      "dal": 1,
+      "al": 6,
+      "notti": 5,
+      "minN": 5,
+      "need": 4,
+      "free": 0,
+      "ts": 0,
+      "from": "Haneda",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 500,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "tokyo",
+        3
+       ]
+      ],
+      "gite": [
+       [
+        "nikko",
+        1,
+        2,
+        7000,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Hakone",
+      "ordine": 2,
+      "dal": 6,
+      "al": 7,
+      "notti": 1,
+      "minN": 1,
+      "need": 1,
+      "free": 0,
+      "ts": 2,
+      "from": "Tokyo",
+      "legIn": {
+       "ore": 1.5,
+       "yen": 2500,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Gora o Hakone-Yumoto, in un ryokan con onsen",
+      "tipoNotte": "ryokan",
+      "finale": false,
+      "overflow": 0,
+      "citta": [],
+      "gite": [
+       [
+        "hakone",
+        1,
+        1.5,
+        7000,
+        true,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Kanazawa",
+      "ordine": 3,
+      "dal": 7,
+      "al": 10,
+      "notti": 3,
+      "minN": 3,
+      "need": 2,
+      "free": 0.5,
+      "ts": 1,
+      "from": "Hakone",
+      "legIn": {
+       "ore": 4,
+       "yen": 17200,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione, a 15 minuti a piedi dal centro",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kanazawa",
+        1
+       ]
+      ],
+      "gite": [
+       [
+        "shirakawa",
+        1,
+        1.25,
+        5600,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Kyoto",
+      "ordine": 4,
+      "dal": 10,
+      "al": 13,
+      "notti": 3,
+      "minN": 3,
+      "need": 3,
+      "free": 0,
+      "ts": 2,
+      "from": "Kanazawa",
+      "legIn": {
+       "ore": 2,
+       "yen": 7800,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kyoto",
+        2
+       ]
+      ],
+      "gite": [
+       [
+        "nara",
+        1,
+        0.75,
+        1500,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Osaka",
+      "ordine": 5,
+      "dal": 13,
+      "al": 15,
+      "notti": 2,
+      "minN": 2,
+      "need": 2,
+      "free": 0,
+      "ts": 2,
+      "from": "Kyoto",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 600,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "osaka",
+        1
+       ]
+      ],
+      "gite": [
+       [
+        "hiroshima",
+        1,
+        1.35,
+        25000,
+        false,
+        false,
+        "Okayama"
+       ]
+      ]
+     }
+    ],
+    "last": {
+     "ore": 1,
+     "yen": 2000,
+     "stima": true,
+     "volo": false
+    },
+    "airport": "Kansai",
+    "deficit": 0,
+    "minTotal": 14,
+    "items": [
+     "tokyo",
+     "nikko",
+     "hakone",
+     "kanazawa",
+     "shirakawa",
+     "kyoto",
+     "nara",
+     "osaka",
+     "hiroshima"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 750,
+      "max": 1350,
+      "how": "Da Milano, arrivo a Tokyo Haneda e ritorno da Osaka Kansai"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 630.681818,
+      "max": 1232.954545,
+      "how": "13 notti in hotel o appartamenti + 1 in ryokan o minshuku"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 173.863636,
+      "max": 173.863636,
+      "how": "Aeroporti inclusi, circa 30.600 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 222.159091,
+      "max": 222.159091,
+      "how": "Andata e ritorno dalle basi, circa 39.100 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 68.181818,
+      "max": 127.840909,
+      "how": "15 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 340.909091,
+      "max": 511.363636,
+      "how": "15 giorni, stile medio"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 85.227273,
+      "max": 170.454545,
+      "how": "15 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 40,
+      "max": 68,
+      "how": "4 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 35,
+      "max": 60,
+      "how": "Riproporzionata su 15 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 52.613636,
+      "max": 105.227273,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 2398.636364,
+     "max": 4021.863636
+    },
+    "cambi": 4,
+    "G": 15,
+    "maxN": 5,
+    "oreBagagli": 8,
+    "free": 0.5,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-10-13",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Atterraggio a Haneda nel pomeriggio o la sera, poi 30 min fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 2,
+      "data": "2027-10-14",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 3,
+      "data": "2027-10-15",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Nikko",
+        "gita",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Nikko",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 4,
+      "data": "2027-10-16",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 5,
+      "data": "2027-10-17",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 6,
+      "data": "2027-10-18",
+      "base": "Hakone",
+      "first": true,
+      "travel": "Treno da Tokyo (1h30)",
+      "parts": [
+       [
+        "Hakone",
+        "posto",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 7,
+      "data": "2027-10-19",
+      "base": "Kanazawa",
+      "first": true,
+      "travel": "Treno da Hakone (4h)",
+      "parts": [
+       [
+        "Kanazawa",
+        "citta",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 8,
+      "data": "2027-10-20",
+      "base": "Kanazawa",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Shirakawa-go",
+        "gita",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Shirakawa-go",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 9,
+      "data": "2027-10-21",
+      "base": "Kanazawa",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kanazawa",
+        "citta",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 10,
+      "data": "2027-10-22",
+      "base": "Kyoto",
+      "first": true,
+      "travel": "Treno da Kanazawa (2h)",
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Jidai Matsuri e festa del fuoco di Kurama",
+        "Corteo storico in costume di giorno, fiaccole a Kurama la sera"
+       ]
+      ]
+     },
+     {
+      "n": 11,
+      "data": "2027-10-23",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Nara",
+        "gita",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 12,
+      "data": "2027-10-24",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 13,
+      "data": "2027-10-25",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Treno da Kyoto (30 min)",
+      "parts": [
+       [
+        "Osaka",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 14,
+      "data": "2027-10-26",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Hiroshima e Miyajima",
+        "gita",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 15,
+      "data": "2027-10-27",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Osaka Kansai (1h) e volo di ritorno",
+      "parts": [],
+      "note": []
+     }
+    ],
+    "avvisi": []
+   }
+  },
+  {
+   "nome": "modello Alpi e onsen",
+   "risultato": {
+    "p": {
+     "sel": [
+      "tokyo",
+      "hakone",
+      "matsumoto",
+      "kamikochi",
+      "takayama",
+      "shirakawa",
+      "kanazawa",
+      "kyoto",
+      "osaka"
+     ],
+     "notti": 14,
+     "arrivo": "tokyo",
+     "ritorno": "osaka",
+     "persone": 2,
+     "da": "milano",
+     "stile": "medio",
+     "bagagli": "spedizioni",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": null,
+     "pernotto": [
+      "hakone",
+      "shirakawa"
+     ],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2027-10-13"
+    },
+    "A0": "HND",
+    "A1": "KIX",
+    "dep": "milano",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Tokyo",
+      "ordine": 1,
+      "dal": 1,
+      "al": 5,
+      "notti": 4,
+      "minN": 4,
+      "need": 3,
+      "free": 0,
+      "ts": 0,
+      "from": "Haneda",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 500,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "tokyo",
+        3
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Hakone",
+      "ordine": 2,
+      "dal": 5,
+      "al": 6,
+      "notti": 1,
+      "minN": 1,
+      "need": 1,
+      "free": 0,
+      "ts": 2,
+      "from": "Tokyo",
+      "legIn": {
+       "ore": 1.5,
+       "yen": 2500,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Gora o Hakone-Yumoto, in un ryokan con onsen",
+      "tipoNotte": "ryokan",
+      "finale": false,
+      "overflow": 0,
+      "citta": [],
+      "gite": [
+       [
+        "hakone",
+        1,
+        1.5,
+        7000,
+        true,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Matsumoto",
+      "ordine": 3,
+      "dal": 6,
+      "al": 9,
+      "notti": 3,
+      "minN": 3,
+      "need": 2,
+      "free": 0.5,
+      "ts": 1,
+      "from": "Hakone",
+      "legIn": {
+       "ore": 3.5,
+       "yen": 15000,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione, a 15 minuti a piedi dal castello",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "matsumoto",
+        1
+       ]
+      ],
+      "gite": [
+       [
+        "kamikochi",
+        1,
+        1.5,
+        5000,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Takayama",
+      "ordine": 4,
+      "dal": 9,
+      "al": 10,
+      "notti": 1,
+      "minN": 1,
+      "need": 1,
+      "free": 0,
+      "ts": 2,
+      "from": "Matsumoto",
+      "legIn": {
+       "ore": 2.5,
+       "yen": 3900,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Centro storico, a piedi dalla stazione",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "takayama",
+        1
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Shirakawa-go",
+      "ordine": 5,
+      "dal": 10,
+      "al": 11,
+      "notti": 1,
+      "minN": 1,
+      "need": 1,
+      "free": 0,
+      "ts": 2,
+      "from": "Takayama",
+      "legIn": {
+       "ore": 0.85,
+       "yen": 2800,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "In una casa gassho del villaggio, con cena",
+      "tipoNotte": "ryokan",
+      "finale": false,
+      "overflow": 0,
+      "citta": [],
+      "gite": [
+       [
+        "shirakawa",
+        1,
+        1.25,
+        5600,
+        true,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Kanazawa",
+      "ordine": 6,
+      "dal": 11,
+      "al": 12,
+      "notti": 1,
+      "minN": 1,
+      "need": 1,
+      "free": 0,
+      "ts": 2,
+      "from": "Shirakawa-go",
+      "legIn": {
+       "ore": 1.25,
+       "yen": 2800,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione, a 15 minuti a piedi dal centro",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kanazawa",
+        1
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Kyoto",
+      "ordine": 7,
+      "dal": 12,
+      "al": 14,
+      "notti": 2,
+      "minN": 2,
+      "need": 2,
+      "free": 0,
+      "ts": 2,
+      "from": "Kanazawa",
+      "legIn": {
+       "ore": 2,
+       "yen": 7800,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kyoto",
+        2
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Osaka",
+      "ordine": 8,
+      "dal": 14,
+      "al": 15,
+      "notti": 1,
+      "minN": 1,
+      "need": 1,
+      "free": 0,
+      "ts": 2,
+      "from": "Kyoto",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 600,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "osaka",
+        1
+       ]
+      ],
+      "gite": []
+     }
+    ],
+    "last": {
+     "ore": 1,
+     "yen": 2000,
+     "stima": true,
+     "volo": false
+    },
+    "airport": "Kansai",
+    "deficit": 0,
+    "minTotal": 14,
+    "items": [
+     "tokyo",
+     "hakone",
+     "matsumoto",
+     "kamikochi",
+     "kanazawa",
+     "shirakawa",
+     "takayama",
+     "kyoto",
+     "osaka"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 750,
+      "max": 1350,
+      "how": "Da Milano, arrivo a Tokyo Haneda e ritorno da Osaka Kansai"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 704.545455,
+      "max": 1352.272727,
+      "how": "12 notti in hotel o appartamenti + 2 in ryokan o minshuku"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 215.340909,
+      "max": 215.340909,
+      "how": "Aeroporti inclusi, circa 37.900 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 28.409091,
+      "max": 28.409091,
+      "how": "Andata e ritorno dalle basi, circa 5000 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 68.181818,
+      "max": 127.840909,
+      "how": "15 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 340.909091,
+      "max": 511.363636,
+      "how": "15 giorni, stile medio"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 85.227273,
+      "max": 170.454545,
+      "how": "15 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 70,
+      "max": 119,
+      "how": "7 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 35,
+      "max": 60,
+      "how": "Riproporzionata su 15 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 52.613636,
+      "max": 105.227273,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 2350.227273,
+     "max": 4039.909091
+    },
+    "cambi": 7,
+    "G": 15,
+    "maxN": 5,
+    "oreBagagli": 12.1,
+    "free": 0.5,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-10-13",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Atterraggio a Haneda nel pomeriggio o la sera, poi 30 min fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 2,
+      "data": "2027-10-14",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 3,
+      "data": "2027-10-15",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 4,
+      "data": "2027-10-16",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 5,
+      "data": "2027-10-17",
+      "base": "Hakone",
+      "first": true,
+      "travel": "Treno da Tokyo (1h30)",
+      "parts": [
+       [
+        "Hakone",
+        "posto",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 6,
+      "data": "2027-10-18",
+      "base": "Matsumoto",
+      "first": true,
+      "travel": "Treno da Hakone (3h30)",
+      "parts": [
+       [
+        "Matsumoto",
+        "citta",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 7,
+      "data": "2027-10-19",
+      "base": "Matsumoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kamikochi",
+        "gita",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Kamikochi",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 8,
+      "data": "2027-10-20",
+      "base": "Matsumoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Matsumoto",
+        "citta",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 9,
+      "data": "2027-10-21",
+      "base": "Takayama",
+      "first": true,
+      "travel": "Treno da Matsumoto (2h30)",
+      "parts": [
+       [
+        "Takayama",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 10,
+      "data": "2027-10-22",
+      "base": "Shirakawa-go",
+      "first": true,
+      "travel": "Treno da Takayama (50 min)",
+      "parts": [
+       [
+        "Shirakawa-go",
+        "posto",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Shirakawa-go",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 11,
+      "data": "2027-10-23",
+      "base": "Kanazawa",
+      "first": true,
+      "travel": "Treno da Shirakawa-go (1h15)",
+      "parts": [
+       [
+        "Kanazawa",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 12,
+      "data": "2027-10-24",
+      "base": "Kyoto",
+      "first": true,
+      "travel": "Treno da Kanazawa (2h)",
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 13,
+      "data": "2027-10-25",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 14,
+      "data": "2027-10-26",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Treno da Kyoto (30 min)",
+      "parts": [
+       [
+        "Osaka",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 15,
+      "data": "2027-10-27",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Osaka Kansai (1h) e volo di ritorno",
+      "parts": [],
+      "note": []
+     }
+    ],
+    "avvisi": []
+   }
+  },
+  {
+   "nome": "modello Kansai e Kyushu, andata e ritorno su Osaka",
+   "risultato": {
+    "p": {
+     "sel": [
+      "kyoto",
+      "nara",
+      "osaka",
+      "himeji",
+      "hiroshima",
+      "fukuoka",
+      "nagasaki",
+      "beppu"
+     ],
+     "notti": 12,
+     "arrivo": "osaka",
+     "ritorno": "osaka",
+     "persone": 2,
+     "da": "milano",
+     "stile": "medio",
+     "bagagli": "spedizioni",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": null,
+     "pernotto": [
+      "beppu"
+     ],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2027-10-13"
+    },
+    "A0": "KIX",
+    "A1": "KIX",
+    "dep": "milano",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Osaka",
+      "ordine": 1,
+      "dal": 1,
+      "al": 5,
+      "notti": 4,
+      "minN": 4,
+      "need": 2.5,
+      "free": 0.5,
+      "ts": 0,
+      "from": "Kansai",
+      "legIn": {
+       "ore": 1,
+       "yen": 2000,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "osaka",
+        1
+       ]
+      ],
+      "gite": [
+       [
+        "himeji",
+        0.5,
+        1,
+        3000,
+        false,
+        false,
+        null
+       ],
+       [
+        "hiroshima",
+        1,
+        1.35,
+        25000,
+        false,
+        false,
+        "Okayama"
+       ]
+      ]
+     },
+     {
+      "base": "Fukuoka",
+      "ordine": 2,
+      "dal": 5,
+      "al": 6,
+      "notti": 1,
+      "minN": 1,
+      "need": 1,
+      "free": 0,
+      "ts": 2,
+      "from": "Osaka",
+      "legIn": {
+       "ore": 2.45,
+       "yen": 21000,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Hakata per i treni o Tenjin per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "fukuoka",
+        1
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Beppu",
+      "ordine": 3,
+      "dal": 6,
+      "al": 7,
+      "notti": 1,
+      "minN": 1,
+      "need": 1,
+      "free": 0,
+      "ts": 2,
+      "from": "Fukuoka",
+      "legIn": {
+       "ore": 2,
+       "yen": 6000,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Ryokan con onsen privato, o a Yufuin più tranquilla",
+      "tipoNotte": "ryokan",
+      "finale": false,
+      "overflow": 0,
+      "citta": [],
+      "gite": [
+       [
+        "beppu",
+        1,
+        2,
+        12000,
+        true,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Nagasaki",
+      "ordine": 4,
+      "dal": 7,
+      "al": 9,
+      "notti": 2,
+      "minN": 2,
+      "need": 1,
+      "free": 0.5,
+      "ts": 1,
+      "from": "Beppu",
+      "legIn": {
+       "ore": 3.5,
+       "yen": 12000,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione o al porto",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "nagasaki",
+        1
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Kyoto",
+      "ordine": 5,
+      "dal": 9,
+      "al": 13,
+      "notti": 4,
+      "minN": 4,
+      "need": 3,
+      "free": 0.5,
+      "ts": 1,
+      "from": "Nagasaki",
+      "legIn": {
+       "ore": 4.35,
+       "yen": 26500,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kyoto",
+        2
+       ]
+      ],
+      "gite": [
+       [
+        "nara",
+        1,
+        0.75,
+        1500,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Osaka",
+      "ordine": 6,
+      "dal": 13,
+      "al": 14,
+      "notti": 1,
+      "minN": null,
+      "need": 0,
+      "free": 0,
+      "ts": 2,
+      "from": "Kyoto",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 600,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": true,
+      "overflow": 0,
+      "citta": [],
+      "gite": []
+     }
+    ],
+    "last": {
+     "ore": 1,
+     "yen": 2000,
+     "stima": true,
+     "volo": false
+    },
+    "airport": "Kansai",
+    "deficit": 1,
+    "minTotal": 13,
+    "items": [
+     "kyoto",
+     "nara",
+     "osaka",
+     "himeji",
+     "hiroshima",
+     "fukuoka",
+     "nagasaki",
+     "beppu"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 750,
+      "max": 1200,
+      "how": "Da Milano, andata e ritorno su Osaka Kansai"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 551.136364,
+      "max": 1073.863636,
+      "how": "11 notti in hotel o appartamenti + 1 in ryokan o minshuku"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 398.295455,
+      "max": 398.295455,
+      "how": "Aeroporti inclusi, circa 70.100 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 167.613636,
+      "max": 167.613636,
+      "how": "Andata e ritorno dalle basi, circa 29.500 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 59.090909,
+      "max": 110.795455,
+      "how": "13 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 295.454545,
+      "max": 443.181818,
+      "how": "13 giorni, stile medio"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 73.863636,
+      "max": 147.727273,
+      "how": "13 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 50,
+      "max": 85,
+      "how": "5 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 30.333333,
+      "max": 52,
+      "how": "Riproporzionata su 13 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 46.931818,
+      "max": 93.863636,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 2422.719697,
+     "max": 3772.340909
+    },
+    "cambi": 5,
+    "G": 13,
+    "maxN": 5,
+    "oreBagagli": 12.8,
+    "free": 1.5,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-10-13",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Atterraggio a Kansai nel pomeriggio o la sera, poi 1h fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 2,
+      "data": "2027-10-14",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Osaka",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 3,
+      "data": "2027-10-15",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Hiroshima e Miyajima",
+        "gita",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 4,
+      "data": "2027-10-16",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Himeji",
+        "gita",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 5,
+      "data": "2027-10-17",
+      "base": "Fukuoka",
+      "first": true,
+      "travel": "Treno da Osaka (2h25)",
+      "parts": [
+       [
+        "Fukuoka",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 6,
+      "data": "2027-10-18",
+      "base": "Beppu",
+      "first": true,
+      "travel": "Treno da Fukuoka (2h)",
+      "parts": [
+       [
+        "Beppu e Yufuin",
+        "posto",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 7,
+      "data": "2027-10-19",
+      "base": "Nagasaki",
+      "first": true,
+      "travel": "Treno da Beppu (3h30)",
+      "parts": [
+       [
+        "Nagasaki",
+        "citta",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 8,
+      "data": "2027-10-20",
+      "base": "Nagasaki",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Nagasaki",
+        "citta",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 9,
+      "data": "2027-10-21",
+      "base": "Kyoto",
+      "first": true,
+      "travel": "Treno da Nagasaki (4h20)",
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 10,
+      "data": "2027-10-22",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Nara",
+        "gita",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Jidai Matsuri e festa del fuoco di Kurama",
+        "Corteo storico in costume di giorno, fiaccole a Kurama la sera"
+       ]
+      ]
+     },
+     {
+      "n": 11,
+      "data": "2027-10-23",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 12,
+      "data": "2027-10-24",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 13,
+      "data": "2027-10-25",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Treno da Kyoto (30 min)",
+      "parts": [
+       [
+        "Ultima serata a Osaka",
+        "libero",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 13,
+      "data": "2027-10-25",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Osaka Kansai (1h) e volo di ritorno",
+      "parts": [],
+      "note": []
+     }
+    ],
+    "avvisi": [
+     [
+      "Mancano notti. ",
+      "Con queste mete servono almeno 13 notti: aggiungete 1 notte o togliete qualche meta."
+     ]
+    ]
+   }
+  },
+  {
+   "nome": "modello Hokkaido e Tokyo, andata e ritorno su Tokyo",
+   "risultato": {
+    "p": {
+     "sel": [
+      "tokyo",
+      "sapporo",
+      "otaru",
+      "biei",
+      "hakodate",
+      "noboribetsu"
+     ],
+     "notti": 12,
+     "arrivo": "tokyo",
+     "ritorno": "tokyo",
+     "persone": 2,
+     "da": "milano",
+     "stile": "medio",
+     "bagagli": "spedizioni",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": null,
+     "pernotto": [
+      "noboribetsu"
+     ],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2027-10-13"
+    },
+    "A0": "HND",
+    "A1": "HND",
+    "dep": "milano",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Tokyo",
+      "ordine": 1,
+      "dal": 1,
+      "al": 6,
+      "notti": 5,
+      "minN": 4,
+      "need": 3,
+      "free": 1,
+      "ts": 0,
+      "from": "Haneda",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 500,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "tokyo",
+        3
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Hakodate",
+      "ordine": 2,
+      "dal": 6,
+      "al": 8,
+      "notti": 2,
+      "minN": 2,
+      "need": 1,
+      "free": 0.5,
+      "ts": 1,
+      "from": "Tokyo",
+      "legIn": {
+       "ore": 4.25,
+       "yen": 27400,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione o alla baia dei magazzini rossi",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "hakodate",
+        1
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Sapporo",
+      "ordine": 3,
+      "dal": 8,
+      "al": 11,
+      "notti": 3,
+      "minN": 3,
+      "need": 2.5,
+      "free": 0,
+      "ts": 1,
+      "from": "Hakodate",
+      "legIn": {
+       "ore": 3.75,
+       "yen": 9000,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Odori o Susukino, comodi per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "sapporo",
+        1
+       ]
+      ],
+      "gite": [
+       [
+        "otaru",
+        0.5,
+        0.75,
+        1500,
+        false,
+        false,
+        null
+       ],
+       [
+        "biei",
+        1,
+        2,
+        9000,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Noboribetsu",
+      "ordine": 4,
+      "dal": 11,
+      "al": 12,
+      "notti": 1,
+      "minN": 1,
+      "need": 1,
+      "free": 0,
+      "ts": 2,
+      "from": "Sapporo",
+      "legIn": {
+       "ore": 1.25,
+       "yen": 4500,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Ryokan con bagni termali sulla valle",
+      "tipoNotte": "ryokan",
+      "finale": false,
+      "overflow": 0,
+      "citta": [],
+      "gite": [
+       [
+        "noboribetsu",
+        1,
+        1.25,
+        9000,
+        true,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Tokyo",
+      "ordine": 5,
+      "dal": 12,
+      "al": 13,
+      "notti": 1,
+      "minN": null,
+      "need": 0,
+      "free": 0,
+      "ts": 1,
+      "from": "Noboribetsu",
+      "legIn": {
+       "ore": 4.25,
+       "yen": 19500,
+       "stima": true,
+       "volo": true
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": true,
+      "overflow": 0,
+      "citta": [],
+      "gite": []
+     }
+    ],
+    "last": {
+     "ore": 0.5,
+     "yen": 500,
+     "stima": false,
+     "volo": false
+    },
+    "airport": "Haneda",
+    "deficit": 0,
+    "minTotal": 11,
+    "items": [
+     "sapporo",
+     "otaru",
+     "biei",
+     "noboribetsu",
+     "hakodate",
+     "tokyo"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 750,
+      "max": 1200,
+      "how": "Da Milano, andata e ritorno su Tokyo Haneda"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 551.136364,
+      "max": 1073.863636,
+      "how": "11 notti in hotel o appartamenti + 1 in ryokan o minshuku"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 348.863636,
+      "max": 348.863636,
+      "how": "Aeroporti inclusi, circa 61.400 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 59.659091,
+      "max": 59.659091,
+      "how": "Andata e ritorno dalle basi, circa 10.500 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 59.090909,
+      "max": 110.795455,
+      "how": "13 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 295.454545,
+      "max": 443.181818,
+      "how": "13 giorni, stile medio"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 73.863636,
+      "max": 147.727273,
+      "how": "13 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 40,
+      "max": 68,
+      "how": "4 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 30.333333,
+      "max": 52,
+      "how": "Riproporzionata su 13 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 46.931818,
+      "max": 93.863636,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 2255.333333,
+     "max": 3597.954545
+    },
+    "cambi": 4,
+    "G": 13,
+    "maxN": 5,
+    "oreBagagli": 13.5,
+    "free": 1.5,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-10-13",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Atterraggio a Haneda nel pomeriggio o la sera, poi 30 min fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 2,
+      "data": "2027-10-14",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 3,
+      "data": "2027-10-15",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 4,
+      "data": "2027-10-16",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 5,
+      "data": "2027-10-17",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 6,
+      "data": "2027-10-18",
+      "base": "Hakodate",
+      "first": true,
+      "travel": "Treno da Tokyo (4h15)",
+      "parts": [
+       [
+        "Hakodate",
+        "citta",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 7,
+      "data": "2027-10-19",
+      "base": "Hakodate",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Hakodate",
+        "citta",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 8,
+      "data": "2027-10-20",
+      "base": "Sapporo",
+      "first": true,
+      "travel": "Treno da Hakodate (3h45)",
+      "parts": [
+       [
+        "Sapporo",
+        "citta",
+        false
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Sapporo",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 9,
+      "data": "2027-10-21",
+      "base": "Sapporo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Biei e Furano",
+        "gita",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Sapporo",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 10,
+      "data": "2027-10-22",
+      "base": "Sapporo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Sapporo",
+        "citta",
+        false
+       ],
+       [
+        "Otaru",
+        "gita",
+        false
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Sapporo",
+        null
+       ],
+       [
+        "fo",
+        "Foliage a Otaru",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 11,
+      "data": "2027-10-23",
+      "base": "Noboribetsu",
+      "first": true,
+      "travel": "Treno da Sapporo (1h15)",
+      "parts": [
+       [
+        "Noboribetsu Onsen",
+        "posto",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Noboribetsu",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 12,
+      "data": "2027-10-24",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Volo o treno da Noboribetsu (4h15)",
+      "parts": [
+       [
+        "Ultima serata a Tokyo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 13,
+      "data": "2027-10-25",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Tokyo Haneda (30 min) e volo di ritorno",
+      "parts": [],
+      "note": []
+     }
+    ],
+    "avvisi": []
+   }
+  },
+  {
+   "nome": "da soli, economico, valigia sempre con sé, partenza da Roma",
+   "risultato": {
+    "p": {
+     "sel": [
+      "tokyo",
+      "kamakura",
+      "kyoto",
+      "nara",
+      "osaka"
+     ],
+     "notti": 10,
+     "arrivo": "tokyo",
+     "ritorno": "osaka",
+     "persone": 1,
+     "da": "roma",
+     "stile": "economico",
+     "bagagli": "valigia",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": null,
+     "pernotto": [],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2027-10-13"
+    },
+    "A0": "HND",
+    "A1": "KIX",
+    "dep": "roma",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Tokyo",
+      "ordine": 1,
+      "dal": 1,
+      "al": 6,
+      "notti": 5,
+      "minN": 5,
+      "need": 4,
+      "free": 0,
+      "ts": 0,
+      "from": "Haneda",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 500,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "tokyo",
+        3
+       ]
+      ],
+      "gite": [
+       [
+        "kamakura",
+        1,
+        1,
+        2000,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Kyoto",
+      "ordine": 2,
+      "dal": 6,
+      "al": 10,
+      "notti": 4,
+      "minN": 3,
+      "need": 3,
+      "free": 1,
+      "ts": 2,
+      "from": "Tokyo",
+      "legIn": {
+       "ore": 2.2,
+       "yen": 16500,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kyoto",
+        2
+       ]
+      ],
+      "gite": [
+       [
+        "nara",
+        1,
+        0.75,
+        1500,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Osaka",
+      "ordine": 3,
+      "dal": 10,
+      "al": 11,
+      "notti": 1,
+      "minN": 1,
+      "need": 1,
+      "free": 0,
+      "ts": 2,
+      "from": "Kyoto",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 600,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "osaka",
+        1
+       ]
+      ],
+      "gite": []
+     }
+    ],
+    "last": {
+     "ore": 1,
+     "yen": 2000,
+     "stima": true,
+     "volo": false
+    },
+    "airport": "Kansai",
+    "deficit": 0,
+    "minTotal": 9,
+    "items": [
+     "tokyo",
+     "kamakura",
+     "kyoto",
+     "nara",
+     "osaka"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 750,
+      "max": 1350,
+      "how": "Da Roma, arrivo a Tokyo Haneda e ritorno da Osaka Kansai"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 334.090909,
+      "max": 763.636364,
+      "how": "10 notti in ostelli, capsule e business hotel, camera singola"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 111.363636,
+      "max": 111.363636,
+      "how": "Aeroporti inclusi, circa 19.600 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 19.886364,
+      "max": 19.886364,
+      "how": "Andata e ritorno dalle basi, circa 3500 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 50,
+      "max": 93.75,
+      "how": "11 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 187.5,
+      "max": 281.25,
+      "how": "11 giorni, stile economico"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 62.5,
+      "max": 125,
+      "how": "11 giorni"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 25.666667,
+      "max": 44,
+      "how": "Riproporzionata su 11 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 41.25,
+      "max": 82.5,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 1582.257576,
+     "max": 2871.386364
+    },
+    "cambi": 2,
+    "G": 11,
+    "maxN": 5,
+    "oreBagagli": 2.7,
+    "free": 1,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-10-13",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Atterraggio a Haneda nel pomeriggio o la sera, poi 30 min fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 2,
+      "data": "2027-10-14",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 3,
+      "data": "2027-10-15",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kamakura ed Enoshima",
+        "gita",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 4,
+      "data": "2027-10-16",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 5,
+      "data": "2027-10-17",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 6,
+      "data": "2027-10-18",
+      "base": "Kyoto",
+      "first": true,
+      "travel": "Treno da Tokyo (2h10)",
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 7,
+      "data": "2027-10-19",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Nara",
+        "gita",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 8,
+      "data": "2027-10-20",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 9,
+      "data": "2027-10-21",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 10,
+      "data": "2027-10-22",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Treno da Kyoto (30 min)",
+      "parts": [
+       [
+        "Osaka",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 11,
+      "data": "2027-10-23",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Osaka Kansai (1h) e volo di ritorno",
+      "parts": [],
+      "note": []
+     }
+    ],
+    "avvisi": []
+   }
+  },
+  {
+   "nome": "in cinque, comfort, cambio scelto a mano",
+   "risultato": {
+    "p": {
+     "sel": [
+      "tokyo",
+      "nikko",
+      "kyoto",
+      "nara",
+      "osaka"
+     ],
+     "notti": 11,
+     "arrivo": "tokyo",
+     "ritorno": "osaka",
+     "persone": 5,
+     "da": "europa",
+     "stile": "comfort",
+     "bagagli": "spedizioni",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": 160,
+     "pernotto": [],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2027-10-13"
+    },
+    "A0": "HND",
+    "A1": "KIX",
+    "dep": "europa",
+    "rate": 160,
+    "tappe": [
+     {
+      "base": "Tokyo",
+      "ordine": 1,
+      "dal": 1,
+      "al": 6,
+      "notti": 5,
+      "minN": 5,
+      "need": 4,
+      "free": 0,
+      "ts": 0,
+      "from": "Haneda",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 500,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "tokyo",
+        3
+       ]
+      ],
+      "gite": [
+       [
+        "nikko",
+        1,
+        2,
+        7000,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Kyoto",
+      "ordine": 2,
+      "dal": 6,
+      "al": 10,
+      "notti": 4,
+      "minN": 3,
+      "need": 3,
+      "free": 1,
+      "ts": 2,
+      "from": "Tokyo",
+      "legIn": {
+       "ore": 2.2,
+       "yen": 16500,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kyoto",
+        2
+       ]
+      ],
+      "gite": [
+       [
+        "nara",
+        1,
+        0.75,
+        1500,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Osaka",
+      "ordine": 3,
+      "dal": 10,
+      "al": 12,
+      "notti": 2,
+      "minN": 1,
+      "need": 1,
+      "free": 1,
+      "ts": 2,
+      "from": "Kyoto",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 600,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "osaka",
+        1
+       ]
+      ],
+      "gite": []
+     }
+    ],
+    "last": {
+     "ore": 1,
+     "yen": 2000,
+     "stima": true,
+     "volo": false
+    },
+    "airport": "Kansai",
+    "deficit": 0,
+    "minTotal": 9,
+    "items": [
+     "tokyo",
+     "nikko",
+     "kyoto",
+     "nara",
+     "osaka"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 700,
+      "max": 1450,
+      "how": "Da Altra città europea, arrivo a Tokyo Haneda e ritorno da Osaka Kansai"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 693,
+      "max": 1559.25,
+      "how": "11 notti in hotel di categoria superiore, appartamento o camera familiare"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 122.5,
+      "max": 122.5,
+      "how": "Aeroporti inclusi, circa 19.600 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 53.125,
+      "max": 53.125,
+      "how": "Andata e ritorno dalle basi, circa 8500 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 60,
+      "max": 112.5,
+      "how": "12 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 450,
+      "max": 675,
+      "how": "12 giorni, stile comfort"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 75,
+      "max": 150,
+      "how": "12 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 20,
+      "max": 34,
+      "how": "2 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 28,
+      "max": 48,
+      "how": "Riproporzionata su 12 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 47.5,
+      "max": 95,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 2249.125,
+     "max": 4299.375
+    },
+    "cambi": 2,
+    "G": 12,
+    "maxN": 5,
+    "oreBagagli": 2.7,
+    "free": 2,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-10-13",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Atterraggio a Haneda nel pomeriggio o la sera, poi 30 min fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 2,
+      "data": "2027-10-14",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 3,
+      "data": "2027-10-15",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Nikko",
+        "gita",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Nikko",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 4,
+      "data": "2027-10-16",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 5,
+      "data": "2027-10-17",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 6,
+      "data": "2027-10-18",
+      "base": "Kyoto",
+      "first": true,
+      "travel": "Treno da Tokyo (2h10)",
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 7,
+      "data": "2027-10-19",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Nara",
+        "gita",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 8,
+      "data": "2027-10-20",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 9,
+      "data": "2027-10-21",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 10,
+      "data": "2027-10-22",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Treno da Kyoto (30 min)",
+      "parts": [
+       [
+        "Osaka",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 11,
+      "data": "2027-10-23",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 12,
+      "data": "2027-10-24",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Osaka Kansai (1h) e volo di ritorno",
+      "parts": [],
+      "note": []
+     }
+    ],
+    "avvisi": []
+   }
+  },
+  {
+   "nome": "Osaka→Tokyo, atterraggio al mattino, ritorno di sera",
+   "risultato": {
+    "p": {
+     "sel": [
+      "osaka",
+      "kyoto",
+      "nara",
+      "tokyo",
+      "kamakura"
+     ],
+     "notti": 9,
+     "arrivo": "osaka",
+     "ritorno": "tokyo",
+     "persone": 2,
+     "da": "milano",
+     "stile": "medio",
+     "bagagli": "spedizioni",
+     "oraArrivo": "mattina",
+     "oraRitorno": "sera",
+     "cambio": null,
+     "pernotto": [],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2027-10-13"
+    },
+    "A0": "KIX",
+    "A1": "HND",
+    "dep": "milano",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Osaka",
+      "ordine": 1,
+      "dal": 1,
+      "al": 3,
+      "notti": 2,
+      "minN": 2,
+      "need": 1,
+      "free": 0.5,
+      "ts": 1,
+      "from": "Kansai",
+      "legIn": {
+       "ore": 1,
+       "yen": 2000,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "osaka",
+        1
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Kyoto",
+      "ordine": 2,
+      "dal": 3,
+      "al": 6,
+      "notti": 3,
+      "minN": 3,
+      "need": 3,
+      "free": 0,
+      "ts": 2,
+      "from": "Osaka",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 600,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kyoto",
+        2
+       ]
+      ],
+      "gite": [
+       [
+        "nara",
+        1,
+        0.75,
+        1500,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Tokyo",
+      "ordine": 3,
+      "dal": 6,
+      "al": 10,
+      "notti": 4,
+      "minN": 4,
+      "need": 4,
+      "free": 0,
+      "ts": 2,
+      "from": "Kyoto",
+      "legIn": {
+       "ore": 2.2,
+       "yen": 16500,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "tokyo",
+        3
+       ]
+      ],
+      "gite": [
+       [
+        "kamakura",
+        1,
+        1,
+        2000,
+        false,
+        false,
+        null
+       ]
+      ]
+     }
+    ],
+    "last": {
+     "ore": 0.5,
+     "yen": 500,
+     "stima": false,
+     "volo": false
+    },
+    "airport": "Haneda",
+    "deficit": 0,
+    "minTotal": 9,
+    "items": [
+     "tokyo",
+     "kamakura",
+     "kyoto",
+     "nara",
+     "osaka"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 750,
+      "max": 1350,
+      "how": "Da Milano, arrivo a Osaka Kansai e ritorno da Tokyo Haneda"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 357.954545,
+      "max": 715.909091,
+      "how": "9 notti in hotel o appartamenti"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 111.363636,
+      "max": 111.363636,
+      "how": "Aeroporti inclusi, circa 19.600 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 19.886364,
+      "max": 19.886364,
+      "how": "Andata e ritorno dalle basi, circa 3500 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 45.454545,
+      "max": 85.227273,
+      "how": "10 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 227.272727,
+      "max": 340.909091,
+      "how": "10 giorni, stile medio"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 56.818182,
+      "max": 113.636364,
+      "how": "10 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 20,
+      "max": 34,
+      "how": "2 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 23.333333,
+      "max": 40,
+      "how": "Riproporzionata su 10 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 38.409091,
+      "max": 76.818182,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 1650.492424,
+     "max": 2887.75
+    },
+    "cambi": 2,
+    "G": 10,
+    "maxN": 5,
+    "oreBagagli": 2.7,
+    "free": 1,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-10-13",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Atterraggio a Kansai al mattino, poi 1h fino in città",
+      "parts": [
+       [
+        "Osaka",
+        "citta",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 2,
+      "data": "2027-10-14",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Osaka",
+        "citta",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 3,
+      "data": "2027-10-15",
+      "base": "Kyoto",
+      "first": true,
+      "travel": "Treno da Osaka (30 min)",
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 4,
+      "data": "2027-10-16",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Nara",
+        "gita",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 5,
+      "data": "2027-10-17",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 6,
+      "data": "2027-10-18",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Treno da Kyoto (2h10)",
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 7,
+      "data": "2027-10-19",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kamakura ed Enoshima",
+        "gita",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 8,
+      "data": "2027-10-20",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 9,
+      "data": "2027-10-21",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 10,
+      "data": "2027-10-22",
+      "base": null,
+      "first": true,
+      "travel": "Nel pomeriggio treno per Tokyo Haneda (30 min) e volo di ritorno",
+      "parts": [
+       [
+        "Mattina libera a Tokyo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     }
+    ],
+    "avvisi": []
+   }
+  },
+  {
+   "nome": "Kyoto in giornata da Osaka, più giorni a Kyoto",
+   "risultato": {
+    "p": {
+     "sel": [
+      "osaka",
+      "kyoto",
+      "nara",
+      "kobe",
+      "himeji"
+     ],
+     "notti": 8,
+     "arrivo": "osaka",
+     "ritorno": "osaka",
+     "persone": 2,
+     "da": "milano",
+     "stile": "medio",
+     "bagagli": "spedizioni",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": null,
+     "pernotto": [],
+     "gc": [
+      "kyoto:3"
+     ],
+     "gcit": [
+      "kyoto"
+     ],
+     "partenza": "2027-10-13"
+    },
+    "A0": "KIX",
+    "A1": "KIX",
+    "dep": "milano",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Osaka",
+      "ordine": 1,
+      "dal": 1,
+      "al": 8,
+      "notti": 7,
+      "minN": 7,
+      "need": 6,
+      "free": 0,
+      "ts": 0,
+      "from": "Kansai",
+      "legIn": {
+       "ore": 1,
+       "yen": 2000,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "osaka",
+        1
+       ]
+      ],
+      "gite": [
+       [
+        "kyoto",
+        3,
+        0.5,
+        1200,
+        false,
+        true,
+        null
+       ],
+       [
+        "nara",
+        1,
+        1.25,
+        2700,
+        false,
+        false,
+        "Kyoto"
+       ],
+       [
+        "kobe",
+        0.5,
+        0.5,
+        900,
+        false,
+        false,
+        null
+       ],
+       [
+        "himeji",
+        0.5,
+        1,
+        3000,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Osaka",
+      "ordine": 2,
+      "dal": 8,
+      "al": 9,
+      "notti": 1,
+      "minN": null,
+      "need": 0,
+      "free": 0,
+      "ts": 2,
+      "from": "Osaka",
+      "legIn": {
+       "ore": 0,
+       "yen": 0,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": true,
+      "overflow": 0,
+      "citta": [],
+      "gite": []
+     }
+    ],
+    "last": {
+     "ore": 1,
+     "yen": 2000,
+     "stima": true,
+     "volo": false
+    },
+    "airport": "Kansai",
+    "deficit": 0,
+    "minTotal": 8,
+    "items": [
+     "kyoto",
+     "nara",
+     "osaka",
+     "kobe",
+     "himeji"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 750,
+      "max": 1200,
+      "how": "Da Milano, andata e ritorno su Osaka Kansai"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 318.181818,
+      "max": 636.363636,
+      "how": "8 notti in hotel o appartamenti"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 22.727273,
+      "max": 22.727273,
+      "how": "Aeroporti inclusi, circa 4000 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 44.318182,
+      "max": 44.318182,
+      "how": "Andata e ritorno dalle basi, circa 7800 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 40.909091,
+      "max": 76.704545,
+      "how": "9 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 204.545455,
+      "max": 306.818182,
+      "how": "9 giorni, stile medio"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 51.136364,
+      "max": 102.272727,
+      "how": "9 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 10,
+      "max": 17,
+      "how": "1 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 21,
+      "max": 36,
+      "how": "Riproporzionata su 9 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 35.568182,
+      "max": 71.136364,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 1498.386364,
+     "max": 2513.340909
+    },
+    "cambi": 1,
+    "G": 9,
+    "maxN": 5,
+    "oreBagagli": 0,
+    "free": 0,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-10-13",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Atterraggio a Kansai nel pomeriggio o la sera, poi 1h fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 2,
+      "data": "2027-10-14",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Osaka",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 3,
+      "data": "2027-10-15",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Nara",
+        "gita",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 4,
+      "data": "2027-10-16",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 5,
+      "data": "2027-10-17",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 6,
+      "data": "2027-10-18",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 7,
+      "data": "2027-10-19",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kobe",
+        "gita",
+        false
+       ],
+       [
+        "Himeji",
+        "gita",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 8,
+      "data": "2027-10-20",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Treno da Osaka (0 min)",
+      "parts": [
+       [
+        "Ultima serata a Osaka",
+        "libero",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 9,
+      "data": "2027-10-21",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Osaka Kansai (1h) e volo di ritorno",
+      "parts": [],
+      "note": []
+     }
+    ],
+    "avvisi": []
+   }
+  },
+  {
+   "nome": "troppe mete per poche notti",
+   "risultato": {
+    "p": {
+     "sel": [
+      "tokyo",
+      "nikko",
+      "hakone",
+      "kanazawa",
+      "kyoto",
+      "nara",
+      "osaka",
+      "hiroshima"
+     ],
+     "notti": 4,
+     "arrivo": "tokyo",
+     "ritorno": "osaka",
+     "persone": 2,
+     "da": "milano",
+     "stile": "medio",
+     "bagagli": "spedizioni",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": null,
+     "pernotto": [],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2027-10-13"
+    },
+    "A0": "HND",
+    "A1": "KIX",
+    "dep": "milano",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Tokyo",
+      "ordine": 1,
+      "dal": 1,
+      "al": 7,
+      "notti": 6,
+      "minN": 6,
+      "need": 5,
+      "free": 0,
+      "ts": 0,
+      "from": "Haneda",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 500,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "tokyo",
+        3
+       ]
+      ],
+      "gite": [
+       [
+        "nikko",
+        1,
+        2,
+        7000,
+        false,
+        false,
+        null
+       ],
+       [
+        "hakone",
+        1,
+        1.5,
+        7000,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Kanazawa",
+      "ordine": 2,
+      "dal": 7,
+      "al": 8,
+      "notti": 1,
+      "minN": 1,
+      "need": 1,
+      "free": 0,
+      "ts": 2,
+      "from": "Tokyo",
+      "legIn": {
+       "ore": 2.5,
+       "yen": 14700,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione, a 15 minuti a piedi dal centro",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kanazawa",
+        1
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Kyoto",
+      "ordine": 3,
+      "dal": 8,
+      "al": 11,
+      "notti": 3,
+      "minN": 3,
+      "need": 3,
+      "free": 0,
+      "ts": 2,
+      "from": "Kanazawa",
+      "legIn": {
+       "ore": 2,
+       "yen": 7800,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kyoto",
+        2
+       ]
+      ],
+      "gite": [
+       [
+        "nara",
+        1,
+        0.75,
+        1500,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Osaka",
+      "ordine": 4,
+      "dal": 11,
+      "al": 13,
+      "notti": 2,
+      "minN": 2,
+      "need": 2,
+      "free": 0,
+      "ts": 2,
+      "from": "Kyoto",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 600,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "osaka",
+        1
+       ]
+      ],
+      "gite": [
+       [
+        "hiroshima",
+        1,
+        1.35,
+        25000,
+        false,
+        false,
+        "Okayama"
+       ]
+      ]
+     }
+    ],
+    "last": {
+     "ore": 1,
+     "yen": 2000,
+     "stima": true,
+     "volo": false
+    },
+    "airport": "Kansai",
+    "deficit": 8,
+    "minTotal": 12,
+    "items": [
+     "tokyo",
+     "nikko",
+     "hakone",
+     "kanazawa",
+     "kyoto",
+     "nara",
+     "osaka",
+     "hiroshima"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 750,
+      "max": 1350,
+      "how": "Da Milano, arrivo a Tokyo Haneda e ritorno da Osaka Kansai"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 159.090909,
+      "max": 318.181818,
+      "how": "4 notti in hotel o appartamenti"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 145.454545,
+      "max": 145.454545,
+      "how": "Aeroporti inclusi, circa 25.600 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 230.113636,
+      "max": 230.113636,
+      "how": "Andata e ritorno dalle basi, circa 40.500 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 22.727273,
+      "max": 42.613636,
+      "how": "5 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 113.636364,
+      "max": 170.454545,
+      "how": "5 giorni, stile medio"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 28.409091,
+      "max": 56.818182,
+      "how": "5 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 30,
+      "max": 51,
+      "how": "3 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 11.666667,
+      "max": 20,
+      "how": "Riproporzionata su 5 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 24.204545,
+      "max": 48.409091,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 1515.30303,
+     "max": 2433.045455
+    },
+    "cambi": 3,
+    "G": 5,
+    "maxN": 5,
+    "oreBagagli": 5,
+    "free": 0,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-10-13",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Atterraggio a Haneda nel pomeriggio o la sera, poi 30 min fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 2,
+      "data": "2027-10-14",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 3,
+      "data": "2027-10-15",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Nikko",
+        "gita",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Nikko",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 4,
+      "data": "2027-10-16",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 5,
+      "data": "2027-10-17",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Hakone",
+        "gita",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 6,
+      "data": "2027-10-18",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 7,
+      "data": "2027-10-19",
+      "base": "Kanazawa",
+      "first": true,
+      "travel": "Treno da Tokyo (2h30)",
+      "parts": [
+       [
+        "Kanazawa",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 8,
+      "data": "2027-10-20",
+      "base": "Kyoto",
+      "first": true,
+      "travel": "Treno da Kanazawa (2h)",
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 9,
+      "data": "2027-10-21",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Nara",
+        "gita",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 10,
+      "data": "2027-10-22",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Jidai Matsuri e festa del fuoco di Kurama",
+        "Corteo storico in costume di giorno, fiaccole a Kurama la sera"
+       ]
+      ]
+     },
+     {
+      "n": 11,
+      "data": "2027-10-23",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Treno da Kyoto (30 min)",
+      "parts": [
+       [
+        "Osaka",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 12,
+      "data": "2027-10-24",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Hiroshima e Miyajima",
+        "gita",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 5,
+      "data": "2027-10-17",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Osaka Kansai (1h) e volo di ritorno",
+      "parts": [],
+      "note": []
+     }
+    ],
+    "avvisi": [
+     [
+      "Mancano notti. ",
+      "Con queste mete servono almeno 12 notti: aggiungete 8 notti o togliete qualche meta."
+     ]
+    ]
+   }
+  },
+  {
+   "nome": "viaggio lungo, basi oltre il massimo di notti",
+   "risultato": {
+    "p": {
+     "sel": [
+      "tokyo",
+      "kyoto",
+      "osaka"
+     ],
+     "notti": 40,
+     "arrivo": "tokyo",
+     "ritorno": "osaka",
+     "persone": 2,
+     "da": "milano",
+     "stile": "medio",
+     "bagagli": "spedizioni",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": null,
+     "pernotto": [],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2027-10-13"
+    },
+    "A0": "HND",
+    "A1": "KIX",
+    "dep": "milano",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Tokyo",
+      "ordine": 1,
+      "dal": 1,
+      "al": 15,
+      "notti": 14,
+      "minN": 4,
+      "need": 3,
+      "free": 10,
+      "ts": 0,
+      "from": "Haneda",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 500,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "tokyo",
+        3
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Kyoto",
+      "ordine": 2,
+      "dal": 15,
+      "al": 28,
+      "notti": 13,
+      "minN": 2,
+      "need": 2,
+      "free": 11,
+      "ts": 2,
+      "from": "Tokyo",
+      "legIn": {
+       "ore": 2.2,
+       "yen": 16500,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kyoto",
+        2
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Osaka",
+      "ordine": 3,
+      "dal": 28,
+      "al": 41,
+      "notti": 13,
+      "minN": 1,
+      "need": 1,
+      "free": 12,
+      "ts": 2,
+      "from": "Kyoto",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 600,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "osaka",
+        1
+       ]
+      ],
+      "gite": []
+     }
+    ],
+    "last": {
+     "ore": 1,
+     "yen": 2000,
+     "stima": true,
+     "volo": false
+    },
+    "airport": "Kansai",
+    "deficit": 0,
+    "minTotal": 7,
+    "items": [
+     "tokyo",
+     "kyoto",
+     "osaka"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 750,
+      "max": 1350,
+      "how": "Da Milano, arrivo a Tokyo Haneda e ritorno da Osaka Kansai"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 1590.909091,
+      "max": 3181.818182,
+      "how": "40 notti in hotel o appartamenti"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 111.363636,
+      "max": 111.363636,
+      "how": "Aeroporti inclusi, circa 19.600 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 0,
+      "max": 0,
+      "how": "Andata e ritorno dalle basi, circa 0 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 186.363636,
+      "max": 349.431818,
+      "how": "41 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 931.818182,
+      "max": 1397.727273,
+      "how": "41 giorni, stile medio"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 232.954545,
+      "max": 465.909091,
+      "how": "41 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 20,
+      "max": 34,
+      "how": "2 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 95.666667,
+      "max": 164,
+      "how": "Riproporzionata su 41 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 126.477273,
+      "max": 252.954545,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 4045.55303,
+     "max": 7307.204545
+    },
+    "cambi": 2,
+    "G": 41,
+    "maxN": 5,
+    "oreBagagli": 2.7,
+    "free": 33,
+    "overMax": [
+     "Tokyo",
+     "Kyoto",
+     "Osaka"
+    ],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-10-13",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Atterraggio a Haneda nel pomeriggio o la sera, poi 30 min fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 2,
+      "data": "2027-10-14",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 3,
+      "data": "2027-10-15",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 4,
+      "data": "2027-10-16",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 5,
+      "data": "2027-10-17",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 6,
+      "data": "2027-10-18",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 7,
+      "data": "2027-10-19",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 8,
+      "data": "2027-10-20",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 9,
+      "data": "2027-10-21",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 10,
+      "data": "2027-10-22",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 11,
+      "data": "2027-10-23",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 12,
+      "data": "2027-10-24",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 13,
+      "data": "2027-10-25",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 14,
+      "data": "2027-10-26",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 15,
+      "data": "2027-10-27",
+      "base": "Kyoto",
+      "first": true,
+      "travel": "Treno da Tokyo (2h10)",
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 16,
+      "data": "2027-10-28",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 17,
+      "data": "2027-10-29",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 18,
+      "data": "2027-10-30",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 19,
+      "data": "2027-10-31",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 20,
+      "data": "2027-11-01",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 21,
+      "data": "2027-11-02",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 22,
+      "data": "2027-11-03",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Festa della Cultura",
+        "Giorno festivo nazionale: più folla nelle mete famose"
+       ]
+      ]
+     },
+     {
+      "n": 23,
+      "data": "2027-11-04",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 24,
+      "data": "2027-11-05",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 25,
+      "data": "2027-11-06",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 26,
+      "data": "2027-11-07",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 27,
+      "data": "2027-11-08",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 28,
+      "data": "2027-11-09",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Treno da Kyoto (30 min)",
+      "parts": [
+       [
+        "Osaka",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 29,
+      "data": "2027-11-10",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 30,
+      "data": "2027-11-11",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 31,
+      "data": "2027-11-12",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 32,
+      "data": "2027-11-13",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 33,
+      "data": "2027-11-14",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 34,
+      "data": "2027-11-15",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Osaka",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 35,
+      "data": "2027-11-16",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Osaka",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 36,
+      "data": "2027-11-17",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Osaka",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 37,
+      "data": "2027-11-18",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Osaka",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 38,
+      "data": "2027-11-19",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Osaka",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 39,
+      "data": "2027-11-20",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Osaka",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 40,
+      "data": "2027-11-21",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Osaka",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 41,
+      "data": "2027-11-22",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Osaka Kansai (1h) e volo di ritorno",
+      "parts": [],
+      "note": []
+     }
+    ],
+    "avvisi": [
+     [
+      "Base lunga. ",
+      "Tokyo 14 notti, Kyoto 13 notti, Osaka 13 notti: più di 5 notti nello stesso posto. Potete aggiungere una meta o una tappa."
+     ],
+     [
+      "Periodi affollati. ",
+      "Festa della Cultura: guardate il calendario e prenotate presto treni e alloggi."
+     ]
+    ]
+   }
+  },
+  {
+   "nome": "a cavallo di Capodanno",
+   "risultato": {
+    "p": {
+     "sel": [
+      "tokyo",
+      "nikko",
+      "kyoto",
+      "osaka"
+     ],
+     "notti": 10,
+     "arrivo": "tokyo",
+     "ritorno": "osaka",
+     "persone": 2,
+     "da": "milano",
+     "stile": "medio",
+     "bagagli": "spedizioni",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": null,
+     "pernotto": [],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2027-12-26"
+    },
+    "A0": "HND",
+    "A1": "KIX",
+    "dep": "milano",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Tokyo",
+      "ordine": 1,
+      "dal": 1,
+      "al": 6,
+      "notti": 5,
+      "minN": 5,
+      "need": 4,
+      "free": 0,
+      "ts": 0,
+      "from": "Haneda",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 500,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "tokyo",
+        3
+       ]
+      ],
+      "gite": [
+       [
+        "nikko",
+        1,
+        2,
+        7000,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Kyoto",
+      "ordine": 2,
+      "dal": 6,
+      "al": 9,
+      "notti": 3,
+      "minN": 2,
+      "need": 2,
+      "free": 1,
+      "ts": 2,
+      "from": "Tokyo",
+      "legIn": {
+       "ore": 2.2,
+       "yen": 16500,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kyoto",
+        2
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Osaka",
+      "ordine": 3,
+      "dal": 9,
+      "al": 11,
+      "notti": 2,
+      "minN": 1,
+      "need": 1,
+      "free": 1,
+      "ts": 2,
+      "from": "Kyoto",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 600,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "osaka",
+        1
+       ]
+      ],
+      "gite": []
+     }
+    ],
+    "last": {
+     "ore": 1,
+     "yen": 2000,
+     "stima": true,
+     "volo": false
+    },
+    "airport": "Kansai",
+    "deficit": 0,
+    "minTotal": 8,
+    "items": [
+     "tokyo",
+     "nikko",
+     "kyoto",
+     "osaka"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 937.5,
+      "max": 1830,
+      "how": "Da Milano, arrivo a Tokyo Haneda e ritorno da Osaka Kansai; alta stagione (Capodanno giapponese, Vacanze di Natale in Europa)"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 397.727273,
+      "max": 795.454545,
+      "how": "10 notti in hotel o appartamenti"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 111.363636,
+      "max": 111.363636,
+      "how": "Aeroporti inclusi, circa 19.600 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 39.772727,
+      "max": 39.772727,
+      "how": "Andata e ritorno dalle basi, circa 7000 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 50,
+      "max": 93.75,
+      "how": "11 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 250,
+      "max": 375,
+      "how": "11 giorni, stile medio"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 62.5,
+      "max": 125,
+      "how": "11 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 20,
+      "max": 34,
+      "how": "2 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 25.666667,
+      "max": 44,
+      "how": "Riproporzionata su 11 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 41.25,
+      "max": 82.5,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 1935.780303,
+     "max": 3530.840909
+    },
+    "cambi": 2,
+    "G": 11,
+    "maxN": 5,
+    "oreBagagli": 2.7,
+    "free": 2,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-12-26",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Atterraggio a Haneda nel pomeriggio o la sera, poi 30 min fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Vacanze di Natale in Europa",
+        "Voli dall'Europa più cari"
+       ]
+      ]
+     },
+     {
+      "n": 2,
+      "data": "2027-12-27",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Vacanze di Natale in Europa",
+        "Voli dall'Europa più cari"
+       ]
+      ]
+     },
+     {
+      "n": 3,
+      "data": "2027-12-28",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Nikko",
+        "gita",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Vacanze di Natale in Europa",
+        "Voli dall'Europa più cari"
+       ]
+      ]
+     },
+     {
+      "n": 4,
+      "data": "2027-12-29",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Capodanno giapponese",
+        "Molti negozi, musei e ristoranti chiusi i primi giorni; templi affollatissimi il 1° gennaio"
+       ]
+      ]
+     },
+     {
+      "n": 5,
+      "data": "2027-12-30",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Capodanno giapponese",
+        "Molti negozi, musei e ristoranti chiusi i primi giorni; templi affollatissimi il 1° gennaio"
+       ]
+      ]
+     },
+     {
+      "n": 6,
+      "data": "2027-12-31",
+      "base": "Kyoto",
+      "first": true,
+      "travel": "Treno da Tokyo (2h10)",
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Capodanno giapponese",
+        "Molti negozi, musei e ristoranti chiusi i primi giorni; templi affollatissimi il 1° gennaio"
+       ]
+      ]
+     },
+     {
+      "n": 7,
+      "data": "2028-01-01",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Capodanno giapponese",
+        "Molti negozi, musei e ristoranti chiusi i primi giorni; templi affollatissimi il 1° gennaio"
+       ]
+      ]
+     },
+     {
+      "n": 8,
+      "data": "2028-01-02",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Capodanno giapponese",
+        "Molti negozi, musei e ristoranti chiusi i primi giorni; templi affollatissimi il 1° gennaio"
+       ]
+      ]
+     },
+     {
+      "n": 9,
+      "data": "2028-01-03",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Treno da Kyoto (30 min)",
+      "parts": [
+       [
+        "Osaka",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Capodanno giapponese",
+        "Molti negozi, musei e ristoranti chiusi i primi giorni; templi affollatissimi il 1° gennaio"
+       ]
+      ]
+     },
+     {
+      "n": 10,
+      "data": "2028-01-04",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 11,
+      "data": "2028-01-05",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Osaka Kansai (1h) e volo di ritorno",
+      "parts": [],
+      "note": []
+     }
+    ],
+    "avvisi": [
+     [
+      "Inverno. ",
+      "Neve nelle Alpi, nel Tohoku e in Hokkaido: alcune strade e funivie chiudono, i bus di montagna sono ridotti."
+     ],
+     [
+      "Periodi affollati. ",
+      "Capodanno giapponese, Vacanze di Natale in Europa: guardate il calendario e prenotate presto treni e alloggi."
+     ]
+    ]
+   }
+  },
+  {
+   "nome": "ciliegi a fine marzo",
+   "risultato": {
+    "p": {
+     "sel": [
+      "tokyo",
+      "kawagoe",
+      "kyoto",
+      "nara",
+      "osaka",
+      "himeji"
+     ],
+     "notti": 11,
+     "arrivo": "tokyo",
+     "ritorno": "osaka",
+     "persone": 2,
+     "da": "milano",
+     "stile": "medio",
+     "bagagli": "spedizioni",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": null,
+     "pernotto": [],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2028-03-27"
+    },
+    "A0": "HND",
+    "A1": "KIX",
+    "dep": "milano",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Tokyo",
+      "ordine": 1,
+      "dal": 1,
+      "al": 6,
+      "notti": 5,
+      "minN": 5,
+      "need": 3.5,
+      "free": 0.5,
+      "ts": 0,
+      "from": "Haneda",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 500,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "tokyo",
+        3
+       ]
+      ],
+      "gite": [
+       [
+        "kawagoe",
+        0.5,
+        0.75,
+        1000,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Kyoto",
+      "ordine": 2,
+      "dal": 6,
+      "al": 10,
+      "notti": 4,
+      "minN": 3,
+      "need": 3,
+      "free": 1,
+      "ts": 2,
+      "from": "Tokyo",
+      "legIn": {
+       "ore": 2.2,
+       "yen": 16500,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kyoto",
+        2
+       ]
+      ],
+      "gite": [
+       [
+        "nara",
+        1,
+        0.75,
+        1500,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Osaka",
+      "ordine": 3,
+      "dal": 10,
+      "al": 12,
+      "notti": 2,
+      "minN": 2,
+      "need": 1.5,
+      "free": 0.5,
+      "ts": 2,
+      "from": "Kyoto",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 600,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "osaka",
+        1
+       ]
+      ],
+      "gite": [
+       [
+        "himeji",
+        0.5,
+        1,
+        3000,
+        false,
+        false,
+        null
+       ]
+      ]
+     }
+    ],
+    "last": {
+     "ore": 1,
+     "yen": 2000,
+     "stima": true,
+     "volo": false
+    },
+    "airport": "Kansai",
+    "deficit": 0,
+    "minTotal": 10,
+    "items": [
+     "tokyo",
+     "kawagoe",
+     "kyoto",
+     "nara",
+     "osaka",
+     "himeji"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 937.5,
+      "max": 1830,
+      "how": "Da Milano, arrivo a Tokyo Haneda e ritorno da Osaka Kansai; alta stagione (Stagione dei ciliegi)"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 437.5,
+      "max": 875,
+      "how": "11 notti in hotel o appartamenti"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 111.363636,
+      "max": 111.363636,
+      "how": "Aeroporti inclusi, circa 19.600 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 31.25,
+      "max": 31.25,
+      "how": "Andata e ritorno dalle basi, circa 5500 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 54.545455,
+      "max": 102.272727,
+      "how": "12 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 272.727273,
+      "max": 409.090909,
+      "how": "12 giorni, stile medio"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 68.181818,
+      "max": 136.363636,
+      "how": "12 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 20,
+      "max": 34,
+      "how": "2 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 28,
+      "max": 48,
+      "how": "Riproporzionata su 12 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 44.090909,
+      "max": 88.181818,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 2005.159091,
+     "max": 3665.522727
+    },
+    "cambi": 2,
+    "G": 12,
+    "maxN": 5,
+    "oreBagagli": 2.7,
+    "free": 2,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2028-03-27",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Atterraggio a Haneda nel pomeriggio o la sera, poi 30 min fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Stagione dei ciliegi",
+        "Periodo più richiesto dell'anno: alloggi e voli cari, prenotate con molto anticipo"
+       ],
+       [
+        "sk",
+        "Ciliegi a Tokyo",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 2,
+      "data": "2028-03-28",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Stagione dei ciliegi",
+        "Periodo più richiesto dell'anno: alloggi e voli cari, prenotate con molto anticipo"
+       ],
+       [
+        "sk",
+        "Ciliegi a Tokyo",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 3,
+      "data": "2028-03-29",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Stagione dei ciliegi",
+        "Periodo più richiesto dell'anno: alloggi e voli cari, prenotate con molto anticipo"
+       ],
+       [
+        "sk",
+        "Ciliegi a Tokyo",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 4,
+      "data": "2028-03-30",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Stagione dei ciliegi",
+        "Periodo più richiesto dell'anno: alloggi e voli cari, prenotate con molto anticipo"
+       ],
+       [
+        "sk",
+        "Ciliegi a Tokyo",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 5,
+      "data": "2028-03-31",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kawagoe",
+        "gita",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Stagione dei ciliegi",
+        "Periodo più richiesto dell'anno: alloggi e voli cari, prenotate con molto anticipo"
+       ],
+       [
+        "sk",
+        "Ciliegi a Tokyo",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 6,
+      "data": "2028-04-01",
+      "base": "Kyoto",
+      "first": true,
+      "travel": "Treno da Tokyo (2h10)",
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Stagione dei ciliegi",
+        "Periodo più richiesto dell'anno: alloggi e voli cari, prenotate con molto anticipo"
+       ],
+       [
+        "sk",
+        "Ciliegi a Kyoto",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 7,
+      "data": "2028-04-02",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Nara",
+        "gita",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Stagione dei ciliegi",
+        "Periodo più richiesto dell'anno: alloggi e voli cari, prenotate con molto anticipo"
+       ],
+       [
+        "sk",
+        "Ciliegi a Kyoto",
+        null
+       ],
+       [
+        "sk",
+        "Ciliegi a Nara",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 8,
+      "data": "2028-04-03",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Stagione dei ciliegi",
+        "Periodo più richiesto dell'anno: alloggi e voli cari, prenotate con molto anticipo"
+       ],
+       [
+        "sk",
+        "Ciliegi a Kyoto",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 9,
+      "data": "2028-04-04",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Stagione dei ciliegi",
+        "Periodo più richiesto dell'anno: alloggi e voli cari, prenotate con molto anticipo"
+       ],
+       [
+        "sk",
+        "Ciliegi a Kyoto",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 10,
+      "data": "2028-04-05",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Treno da Kyoto (30 min)",
+      "parts": [
+       [
+        "Osaka",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Stagione dei ciliegi",
+        "Periodo più richiesto dell'anno: alloggi e voli cari, prenotate con molto anticipo"
+       ],
+       [
+        "sk",
+        "Ciliegi a Osaka",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 11,
+      "data": "2028-04-06",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Himeji",
+        "gita",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Stagione dei ciliegi",
+        "Periodo più richiesto dell'anno: alloggi e voli cari, prenotate con molto anticipo"
+       ],
+       [
+        "sk",
+        "Ciliegi a Osaka",
+        null
+       ],
+       [
+        "sk",
+        "Ciliegi a Himeji",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 12,
+      "data": "2028-04-07",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Osaka Kansai (1h) e volo di ritorno",
+      "parts": [],
+      "note": [
+       [
+        "ev",
+        "Stagione dei ciliegi",
+        "Periodo più richiesto dell'anno: alloggi e voli cari, prenotate con molto anticipo"
+       ]
+      ]
+     }
+    ],
+    "avvisi": [
+     [
+      "Periodi affollati. ",
+      "Stagione dei ciliegi: guardate il calendario e prenotate presto treni e alloggi."
+     ]
+    ]
+   }
+  },
+  {
+   "nome": "Tohoku, Alpi e Shikoku con pernottamenti sul posto",
+   "risultato": {
+    "p": {
+     "sel": [
+      "tokyo",
+      "sendai",
+      "matsushima",
+      "ginzan",
+      "kanazawa",
+      "takayama",
+      "kyoto",
+      "osaka",
+      "naoshima",
+      "iya",
+      "matsuyama"
+     ],
+     "notti": 18,
+     "arrivo": "tokyo",
+     "ritorno": "osaka",
+     "persone": 2,
+     "da": "milano",
+     "stile": "medio",
+     "bagagli": "spedizioni",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": null,
+     "pernotto": [
+      "ginzan",
+      "iya"
+     ],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2027-10-13"
+    },
+    "A0": "HND",
+    "A1": "KIX",
+    "dep": "milano",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Tokyo",
+      "ordine": 1,
+      "dal": 1,
+      "al": 5,
+      "notti": 4,
+      "minN": 4,
+      "need": 3,
+      "free": 0,
+      "ts": 0,
+      "from": "Haneda",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 500,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "tokyo",
+        3
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Sendai",
+      "ordine": 2,
+      "dal": 5,
+      "al": 7,
+      "notti": 2,
+      "minN": 2,
+      "need": 1.5,
+      "free": 0.5,
+      "ts": 2,
+      "from": "Tokyo",
+      "legIn": {
+       "ore": 1.5,
+       "yen": 11400,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione, comoda per le gite",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "sendai",
+        1
+       ]
+      ],
+      "gite": [
+       [
+        "matsushima",
+        0.5,
+        0.5,
+        1000,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Ginzan Onsen",
+      "ordine": 3,
+      "dal": 7,
+      "al": 8,
+      "notti": 1,
+      "minN": 1,
+      "need": 1,
+      "free": 0,
+      "ts": 2,
+      "from": "Sendai",
+      "legIn": {
+       "ore": 2.5,
+       "yen": 5000,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Ryokan in legno lungo il fiume",
+      "tipoNotte": "ryokan",
+      "finale": false,
+      "overflow": 0,
+      "citta": [],
+      "gite": [
+       [
+        "ginzan",
+        1,
+        2.5,
+        5000,
+        true,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Kanazawa",
+      "ordine": 4,
+      "dal": 8,
+      "al": 10,
+      "notti": 2,
+      "minN": 2,
+      "need": 1,
+      "free": 0.5,
+      "ts": 1,
+      "from": "Ginzan Onsen",
+      "legIn": {
+       "ore": 6.5,
+       "yen": 27700,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione, a 15 minuti a piedi dal centro",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kanazawa",
+        1
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Takayama",
+      "ordine": 5,
+      "dal": 10,
+      "al": 11,
+      "notti": 1,
+      "minN": 1,
+      "need": 1,
+      "free": 0,
+      "ts": 2,
+      "from": "Kanazawa",
+      "legIn": {
+       "ore": 2.1,
+       "yen": 5600,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Centro storico, a piedi dalla stazione",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "takayama",
+        1
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Kyoto",
+      "ordine": 6,
+      "dal": 11,
+      "al": 14,
+      "notti": 3,
+      "minN": 3,
+      "need": 2,
+      "free": 0.5,
+      "ts": 1,
+      "from": "Takayama",
+      "legIn": {
+       "ore": 2.9,
+       "yen": 11500,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kyoto",
+        2
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Matsuyama",
+      "ordine": 7,
+      "dal": 14,
+      "al": 16,
+      "notti": 2,
+      "minN": 2,
+      "need": 1,
+      "free": 0.5,
+      "ts": 1,
+      "from": "Kyoto",
+      "legIn": {
+       "ore": 3,
+       "yen": 19500,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Dogo Onsen per le terme o il centro per il castello",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "matsuyama",
+        1
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Iya",
+      "ordine": 8,
+      "dal": 16,
+      "al": 18,
+      "notti": 2,
+      "minN": 2,
+      "need": 1,
+      "free": 0.5,
+      "ts": 1,
+      "from": "Matsuyama",
+      "legIn": {
+       "ore": 4.35,
+       "yen": 21000,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Ryokan sulla gola, spesso con cena inclusa",
+      "tipoNotte": "ryokan",
+      "finale": false,
+      "overflow": 0,
+      "citta": [],
+      "gite": [
+       [
+        "iya",
+        1,
+        2.5,
+        10000,
+        true,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Osaka",
+      "ordine": 9,
+      "dal": 18,
+      "al": 21,
+      "notti": 3,
+      "minN": 3,
+      "need": 2,
+      "free": 0.5,
+      "ts": 1,
+      "from": "Iya",
+      "legIn": {
+       "ore": 3.25,
+       "yen": 13000,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "osaka",
+        1
+       ]
+      ],
+      "gite": [
+       [
+        "naoshima",
+        1,
+        1.75,
+        14500,
+        false,
+        false,
+        "Okayama"
+       ]
+      ]
+     }
+    ],
+    "last": {
+     "ore": 1,
+     "yen": 2000,
+     "stima": true,
+     "volo": false
+    },
+    "airport": "Kansai",
+    "deficit": 2,
+    "minTotal": 20,
+    "items": [
+     "sendai",
+     "matsushima",
+     "ginzan",
+     "tokyo",
+     "kanazawa",
+     "takayama",
+     "kyoto",
+     "osaka",
+     "naoshima",
+     "matsuyama",
+     "iya"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 750,
+      "max": 1350,
+      "how": "Da Milano, arrivo a Tokyo Haneda e ritorno da Osaka Kansai"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 937.5,
+      "max": 1789.772727,
+      "how": "15 notti in hotel o appartamenti + 3 in ryokan o minshuku"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 665.909091,
+      "max": 665.909091,
+      "how": "Aeroporti inclusi, circa 117.200 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 88.068182,
+      "max": 88.068182,
+      "how": "Andata e ritorno dalle basi, circa 15.500 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 86.363636,
+      "max": 161.931818,
+      "how": "19 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 431.818182,
+      "max": 647.727273,
+      "how": "19 giorni, stile medio"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 107.954545,
+      "max": 215.909091,
+      "how": "19 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 80,
+      "max": 136,
+      "how": "8 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 44.333333,
+      "max": 76,
+      "how": "Riproporzionata su 19 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 63.977273,
+      "max": 127.954545,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 3255.924242,
+     "max": 5259.272727
+    },
+    "cambi": 8,
+    "G": 19,
+    "maxN": 5,
+    "oreBagagli": 26.1,
+    "free": 3,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-10-13",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Atterraggio a Haneda nel pomeriggio o la sera, poi 30 min fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 2,
+      "data": "2027-10-14",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 3,
+      "data": "2027-10-15",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 4,
+      "data": "2027-10-16",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 5,
+      "data": "2027-10-17",
+      "base": "Sendai",
+      "first": true,
+      "travel": "Treno da Tokyo (1h30)",
+      "parts": [
+       [
+        "Sendai",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 6,
+      "data": "2027-10-18",
+      "base": "Sendai",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Matsushima",
+        "gita",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 7,
+      "data": "2027-10-19",
+      "base": "Ginzan Onsen",
+      "first": true,
+      "travel": "Treno da Sendai (2h30)",
+      "parts": [
+       [
+        "Ginzan Onsen",
+        "posto",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 8,
+      "data": "2027-10-20",
+      "base": "Kanazawa",
+      "first": true,
+      "travel": "Treno da Ginzan Onsen (6h30)",
+      "parts": [
+       [
+        "Kanazawa",
+        "citta",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 9,
+      "data": "2027-10-21",
+      "base": "Kanazawa",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kanazawa",
+        "citta",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 10,
+      "data": "2027-10-22",
+      "base": "Takayama",
+      "first": true,
+      "travel": "Treno da Kanazawa (2h05)",
+      "parts": [
+       [
+        "Takayama",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 11,
+      "data": "2027-10-23",
+      "base": "Kyoto",
+      "first": true,
+      "travel": "Treno da Takayama (2h55)",
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 12,
+      "data": "2027-10-24",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 13,
+      "data": "2027-10-25",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 14,
+      "data": "2027-10-26",
+      "base": "Matsuyama",
+      "first": true,
+      "travel": "Treno da Kyoto (3h)",
+      "parts": [
+       [
+        "Matsuyama e Dogo Onsen",
+        "citta",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 15,
+      "data": "2027-10-27",
+      "base": "Matsuyama",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Matsuyama e Dogo Onsen",
+        "citta",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 16,
+      "data": "2027-10-28",
+      "base": "Iya",
+      "first": true,
+      "travel": "Treno da Matsuyama (4h20)",
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Iya",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 17,
+      "data": "2027-10-29",
+      "base": "Iya",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Valle di Iya",
+        "posto",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "fo",
+        "Foliage a Iya",
+        null
+       ]
+      ]
+     },
+     {
+      "n": 18,
+      "data": "2027-10-30",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Treno da Iya (3h15)",
+      "parts": [
+       [
+        "Osaka",
+        "citta",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 19,
+      "data": "2027-10-31",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Naoshima",
+        "gita",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 20,
+      "data": "2027-11-01",
+      "base": "Osaka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Osaka",
+        "citta",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 19,
+      "data": "2027-10-31",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Osaka Kansai (1h) e volo di ritorno",
+      "parts": [],
+      "note": []
+     }
+    ],
+    "avvisi": [
+     [
+      "Mancano notti. ",
+      "Con queste mete servono almeno 20 notti: aggiungete 2 notti o togliete qualche meta."
+     ]
+    ]
+   }
+  },
+  {
+   "nome": "nessuna meta scelta",
+   "risultato": {
+    "p": {
+     "sel": [
+      ""
+     ],
+     "notti": 5,
+     "arrivo": "tokyo",
+     "ritorno": "osaka",
+     "persone": 2,
+     "da": "milano",
+     "stile": "medio",
+     "bagagli": "spedizioni",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": null,
+     "pernotto": [],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2027-10-13"
+    },
+    "A0": "HND",
+    "A1": "KIX",
+    "dep": "milano",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Tokyo",
+      "ordine": 1,
+      "dal": 1,
+      "al": 6,
+      "notti": 5,
+      "minN": 1,
+      "need": 0,
+      "free": 4,
+      "ts": 0,
+      "from": "Haneda",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 500,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [],
+      "gite": []
+     }
+    ],
+    "last": {
+     "ore": 3.45,
+     "yen": 19700,
+     "stima": true,
+     "volo": false
+    },
+    "airport": "Kansai",
+    "deficit": 0,
+    "minTotal": 1,
+    "items": [],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 750,
+      "max": 1350,
+      "how": "Da Milano, arrivo a Tokyo Haneda e ritorno da Osaka Kansai"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 198.863636,
+      "max": 397.727273,
+      "how": "5 notti in hotel o appartamenti"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 114.772727,
+      "max": 114.772727,
+      "how": "Aeroporti inclusi, circa 20.200 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 0,
+      "max": 0,
+      "how": "Andata e ritorno dalle basi, circa 0 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 27.272727,
+      "max": 51.136364,
+      "how": "6 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 136.363636,
+      "max": 204.545455,
+      "how": "6 giorni, stile medio"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 34.090909,
+      "max": 68.181818,
+      "how": "6 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 0,
+      "max": 0,
+      "how": "0 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 14,
+      "max": 24,
+      "how": "Riproporzionata su 6 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 27.045455,
+      "max": 54.090909,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 1302.409091,
+     "max": 2264.454545
+    },
+    "cambi": 0,
+    "G": 6,
+    "maxN": 5,
+    "oreBagagli": 0,
+    "free": 4,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-10-13",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Atterraggio a Haneda nel pomeriggio o la sera, poi 30 min fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 2,
+      "data": "2027-10-14",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 3,
+      "data": "2027-10-15",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 4,
+      "data": "2027-10-16",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 5,
+      "data": "2027-10-17",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 6,
+      "data": "2027-10-18",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Osaka Kansai (3h25) e volo di ritorno",
+      "parts": [],
+      "note": []
+     }
+    ],
+    "avvisi": []
+   }
+  },
+  {
+   "nome": "una sola meta",
+   "risultato": {
+    "p": {
+     "sel": [
+      "kyoto"
+     ],
+     "notti": 3,
+     "arrivo": "osaka",
+     "ritorno": "osaka",
+     "persone": 2,
+     "da": "milano",
+     "stile": "medio",
+     "bagagli": "spedizioni",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": null,
+     "pernotto": [],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2027-10-13"
+    },
+    "A0": "KIX",
+    "A1": "KIX",
+    "dep": "milano",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Osaka",
+      "ordine": 1,
+      "dal": 1,
+      "al": 2,
+      "notti": 1,
+      "minN": 1,
+      "need": 0,
+      "free": 0,
+      "ts": 0,
+      "from": "Kansai",
+      "legIn": {
+       "ore": 1,
+       "yen": 2000,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [],
+      "gite": []
+     },
+     {
+      "base": "Kyoto",
+      "ordine": 2,
+      "dal": 2,
+      "al": 4,
+      "notti": 2,
+      "minN": 2,
+      "need": 2,
+      "free": 0,
+      "ts": 2,
+      "from": "Osaka",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 600,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kyoto",
+        2
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Osaka",
+      "ordine": 3,
+      "dal": 4,
+      "al": 5,
+      "notti": 1,
+      "minN": null,
+      "need": 0,
+      "free": 0,
+      "ts": 2,
+      "from": "Kyoto",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 600,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": true,
+      "overflow": 0,
+      "citta": [],
+      "gite": []
+     }
+    ],
+    "last": {
+     "ore": 1,
+     "yen": 2000,
+     "stima": true,
+     "volo": false
+    },
+    "airport": "Kansai",
+    "deficit": 1,
+    "minTotal": 4,
+    "items": [
+     "kyoto"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 750,
+      "max": 1200,
+      "how": "Da Milano, andata e ritorno su Osaka Kansai"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 119.318182,
+      "max": 238.636364,
+      "how": "3 notti in hotel o appartamenti"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 29.545455,
+      "max": 29.545455,
+      "how": "Aeroporti inclusi, circa 5200 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 0,
+      "max": 0,
+      "how": "Andata e ritorno dalle basi, circa 0 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 18.181818,
+      "max": 34.090909,
+      "how": "4 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 90.909091,
+      "max": 136.363636,
+      "how": "4 giorni, stile medio"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 22.727273,
+      "max": 45.454545,
+      "how": "4 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 20,
+      "max": 34,
+      "how": "2 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 9.333333,
+      "max": 16,
+      "how": "Riproporzionata su 4 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 21.363636,
+      "max": 42.727273,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 1081.378788,
+     "max": 1776.818182
+    },
+    "cambi": 2,
+    "G": 4,
+    "maxN": 5,
+    "oreBagagli": 1,
+    "free": 0,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-10-13",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Atterraggio a Kansai nel pomeriggio o la sera, poi 1h fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 2,
+      "data": "2027-10-14",
+      "base": "Kyoto",
+      "first": true,
+      "travel": "Treno da Osaka (30 min)",
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 3,
+      "data": "2027-10-15",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 4,
+      "data": "2027-10-16",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Treno da Kyoto (30 min)",
+      "parts": [
+       [
+        "Ultima serata a Osaka",
+        "libero",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 4,
+      "data": "2027-10-16",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Osaka Kansai (1h) e volo di ritorno",
+      "parts": [],
+      "note": []
+     }
+    ],
+    "avvisi": [
+     [
+      "Mancano notti. ",
+      "Con queste mete servono almeno 4 notti: aggiungete 1 notte o togliete qualche meta."
+     ]
+    ]
+   }
+  },
+  {
+   "nome": "Okinawa e Kyushu",
+   "risultato": {
+    "p": {
+     "sel": [
+      "tokyo",
+      "fukuoka",
+      "kagoshima",
+      "naha",
+      "churaumi"
+     ],
+     "notti": 12,
+     "arrivo": "tokyo",
+     "ritorno": "tokyo",
+     "persone": 2,
+     "da": "milano",
+     "stile": "medio",
+     "bagagli": "spedizioni",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": null,
+     "pernotto": [],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2027-10-13"
+    },
+    "A0": "HND",
+    "A1": "HND",
+    "dep": "milano",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Tokyo",
+      "ordine": 1,
+      "dal": 1,
+      "al": 6,
+      "notti": 5,
+      "minN": 4,
+      "need": 3,
+      "free": 1,
+      "ts": 0,
+      "from": "Haneda",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 500,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "tokyo",
+        3
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Fukuoka",
+      "ordine": 2,
+      "dal": 6,
+      "al": 8,
+      "notti": 2,
+      "minN": 2,
+      "need": 1,
+      "free": 0.5,
+      "ts": 1,
+      "from": "Tokyo",
+      "legIn": {
+       "ore": 4.9,
+       "yen": 38700,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Hakata per i treni o Tenjin per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "fukuoka",
+        1
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Kagoshima",
+      "ordine": 3,
+      "dal": 8,
+      "al": 9,
+      "notti": 1,
+      "minN": 1,
+      "need": 1,
+      "free": 0,
+      "ts": 2,
+      "from": "Fukuoka",
+      "legIn": {
+       "ore": 1.5,
+       "yen": 10500,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione Kagoshima-Chuo",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kagoshima",
+        1
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Naha",
+      "ordine": 4,
+      "dal": 9,
+      "al": 12,
+      "notti": 3,
+      "minN": 3,
+      "need": 2,
+      "free": 0.5,
+      "ts": 1,
+      "from": "Kagoshima",
+      "legIn": {
+       "ore": 4.5,
+       "yen": 22500,
+       "stima": true,
+       "volo": true
+      },
+      "zona": "Via Kokusai o vicino alla monorotaia",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "naha",
+        1
+       ]
+      ],
+      "gite": [
+       [
+        "churaumi",
+        1,
+        2,
+        5000,
+        false,
+        false,
+        null
+       ]
+      ]
+     },
+     {
+      "base": "Tokyo",
+      "ordine": 5,
+      "dal": 12,
+      "al": 13,
+      "notti": 1,
+      "minN": null,
+      "need": 0,
+      "free": 0,
+      "ts": 1,
+      "from": "Naha",
+      "legIn": {
+       "ore": 4,
+       "yen": 15000,
+       "stima": true,
+       "volo": true
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": true,
+      "overflow": 0,
+      "citta": [],
+      "gite": []
+     }
+    ],
+    "last": {
+     "ore": 0.5,
+     "yen": 500,
+     "stima": false,
+     "volo": false
+    },
+    "airport": "Haneda",
+    "deficit": 0,
+    "minTotal": 11,
+    "items": [
+     "tokyo",
+     "fukuoka",
+     "kagoshima",
+     "naha",
+     "churaumi"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 750,
+      "max": 1200,
+      "how": "Da Milano, andata e ritorno su Tokyo Haneda"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 477.272727,
+      "max": 954.545455,
+      "how": "12 notti in hotel o appartamenti"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 498.295455,
+      "max": 498.295455,
+      "how": "Aeroporti inclusi, circa 87.700 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 28.409091,
+      "max": 28.409091,
+      "how": "Andata e ritorno dalle basi, circa 5000 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 59.090909,
+      "max": 110.795455,
+      "how": "13 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 295.454545,
+      "max": 443.181818,
+      "how": "13 giorni, stile medio"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 73.863636,
+      "max": 147.727273,
+      "how": "13 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 40,
+      "max": 68,
+      "how": "4 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 30.333333,
+      "max": 52,
+      "how": "Riproporzionata su 13 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 46.931818,
+      "max": 93.863636,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 2299.651515,
+     "max": 3596.818182
+    },
+    "cambi": 4,
+    "G": 13,
+    "maxN": 5,
+    "oreBagagli": 14.9,
+    "free": 2,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-10-13",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Atterraggio a Haneda nel pomeriggio o la sera, poi 30 min fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 2,
+      "data": "2027-10-14",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 3,
+      "data": "2027-10-15",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 4,
+      "data": "2027-10-16",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 5,
+      "data": "2027-10-17",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tempo libero",
+        "libero",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 6,
+      "data": "2027-10-18",
+      "base": "Fukuoka",
+      "first": true,
+      "travel": "Treno da Tokyo (4h55)",
+      "parts": [
+       [
+        "Fukuoka",
+        "citta",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 7,
+      "data": "2027-10-19",
+      "base": "Fukuoka",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Fukuoka",
+        "citta",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 8,
+      "data": "2027-10-20",
+      "base": "Kagoshima",
+      "first": true,
+      "travel": "Treno da Fukuoka (1h30)",
+      "parts": [
+       [
+        "Kagoshima e Sakurajima",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 9,
+      "data": "2027-10-21",
+      "base": "Naha",
+      "first": true,
+      "travel": "Volo o treno da Kagoshima (4h30)",
+      "parts": [
+       [
+        "Naha",
+        "citta",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 10,
+      "data": "2027-10-22",
+      "base": "Naha",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Acquario Churaumi e spiagge",
+        "gita",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 11,
+      "data": "2027-10-23",
+      "base": "Naha",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Naha",
+        "citta",
+        false
+       ],
+       [
+        "Tempo libero",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 12,
+      "data": "2027-10-24",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Volo o treno da Naha (4h)",
+      "parts": [
+       [
+        "Ultima serata a Tokyo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 13,
+      "data": "2027-10-25",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Tokyo Haneda (30 min) e volo di ritorno",
+      "parts": [],
+      "note": []
+     }
+    ],
+    "avvisi": []
+   }
+  },
+  {
+   "nome": "parametri grezzi e sbagliati da un vecchio link",
+   "risultato": {
+    "p": {
+     "sel": [
+      "tokyo",
+      "kyoto",
+      "osaka"
+     ],
+     "notti": 7,
+     "arrivo": "tokyo",
+     "ritorno": "osaka",
+     "persone": 10,
+     "da": "milano",
+     "stile": "medio",
+     "bagagli": "spedizioni",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": null,
+     "pernotto": [],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2027-06-01"
+    },
+    "A0": "HND",
+    "A1": "KIX",
+    "dep": "milano",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Tokyo",
+      "ordine": 1,
+      "dal": 1,
+      "al": 5,
+      "notti": 4,
+      "minN": 4,
+      "need": 3,
+      "free": 0,
+      "ts": 0,
+      "from": "Haneda",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 500,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "tokyo",
+        3
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Kyoto",
+      "ordine": 2,
+      "dal": 5,
+      "al": 7,
+      "notti": 2,
+      "minN": 2,
+      "need": 2,
+      "free": 0,
+      "ts": 2,
+      "from": "Tokyo",
+      "legIn": {
+       "ore": 2.2,
+       "yen": 16500,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kyoto",
+        2
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Osaka",
+      "ordine": 3,
+      "dal": 7,
+      "al": 8,
+      "notti": 1,
+      "minN": 1,
+      "need": 1,
+      "free": 0,
+      "ts": 2,
+      "from": "Kyoto",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 600,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "osaka",
+        1
+       ]
+      ],
+      "gite": []
+     }
+    ],
+    "last": {
+     "ore": 1,
+     "yen": 2000,
+     "stima": true,
+     "volo": false
+    },
+    "airport": "Kansai",
+    "deficit": 0,
+    "minTotal": 7,
+    "items": [
+     "tokyo",
+     "kyoto",
+     "osaka"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 750,
+      "max": 1350,
+      "how": "Da Milano, arrivo a Tokyo Haneda e ritorno da Osaka Kansai"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 222.727273,
+      "max": 501.136364,
+      "how": "7 notti in hotel o appartamenti, appartamento o camera familiare"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 111.363636,
+      "max": 111.363636,
+      "how": "Aeroporti inclusi, circa 19.600 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 0,
+      "max": 0,
+      "how": "Andata e ritorno dalle basi, circa 0 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 36.363636,
+      "max": 68.181818,
+      "how": "8 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 181.818182,
+      "max": 272.727273,
+      "how": "8 giorni, stile medio"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 45.454545,
+      "max": 90.909091,
+      "how": "8 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 20,
+      "max": 34,
+      "how": "2 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 18.666667,
+      "max": 32,
+      "how": "Riproporzionata su 8 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 32.727273,
+      "max": 65.454545,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 1419.121212,
+     "max": 2525.772727
+    },
+    "cambi": 2,
+    "G": 8,
+    "maxN": 5,
+    "oreBagagli": 2.7,
+    "free": 0,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-06-01",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Atterraggio a Haneda nel pomeriggio o la sera, poi 30 min fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 2,
+      "data": "2027-06-02",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 3,
+      "data": "2027-06-03",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 4,
+      "data": "2027-06-04",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 5,
+      "data": "2027-06-05",
+      "base": "Kyoto",
+      "first": true,
+      "travel": "Treno da Tokyo (2h10)",
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 6,
+      "data": "2027-06-06",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 7,
+      "data": "2027-06-07",
+      "base": "Osaka",
+      "first": true,
+      "travel": "Treno da Kyoto (30 min)",
+      "parts": [
+       [
+        "Osaka",
+        "citta",
+        true
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 8,
+      "data": "2027-06-08",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Osaka Kansai (1h) e volo di ritorno",
+      "parts": [],
+      "note": []
+     }
+    ],
+    "avvisi": [
+     [
+      "Stagione delle piogge (tsuyu). ",
+      "Pioggia frequente e umidità ovunque tranne Hokkaido; tenete giornate al coperto di riserva."
+     ]
+    ]
+   }
+  },
+  {
+   "nome": "parametri minimi senza data: la partenza è oggi + 180 giorni",
+   "risultato": {
+    "p": {
+     "sel": [
+      "tokyo",
+      "kyoto"
+     ],
+     "notti": 6,
+     "arrivo": "tokyo",
+     "ritorno": "osaka",
+     "persone": 2,
+     "da": "milano",
+     "stile": "medio",
+     "bagagli": "spedizioni",
+     "oraArrivo": "sera",
+     "oraRitorno": "mattina",
+     "cambio": null,
+     "pernotto": [],
+     "gc": [],
+     "gcit": [],
+     "partenza": "2027-04-28"
+    },
+    "A0": "HND",
+    "A1": "KIX",
+    "dep": "milano",
+    "rate": 176,
+    "tappe": [
+     {
+      "base": "Tokyo",
+      "ordine": 1,
+      "dal": 1,
+      "al": 5,
+      "notti": 4,
+      "minN": 4,
+      "need": 3,
+      "free": 0,
+      "ts": 0,
+      "from": "Haneda",
+      "legIn": {
+       "ore": 0.5,
+       "yen": 500,
+       "stima": false,
+       "volo": false
+      },
+      "zona": "Shinjuku o Ueno: comodi per treni e aeroporti",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "tokyo",
+        3
+       ]
+      ],
+      "gite": []
+     },
+     {
+      "base": "Kyoto",
+      "ordine": 2,
+      "dal": 5,
+      "al": 7,
+      "notti": 2,
+      "minN": 2,
+      "need": 2,
+      "free": 0,
+      "ts": 2,
+      "from": "Tokyo",
+      "legIn": {
+       "ore": 2.2,
+       "yen": 16500,
+       "stima": true,
+       "volo": false
+      },
+      "zona": "Vicino alla stazione per i treni, Gion o Kawaramachi per la sera",
+      "tipoNotte": "hotel",
+      "finale": false,
+      "overflow": 0,
+      "citta": [
+       [
+        "kyoto",
+        2
+       ]
+      ],
+      "gite": []
+     }
+    ],
+    "last": {
+     "ore": 1.3,
+     "yen": 3000,
+     "stima": true,
+     "volo": false
+    },
+    "airport": "Kansai",
+    "deficit": 0,
+    "minTotal": 6,
+    "items": [
+     "tokyo",
+     "kyoto"
+    ],
+    "cost": [
+     {
+      "cat": "Voli",
+      "min": 937.5,
+      "max": 1830,
+      "how": "Da Milano, arrivo a Tokyo Haneda e ritorno da Osaka Kansai; alta stagione (Golden Week)"
+     },
+     {
+      "cat": "Alloggi",
+      "min": 238.636364,
+      "max": 477.272727,
+      "how": "6 notti in hotel o appartamenti"
+     },
+     {
+      "cat": "Treni tra le basi",
+      "min": 113.636364,
+      "max": 113.636364,
+      "how": "Aeroporti inclusi, circa 20.000 ¥"
+     },
+     {
+      "cat": "Gite in giornata",
+      "min": 0,
+      "max": 0,
+      "how": "Andata e ritorno dalle basi, circa 0 ¥"
+     },
+     {
+      "cat": "Trasporti locali",
+      "min": 31.818182,
+      "max": 59.659091,
+      "how": "7 giorni di metro e bus"
+     },
+     {
+      "cat": "Cibo",
+      "min": 159.090909,
+      "max": 238.636364,
+      "how": "7 giorni, stile medio"
+     },
+     {
+      "cat": "Ingressi",
+      "min": 39.772727,
+      "max": 79.545455,
+      "how": "7 giorni"
+     },
+     {
+      "cat": "Takkyubin",
+      "min": 10,
+      "max": 17,
+      "how": "1 spedizioni dei bagagli, una per cambio"
+     },
+     {
+      "cat": "Assicurazione",
+      "min": 16.333333,
+      "max": 28,
+      "how": "Riproporzionata su 7 giorni"
+     },
+     {
+      "cat": "eSIM e varie",
+      "min": 29.886364,
+      "max": 59.772727,
+      "how": "eSIM, bibite, snack, armadietti"
+     }
+    ],
+    "tot": {
+     "min": 1576.674242,
+     "max": 2903.522727
+    },
+    "cambi": 1,
+    "G": 7,
+    "maxN": 5,
+    "oreBagagli": 2.2,
+    "free": 0,
+    "overMax": [],
+    "giorni": [
+     {
+      "n": 1,
+      "data": "2027-04-28",
+      "base": "Tokyo",
+      "first": true,
+      "travel": "Atterraggio a Haneda nel pomeriggio o la sera, poi 30 min fino in città",
+      "parts": [
+       [
+        "Serata libera e riposo",
+        "libero",
+        false
+       ]
+      ],
+      "note": []
+     },
+     {
+      "n": 2,
+      "data": "2027-04-29",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Golden Week",
+        "La settimana di vacanze più affollata: Shinkansen pieni, alloggi cari. Prenotate i posti sui treni"
+       ]
+      ]
+     },
+     {
+      "n": 3,
+      "data": "2027-04-30",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Golden Week",
+        "La settimana di vacanze più affollata: Shinkansen pieni, alloggi cari. Prenotate i posti sui treni"
+       ]
+      ]
+     },
+     {
+      "n": 4,
+      "data": "2027-05-01",
+      "base": "Tokyo",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Tokyo",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Golden Week",
+        "La settimana di vacanze più affollata: Shinkansen pieni, alloggi cari. Prenotate i posti sui treni"
+       ]
+      ]
+     },
+     {
+      "n": 5,
+      "data": "2027-05-02",
+      "base": "Kyoto",
+      "first": true,
+      "travel": "Treno da Tokyo (2h10)",
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Golden Week",
+        "La settimana di vacanze più affollata: Shinkansen pieni, alloggi cari. Prenotate i posti sui treni"
+       ]
+      ]
+     },
+     {
+      "n": 6,
+      "data": "2027-05-03",
+      "base": "Kyoto",
+      "first": false,
+      "travel": null,
+      "parts": [
+       [
+        "Kyoto",
+        "citta",
+        true
+       ]
+      ],
+      "note": [
+       [
+        "ev",
+        "Golden Week",
+        "La settimana di vacanze più affollata: Shinkansen pieni, alloggi cari. Prenotate i posti sui treni"
+       ]
+      ]
+     },
+     {
+      "n": 7,
+      "data": "2027-05-04",
+      "base": null,
+      "first": true,
+      "travel": "Treno per Osaka Kansai (1h20) e volo di ritorno",
+      "parts": [],
+      "note": [
+       [
+        "ev",
+        "Golden Week",
+        "La settimana di vacanze più affollata: Shinkansen pieni, alloggi cari. Prenotate i posti sui treni"
+       ]
+      ]
+     }
+    ],
+    "avvisi": [
+     [
+      "Periodi affollati. ",
+      "Golden Week: guardate il calendario e prenotate presto treni e alloggi."
+     ]
+    ]
+   }
+  }
+ ]
+}
