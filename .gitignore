@@ -13,6 +13,8 @@ __pycache__/
 # Risultati di test e report
 test-results/
 playwright-report/
+.lighthouseci/
+lighthouse-report/
 coverage/
 
 # Dati scaricati dalla pipeline prezzi (grezzi, non versionati) e output generati localmente

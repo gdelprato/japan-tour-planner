@@ -6,7 +6,8 @@
     "test": "node --test 'tests/unit/*.test.mjs'",
     "lint": "eslint .",
     "check-data": "node scripts/check-data.mjs",
-    "aggiorna-riferimento-motore": "node scripts/aggiorna-riferimento-motore.mjs"
+    "aggiorna-riferimento-motore": "node scripts/aggiorna-riferimento-motore.mjs",
+    "lighthouse": "lhci autorun --config=configs/lighthouserc.json"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   "type": "module",
   "devDependencies": {
     "@eslint/js": "9.39.5",
+    "@lhci/cli": "0.15.1",
     "eslint": "9.39.5",
     "globals": "16.5.0",
     "playwright": "1.63.0",

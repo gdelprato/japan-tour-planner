@@ -1,4 +1,4 @@
-.PHONY: setup run test test-integration lint format check check-data clean
+.PHONY: setup run test test-integration lighthouse lint format check check-data clean
 
 # Comandi standard del progetto (S07). `make setup` ricostruisce l'ambiente da zero.
 
@@ -20,6 +20,11 @@ test:
 test-integration:
 	node --test 'tests/integration/*.test.mjs'
 
+# Lighthouse mobile, 3 esecuzioni, soglie in configs/lighthouserc.json; rapporti in lighthouse-report/.
+# Chrome: quello installato, oppure CHROME_PATH (negli ambienti cloud: /opt/pw-browsers/chromium-*/chrome-linux64/chrome)
+lighthouse:
+	npx lhci autorun --config=configs/lighthouserc.json
+
 lint:
 	npx eslint .
 	npx prettier --check scripts tests configs eslint.config.js .github
@@ -31,4 +36,4 @@ format:
 check: lint test
 
 clean:
-	rm -rf node_modules test-results playwright-report
+	rm -rf node_modules test-results playwright-report .lighthouseci lighthouse-report
