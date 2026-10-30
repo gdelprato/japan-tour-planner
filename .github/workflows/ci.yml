@@ -41,6 +41,9 @@ jobs:
       - run: npm ci
       - name: Lighthouse CI (Chrome del runner)
         run: make lighthouse
+      - name: Riepilogo dei punteggi
+        if: always()
+        run: node scripts/riepilogo-lighthouse.mjs | tee -a "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
