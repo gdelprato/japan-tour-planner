@@ -193,7 +193,17 @@ export function runChecks(cfgPath = path.join(ROOT, 'configs', 'check-data.json'
   if (params.da && !partenze.some((d) => d.id === params.da))
     err(`params.json: città di partenza "${params.da}" non esiste in partenze.json`);
 
-  // 9. Il segnaposto della cache offline deve restare nel sorgente (lo sostituisce il deploy)
+  // 9. Ogni file di codice e stile dell'app deve essere nel guscio offline (SHELL in sw.js)
+  const shell = new Set([...sw.matchAll(/'([^']+\.(?:js|css|html|png|webmanifest|json))'/g)].map((m) => m[1]));
+  const walk = (dir) =>
+    readdirSync(path.join(APP, dir), { withFileTypes: true }).flatMap((e) =>
+      e.isDirectory() ? walk(path.join(dir, e.name)) : [path.join(dir, e.name).split(path.sep).join('/')]
+    );
+  for (const f of [...walk('js'), ...walk('css')])
+    if (!shell.has(f)) err(`sw.js: "${f}" manca in SHELL (non funzionerebbe offline)`);
+  for (const f of shell) if (!existsSync(path.join(APP, f))) err(`sw.js: SHELL elenca "${f}" che non esiste`);
+
+  // 10. Il segnaposto della cache offline deve restare nel sorgente (lo sostituisce il deploy)
   if (!sw.includes('__BUILD__')) err('sw.js: manca il segnaposto __BUILD__ nel nome della cache');
 
   return { errors, warnings };

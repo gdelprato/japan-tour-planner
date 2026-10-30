@@ -5,7 +5,8 @@
   "scripts": {
     "test": "node --test 'tests/unit/*.test.mjs'",
     "lint": "eslint .",
-    "check-data": "node scripts/check-data.mjs"
+    "check-data": "node scripts/check-data.mjs",
+    "aggiorna-riferimento-motore": "node scripts/aggiorna-riferimento-motore.mjs"
   },
   "repository": {
     "type": "git",
