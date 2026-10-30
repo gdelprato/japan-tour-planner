@@ -17,6 +17,7 @@ Costruttore del percorso per qualsiasi viaggio in Giappone: scegli date, notti, 
 | `data/*.json` | Tutti i dati: mete, treni, basi, costi, feste, foliage, percorsi salvati |
 | `manifest.webmanifest`, `sw.js`, `icons/` | Installazione come app e funzionamento offline |
 | `docs/PIANO_DI_SVILUPPO.md` | Piano di sviluppo: release, funzioni di prodotto e basate su AI; `docs/ROADMAP.md` è la storia della prima fase |
+| `CLAUDE.md` | Guida per chi sviluppa con Claude Code: architettura, dati, convenzioni e controlli |
 
 ## Pubblicarla gratis
 
