@@ -35,17 +35,21 @@ Deploy: ogni merge su `main` esegue `.github/workflows/pages.yml`, che valida i 
 
 ## Architettura
 
-Tre script globali caricati in ordine da `app/index.html`, tutti IIFE senza moduli:
+`app/index.html` carica due script classici e poi un modulo ES:
 
 1. **`app/js/dash-shim.js`** espone `window.dash`: carica i dataset elencati in `DATASETS` da `app/data/*.json`, tiene i **parametri del viaggio** e li persiste. Fonte di verità dei parametri, in ordine: `?r=` nell'URL (JSON in base64url) → `localStorage['japan-tour-planner:percorso']` → `data/params.json`. `dash.setParams()` fa merge, salva, riscrive l'URL e richiama tutti i callback `onData`. Registra anche il service worker e mostra la barra "Aggiorna".
-2. **`app/js/d3.v7.min.js`**, inclusa per l'offline.
-3. **`app/js/app.js`** (~1.060 righe): motore + interfaccia. Flusso: `dash.onData` → `D = {cat, basi, tratte, par, jp, ct, inf, ev, st, per, dep}` → `render()` → `R = build(P())` → una funzione `draw*` per la scheda attiva (`percorso`, `calendario`, `confronto`, `budget`, `logistica`).
+2. **`app/js/d3.v7.min.js`**, inclusa per l'offline; la usa solo l'interfaccia (mappa, zoom, raggruppamenti).
+3. **`app/js/app.js`** (`type="module"`, ~800 righe): solo interfaccia. Importa il motore da `./engine/index.js`. Flusso: `dash.onData` → `D = {cat, basi, tratte, par, jp, ct, inf, ev, st, per, dep}` → `render()` → `R = build(P())` → una funzione `draw*` per la scheda attiva (`percorso`, `calendario`, `confronto`, `budget`, `logistica`). I wrapper `build`, `notesFor`, `warnings`, `par` passano al motore `dati()`, cioè gli array di `D`.
 
-Il **motore** è deterministico e va mantenuto tale: stesso input, stesso output, nessun dato esterno dentro il calcolo. L'AI futura produce solo parametri e testi, mai numeri (ADR-003).
-- `norm(p)` completa e sana i parametri grezzi: ogni nuovo parametro va aggiunto qui con un default, così i link già condivisi continuano a funzionare (lo verifica lo smoke test "link ?r="). Attenzione ai due nomi: nell'URL e in `params.json` sono `ora_arrivo`, `ora_ritorno`, `giorni_citta`, `giornata_citta`; dopo `norm` diventano `oraArrivo`, `oraRitorno`, `gc`, `gcit`.
-- `build(p)` → `R`: dalle mete scelte ricava le basi (`ensure`), assegna le notti minime, distribuisce le notti extra (max `max_notti` per base, `priorita_extra` solo come spareggio), ordina le tappe con `order()` (DP sui sottoinsiemi, fino a 12 basi, prima base fissa = città di arrivo, ultima tratta verso l'aeroporto di ritorno), calcola `cost` e `tot`. Costanti `AIR` (tokyo/osaka) e `STILI` (economico/medio/comfort) vivono qui, non in JSON.
+Il **motore** sta in `app/js/engine/` (ADR-006): moduli ES puri, senza DOM, `window`, `localStorage`, `d3` o stato globale (ESLint lo vieta con `no-restricted-globals`, un test lo ricontrolla). Riceve i dataset come argomento `dati = { catalogo, basi, tratte, parametri, partenze, eventi, stagione }` e la data di oggi come argomento di `norm`. È deterministico e va mantenuto tale. L'AI futura produce solo parametri e testi, mai numeri (ADR-003). Moduli: `util`, `formato`, `costanti` (`AIR`, `STILI`, limiti), `parametri` (`norm`, `dayOf`, `parametriMap`), `grafo` (`shortest`, `order`), `calendario` (`onDay`, `during`), `percorso` (`build`), `giorni` (`planDays`, `notesFor`), `avvisi`; `index.js` riesporta tutto. **Ogni modulo nuovo va aggiunto a `SHELL` in `app/sw.js`** (lo verifica `check-data`).
+
+Funzioni del motore:
+- `norm(p, oggi)` completa e sana i parametri grezzi: ogni nuovo parametro va aggiunto qui con un default, così i link già condivisi continuano a funzionare (lo verifica lo smoke test "link ?r="). Attenzione ai due nomi: nell'URL e in `params.json` sono `ora_arrivo`, `ora_ritorno`, `giorni_citta`, `giornata_citta`; dopo `norm` diventano `oraArrivo`, `oraRitorno`, `gc`, `gcit`.
+- `build(p, dati)` → `R`: dalle mete scelte ricava le basi (`ensure`), assegna le notti minime, distribuisce le notti extra (max `max_notti` per base, `priorita_extra` solo come spareggio), ordina le tappe con `order()` (DP sui sottoinsiemi, fino a 12 basi, prima base fissa = città di arrivo, ultima tratta verso l'aeroporto di ritorno), calcola `cost` e `tot`. Costanti `AIR` (tokyo/osaka) e `STILI` (economico/medio/comfort) vivono qui, non in JSON.
 - `shortest(tratte, a, b)`: Dijkstra sulle ore sul grafo **non orientato** di `tratte.json`; `note` contenente "stima" o "volo" marca la tratta.
-- `planDays(R)`: giornata per giornata in mezze giornate (`units`), con `notesFor()` che aggiunge eventi, ciliegi e foliage da `eventi.json` e `stagione.json` tramite `onDay()`.
+- `planDays(R)`: giornata per giornata in mezze giornate (`units`); imposta anche `overflow` sulle tappe. `notesFor(day, dati)` aggiunge eventi, ciliegi e foliage da `eventi.json` e `stagione.json` tramite `onDay()`. `avvisi(R, dati)` produce gli avvisi mostrati sopra la mappa.
+
+**Test del motore** (`tests/unit/motore.test.mjs`): 20 scenari (`scenari-motore.mjs`) confrontati con una fotografia (`fixtures/motore-riferimento.json`), generata dal codice di prima dell'estrazione e ridotta con `proiezione-motore.mjs`. Se un test di confronto fallisce, il comportamento è cambiato: se il cambio è voluto, `npm run aggiorna-riferimento-motore`, rileggere il diff della fotografia e spiegarlo nella PR. Uno scenario nuovo va aggiunto a `scenari-motore.mjs` e poi si rigenera.
 - `drawCompare()` ricostruisce ogni percorso salvato con `build(norm(...))`: il confronto è sempre calcolato al volo con le date e le persone correnti.
 
 Stato dell'interfaccia non salvato nei parametri: `tab`, `view` della mappa, `hl` (meta evidenziata), percorsi del confronto in `localStorage['japan-tour-planner:confronto']` (`PKEY`).
@@ -66,7 +70,7 @@ Gli invarianti (basi esistenti, coordinate, grafo raggiungibile dagli aeroporti,
 
 ## Convenzioni di codice
 
-- Vanilla JS senza build nell'app: niente `import`, niente framework. Script e test in `scripts/` e `tests/` sono moduli ES per Node 22. Dipendenze di sviluppo solo con versione esatta (`npm install --save-dev --save-exact`).
+- Vanilla JS senza build nell'app: moduli ES nativi (`app.js`, `engine/`), niente bundler, niente framework; `dash-shim.js` resta uno script classico. Script e test in `scripts/` e `tests/` sono moduli ES per Node 22. Dipendenze di sviluppo solo con versione esatta (`npm install --save-dev --save-exact`).
 - DOM costruito con l'helper `el(tag, cls, txt)` e `textContent`, mai `innerHTML` con dati.
 - Formattazione con gli helper esistenti: `eur`, `yen`, `nn` (notti), `gg` (giorni), `hrs`, `fmtDate`; numeri in formato `it-IT`.
 - CSS con i token `--cds-*` e `--jp-*` di `app/css/app.css`; tema scuro tramite `prefers-color-scheme`. `app.css` per i contenuti, `shell.css` per barra, navigazione, mappa e linea del percorso.

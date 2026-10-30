@@ -111,3 +111,24 @@ test('a 390 px la pagina non ha scorrimento orizzontale', async () => {
   await page.screenshot({ path: path.join(OUT, 'mobile.png') });
   await page.close();
 });
+
+test('dopo la prima visita l’app funziona offline, moduli del motore compresi', async () => {
+  const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+  const page = await context.newPage();
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(String(e)));
+  await page.goto(BASE);
+  await page.waitForSelector('#kpis > *', { timeout: 15000 });
+  // il service worker installa il guscio; dalla visita successiva controlla la pagina
+  await page.evaluate(() => navigator.serviceWorker.ready);
+  await page.reload();
+  await page.waitForFunction(() => !!navigator.serviceWorker.controller, null, { timeout: 15000 });
+  await context.setOffline(true);
+  await page.reload();
+  await page.waitForSelector('#kpis .jp-kpibox', { timeout: 15000 });
+  const chips = (await page.locator('#takeaway .chip').allTextContents()).join(' | ');
+  assert.match(chips, /nott/);
+  assert.ok((await page.locator('#route').textContent()).length > 50, 'tappe non disegnate offline');
+  assert.deepEqual(errors, []);
+  await context.close();
+});

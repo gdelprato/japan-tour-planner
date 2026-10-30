@@ -5,6 +5,10 @@ Le modifiche rilevanti al progetto sono documentate qui. Il formato segue [Keep 
 ## [Non rilasciato]
 
 ### Added
+- Motore estratto in `app/js/engine/` come moduli ES puri (ADR-006), con 31 unit test: 20 scenari confrontati con una fotografia del comportamento precedente, più regole su notti, calendario, costi, parametri, grafo e date.
+- Smoke test offline: dopo la prima visita l'app, moduli compresi, funziona senza rete.
+- `check-data` verifica che ogni file di `app/js/` e `app/css/` sia nella cache offline.
+- `npm run aggiorna-riferimento-motore` per rigenerare la fotografia quando un cambio di comportamento è voluto.
 - Adozione degli standard AI/ML Engineering della practice: `docs/architecture.md`, cinque ADR in `docs/decisions/`, `docs/runbook.md`, `docs/definition-of-done.md`, `docs/acceptance-criteria.md`, `docs/handover-checklist.md`, bozze di `docs/agent-perimeter.md` e `docs/tools-registry.md`.
 - `scripts/check-data.mjs`: validazione dei dati e della loro coerenza con `dash-shim.js` e `sw.js`, eseguita prima del deploy, nei test e nel pre-commit.
 - Unit test (`tests/unit/`), smoke test nel browser con Playwright (`tests/integration/`), struttura delle eval AI (`tests/evals/`).
@@ -14,6 +18,7 @@ Le modifiche rilevanti al progetto sono documentate qui. Il formato segue [Keep 
 - `docs/PIANO_DI_SVILUPPO.md`: piano per release con funzioni di prodotto, budget, pipeline dei prezzi e funzioni basate su AI.
 
 ### Changed
+- `app.js` contiene solo l'interfaccia ed è caricato come modulo ES; nessun cambiamento visibile per chi usa l'app.
 - L'app pubblicata vive in `app/`; il workflow di Pages pubblica solo quella cartella e valida i dati prima del deploy (ADR-002).
 
 ## [0.4.0] — 2026-10-29

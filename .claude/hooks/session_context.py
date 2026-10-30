@@ -16,8 +16,11 @@ Progetto governato dagli standard della practice (P01-P10, S01-S23), adattati a
 una web app statica JavaScript senza build: vedere docs/decisions/ADR-001.
 
 Promemoria per questo repository:
-- Il sito pubblicato e' solo app/. Motore deterministico in app/js/app.js: l'AI
-  futura produce parametri e testi, mai numeri (ADR-003).
+- Il sito pubblicato e' solo app/. Motore deterministico e puro in app/js/engine/
+  (ADR-006): niente DOM/d3/globali; ogni modulo nuovo va in SHELL di sw.js.
+  L'AI futura produce parametri e testi, mai numeri (ADR-003).
+- Cambio di comportamento del motore -> test di confronto rossi: se voluto,
+  npm run aggiorna-riferimento-motore e spiegare il diff nella PR.
 - P01/S01: docs/architecture.md va aggiornato se cambiano componenti o flussi.
 - P02/S02: decisione costosa da invertire -> ADR in docs/decisions/ prima del codice.
 - P06/S10: `make check` (lint, check-data, unit) e `make test-integration` prima

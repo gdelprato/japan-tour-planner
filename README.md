@@ -44,7 +44,8 @@ make check-data         # solo la validazione di app/data/
 | Cartella / file | A cosa serve |
 |---|---|
 | `app/` | **L'app pubblicata**: `index.html`, `css/`, `js/`, `data/`, `icons/`, `sw.js`, `manifest.webmanifest`. È l'unica cartella che va online |
-| `app/js/app.js` | Motore (percorso, notti, ordine, giornate, costi) e interfaccia |
+| `app/js/engine/` | Il motore: percorso, notti, ordine, giornate, avvisi, costi. Funzioni pure, testate in Node |
+| `app/js/app.js` | L'interfaccia: schede, mappa, controlli |
 | `app/js/dash-shim.js` | Carica i dati e salva le scelte nel link e nel browser |
 | `app/data/*.json` | Tutti i dati: mete, treni, basi, costi, feste, foliage, percorsi salvati |
 | `scripts/check-data.mjs` | Validazione dei dati e della loro coerenza con il codice |

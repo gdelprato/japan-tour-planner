@@ -1,0 +1,65 @@
+/* Riduce il risultato del motore ai campi che contano, in forma serializzabile e stabile.
+   La stessa funzione serve a generare la fotografia di riferimento (eseguita nel browser sul codice di prima,
+   per questo non importa nulla e usa solo JavaScript standard) e a confrontarla con il motore attuale. */
+export function proietta(r, giorni, note, avvisi) {
+  const k = (x) => (typeof x === 'number' ? Math.round(x * 1e6) / 1e6 : x);
+  const leg = (l) => (l ? { ore: k(l.ore), yen: k(l.yen), stima: !!l.stima, volo: !!l.volo } : null);
+  const tappa = (s) => ({
+    base: s.base,
+    ordine: s.ordine,
+    dal: s.dal,
+    al: s.al,
+    notti: s.nights,
+    minN: s.minN === undefined ? null : s.minN,
+    need: k(s.need),
+    free: k(s.free),
+    ts: s.ts,
+    from: s.from,
+    legIn: leg(s.legIn),
+    zona: s.zona || null,
+    tipoNotte: s.tipoNotte,
+    finale: !!s.finale,
+    overflow: s.overflow === undefined ? null : k(s.overflow),
+    citta: s.city.map((c) => [c.id, k(c.gg)]),
+    gite: s.trips.map((t) => [
+      t.id,
+      k(t.giorni),
+      k(t.ore_tratta),
+      k(t.yen_ar),
+      !!t.sulPosto,
+      !!t.cittaInGiornata,
+      t.via || null,
+    ]),
+  });
+  return {
+    p: r.p,
+    A0: r.A0.code,
+    A1: r.A1.code,
+    dep: r.dep.id || r.dep.nome,
+    rate: r.rate,
+    tappe: r.all.map(tappa),
+    last: leg(r.last),
+    airport: r.airport,
+    deficit: r.deficit,
+    minTotal: r.minTotal,
+    items: r.items.map((i) => i.id),
+    cost: r.cost.map((c) => ({ cat: c.cat, min: k(c.min), max: k(c.max), how: c.how })),
+    tot: { min: k(r.tot.min), max: k(r.tot.max) },
+    cambi: r.cambi,
+    G: r.G,
+    maxN: r.maxN,
+    oreBagagli: k(r.oreBagagli),
+    free: k(r.free),
+    overMax: r.overMax.map((s) => s.base),
+    giorni: giorni.map((d, i) => ({
+      n: d.n,
+      data: d.date.toISOString().slice(0, 10),
+      base: d.stop ? d.stop.base : null,
+      first: !!d.first,
+      travel: d.travel || null,
+      parts: d.parts.map((pt) => [pt.t, pt.kind, !!pt.full]),
+      note: note[i].map((x) => [x.kind, x.t, x.nota || null]),
+    })),
+    avvisi,
+  };
+}

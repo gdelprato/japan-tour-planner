@@ -19,7 +19,7 @@ Definiti prima dell'implementazione (P06, S10). Ogni release del piano (`PIANO_D
 
 | Release | Criteri aggiuntivi |
 |---|---|
-| v0.5 Fondamenta | Motore estratto in `app/js/engine/` con test di snapshot sui 5 modelli di `percorsi.json` (2, 5 e 1 persone, round trip e open-jaw) tutti verdi; Lighthouse prestazioni ≥ 90 e accessibilità ≥ 95 su mobile; cambio dalla BCE con fallback verificato spegnendo la rete; ogni prezzo con data visibile |
+| v0.5 Fondamenta | Motore estratto in `app/js/engine/` con test di snapshot sui 5 modelli di `percorsi.json` (2, 5 e 1 persone, round trip e open-jaw) tutti verdi, più 15 scenari limite e il confronto del testo di tutte le schede tra app vecchia e nuova (**verificato il 2026-10-30**); Lighthouse prestazioni ≥ 90 e accessibilità ≥ 95 su mobile; cambio dalla BCE con fallback verificato spegnendo la rete; ogni prezzo con data visibile |
 | v0.6 Primo avvio | Il wizard porta a un percorso valido in ≤ 4 passi; più viaggi salvati e riaperti senza perdita; test del wizard in `tests/integration/` |
 | v1.0 Assistente | Sulle 50 richieste di `tests/evals/scenari/`: parametri validi al primo colpo ≥ 90%, mete inventate = 0, costo medio ≤ 0,05 € per richiesta; quota del proxy verificata (31ª richiesta rifiutata con messaggio previsto); interruttore globale testato; perimetro (`agent-perimeter.md`) con test out-of-scope verdi |
 | v1.1 Prenotazioni | Esportazione `.ics` importata senza errori in Google Calendar e Apple Calendar; lettura di 10 conferme di volo di esempio con campi corretti ≥ 9/10 e nessun campo sbagliato applicato senza conferma |

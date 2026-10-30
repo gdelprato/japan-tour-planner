@@ -5,7 +5,7 @@ export default [
   { ignores: ['app/js/d3.v7.min.js', 'node_modules/**', 'test-results/**'] },
   js.configs.recommended,
   {
-    // Codice dell'app: script globali nel browser (nessun modulo finché il motore non viene estratto)
+    // Script classici dell'app (dash-shim.js): globali nel browser
     files: ['app/js/**/*.js'],
     languageOptions: {
       ecmaVersion: 2022,
@@ -14,6 +14,19 @@ export default [
     },
     // lo stile esistente usa `catch (e)` e parametri posizionali non usati: ammessi finché il motore non viene estratto
     rules: { 'no-unused-vars': ['error', { caughtErrors: 'none', args: 'none' }] },
+  },
+  {
+    // Moduli ES nel browser: interfaccia e motore (ADR-006)
+    files: ['app/js/app.js', 'app/js/engine/**/*.js'],
+    languageOptions: { sourceType: 'module' },
+  },
+  {
+    // Il motore è puro: niente DOM, niente d3, niente globali del browser
+    files: ['app/js/engine/**/*.js'],
+    languageOptions: { globals: { Intl: 'readonly' } },
+    rules: {
+      'no-restricted-globals': ['error', 'window', 'document', 'localStorage', 'd3', 'dash', 'navigator', 'location'],
+    },
   },
   {
     files: ['app/sw.js'],

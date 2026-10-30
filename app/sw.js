@@ -6,7 +6,9 @@
      copia salvata, che intanto si aggiorna. */
 const CACHE = 'japan-tour-planner-__BUILD__';
 const SHELL = [
-  'index.html', 'css/app.css', 'css/shell.css', 'js/dash-shim.js', 'js/d3.v7.min.js', 'js/app.js', 'manifest.webmanifest',
+  'index.html', 'css/app.css', 'css/shell.css', 'js/dash-shim.js', 'js/d3.v7.min.js', 'js/app.js',
+  'js/engine/index.js', 'js/engine/util.js', 'js/engine/formato.js', 'js/engine/costanti.js', 'js/engine/parametri.js', 'js/engine/grafo.js', 'js/engine/calendario.js', 'js/engine/percorso.js', 'js/engine/giorni.js', 'js/engine/avvisi.js',
+  'manifest.webmanifest',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png',
   'data/params.json', 'data/catalogo.json', 'data/basi.json', 'data/tratte.json', 'data/parametri.json',
   'data/giappone.json', 'data/citta.json', 'data/info.json', 'data/eventi.json', 'data/stagione.json', 'data/percorsi.json', 'data/partenze.json'
