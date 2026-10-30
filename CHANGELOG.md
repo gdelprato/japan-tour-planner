@@ -16,8 +16,6 @@ Le modifiche rilevanti al progetto sono documentate qui. Il formato segue [Keep 
 - Workflow CI "Controlli" su ogni pull request; template di issue e pull request.
 - Tooling `.claude/` (hook, subagent, slash command) e `CLAUDE.md` per lo sviluppo con Claude Code.
 - `docs/PIANO_DI_SVILUPPO.md`: piano per release con funzioni di prodotto, budget, pipeline dei prezzi e funzioni basate su AI.
-
-### Added
 - Lighthouse CI su ogni pull request con soglie bloccanti: prestazioni ≥ 90, accessibilità ≥ 95, buone pratiche ≥ 95, CLS ≤ 0,1 (ADR-007, #10).
 - Controlli di installabilità della PWA (manifest e icone in `check-data`, service worker in uno smoke test) e test "nessuna richiesta a server esterni".
 
