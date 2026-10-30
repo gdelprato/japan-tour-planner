@@ -1,6 +1,6 @@
 # Architettura — Japan Tour Planner
 
-**Versione:** 0.4.0
+**Versione:** 0.5.0-dev
 **Ultima modifica:** 2026-10-30
 **Autore:** Giacomo Del Prato
 **Stato:** Approvato (riflette il sistema reale; le parti pianificate sono marcate come tali)
@@ -32,8 +32,8 @@ Archetipo secondo la matrice di applicabilità degli standard: oggi **software d
 |---|---|---|
 | Guscio (`app/index.html`, `app/css/`) | Struttura della pagina, cinque schede, pannello "Il viaggio", tema chiaro/scuro | HTML, CSS con token `--cds-*` |
 | Runtime dati e stato (`app/js/dash-shim.js`) | Carica i dataset da `app/data/`, tiene i parametri del viaggio, li persiste nell'URL (`?r=` base64url) e in `localStorage`, registra il service worker, mostra la barra "Aggiorna" | JavaScript, espone `window.dash` |
-| Motore (`app/js/app.js`: `norm`, `build`, `planDays`, `shortest`, `order`) | Dai parametri calcola basi, notti, ordine, giornate, costi | JavaScript puro, D3 solo per somme |
-| Interfaccia (`app/js/app.js`: `render`, `draw*`) | Disegna picker, KPI, mappa, linea, tappe, calendario, confronto, budget, info | DOM diretto, D3 per mappa e zoom |
+| Motore (`app/js/engine/`: `norm`, `build`, `planDays`, `notesFor`, `avvisi`, `shortest`, `order`) | Dai parametri e dai dataset calcola basi, notti, ordine, giornate, note, avvisi, costi | Moduli ES puri, nessuna dipendenza, eseguibili in browser e in Node (ADR-006) |
+| Interfaccia (`app/js/app.js`: `render`, `draw*`) | Disegna picker, KPI, mappa, linea, tappe, calendario, confronto, budget, info; passa i dataset al motore | Modulo ES, DOM diretto, D3 per mappa e zoom |
 | Dati (`app/data/*.json`) | Catalogo mete, basi, tratte, parametri di costo, partenze, eventi, stagioni, modelli di viaggio, geometria della mappa | JSON versionato, validato da `scripts/check-data.mjs` |
 | Service worker (`app/sw.js`) | Guscio dalla cache della versione installata; dati con rete prima e cache dopo 3 s | Cache API; nome cache con il commit (`__BUILD__`) |
 | Pubblicazione (`.github/workflows/pages.yml`) | Valida i dati, sostituisce `__BUILD__`, pubblica `app/` su GitHub Pages | GitHub Actions |
@@ -53,7 +53,7 @@ graph TD
     S -->|?r= base64url| URL[URL condivisibile]
     S -->|localStorage| LS[(Browser)]
     S -->|onData| A[app.js: render]
-    A --> E[Motore: norm → build → planDays]
+    A -->|import, dati| E[engine/: norm → build → planDays → notesFor, avvisi]
     E --> V[draw*: percorso, calendario, confronto, budget, info]
     SW[sw.js] -. cache guscio e dati .-> H
     SW -. cache .-> D
@@ -73,9 +73,9 @@ graph TD
 
 ### Flusso 1 — Avvio e calcolo
 
-1. `index.html` carica `dash-shim.js`, `d3`, `app.js`.
+1. `index.html` carica `dash-shim.js` e `d3` come script classici, poi `app.js` come modulo ES, che importa il motore da `engine/index.js`.
 2. `dash-shim.js` legge `params.json` (default), poi i parametri da `?r=` se presente, altrimenti da `localStorage`; carica in parallelo tutti i dataset di `DATASETS` e richiama i callback.
-3. `app.js` costruisce `D` (mappa dei dataset) e chiama `render()`: `norm()` completa i parametri, `build()` produce `R`, la scheda attiva viene disegnata.
+3. `app.js` costruisce `D` (mappa dei dataset) e chiama `render()`: `norm()` completa i parametri, `build(p, dati)` produce `R`, la scheda attiva viene disegnata.
 4. Ogni interazione chiama `dash.setParams()`: merge, salvataggio, riscrittura dell'URL, nuovo `render()`.
 
 ### Flusso 2 — Costruzione del percorso (`build`)
@@ -120,6 +120,7 @@ graph TD
 | Motore deterministico, AI come interfaccia | [ADR-003](decisions/ADR-003-motore-deterministico-ai-come-interfaccia.md) | Risultati verificabili, riproducibili, offline |
 | Proxy serverless per le chiamate ai modelli | [ADR-004](decisions/ADR-004-proxy-serverless-per-i-modelli.md) | Chiavi mai nel browser, costi sotto controllo, nessun account |
 | Trunk-based: `main` più feature branch con PR, senza `develop` | [ADR-005](decisions/ADR-005-branch-strategy-trunk-based.md) | Un solo sviluppatore, deploy continuo da `main` |
+| Motore in moduli ES puri, senza build | [ADR-006](decisions/ADR-006-motore-in-moduli-es-senza-build.md) | Testabile in Node, riusabile, nessun build step |
 
 ---
 
@@ -127,6 +128,7 @@ graph TD
 
 | Failure | Probabilità | Impatto | Gestione |
 |---|---|---|---|
+| Modulo del motore non in cache offline | Bassa (dopo `check-data`) | Alto offline: l'interfaccia non parte | `check-data` verifica che ogni file di `app/js/` e `app/css/` sia in `SHELL`; smoke test offline |
 | JSON non valido o incoerente pubblicato | Bassa (dopo `check-data`) | Alto: "Impossibile caricare i dati" | `scripts/check-data.mjs` blocca deploy e commit; il service worker serve l'ultima copia buona finché il nuovo file non risponde 200 |
 | Rete assente | Alta in viaggio | Nessuno se già aperta una volta | Guscio e dati dalla cache; dati con timeout 3 s |
 | Versione nuova con file vecchi in cache | Media | Medio: errori in console | Cache con nome del commit, `cache: 'reload'` all'installazione, navigazioni servite sempre da `index.html` |
@@ -151,3 +153,4 @@ graph TD
 | Data | Modifica | Autore |
 |---|---|---|
 | 2026-10-30 | Versione iniziale: stato reale dell'app più i componenti pianificati, in applicazione degli standard della practice | Giacomo Del Prato |
+| 2026-10-30 | Motore estratto in `app/js/engine/`, `app.js` caricato come modulo (ADR-006) | Giacomo Del Prato |
