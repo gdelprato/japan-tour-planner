@@ -16,13 +16,14 @@ make run                 # serve app/ su http://localhost:8000 (file:// blocca i
 make check               # eslint + prettier --check + check-data + unit test
 make test                # solo unit test
 make test-integration    # smoke test Playwright sull'app servita da app/ (screenshot in test-results/)
+make lighthouse          # Lighthouse CI, soglie in configs/lighthouserc.json, rapporti in lighthouse-report/
 make check-data          # validazione di app/data/ e coerenza con dash-shim.js e sw.js
 node --test --test-name-pattern="link" 'tests/integration/*.test.mjs'   # un singolo test
 ```
 
-`node --test` vuole un pattern di file, non una cartella (Node 22). Negli ambienti cloud Chromium è già in `/opt/pw-browsers`: non rilanciare `playwright install`. Prettier non si applica a `app/` (stile compatto esistente, ADR-001): formatta solo `scripts/`, `tests/`, `configs/`, `.github/`.
+`node --test` vuole un pattern di file, non una cartella (Node 22). `make lighthouse` negli ambienti cloud vuole `CHROME_PATH=/opt/pw-browsers/chromium-1243/chrome-linux64/chrome` (la versione della cartella può cambiare); il punteggio prestazioni varia di qualche punto tra esecuzioni, quindi si confrontano mediane di più esecuzioni (ADR-007). Negli ambienti cloud Chromium è già in `/opt/pw-browsers`: non rilanciare `playwright install`. Prettier non si applica a `app/` (stile compatto esistente, ADR-001): formatta solo `scripts/`, `tests/`, `configs/`, `.github/`.
 
-Deploy: ogni merge su `main` esegue `.github/workflows/pages.yml`, che valida i dati, sostituisce `__BUILD__` in `app/sw.js` con il commit e pubblica `app/`. Non toccare mai quel segnaposto a mano (`check-data` fallisce se manca). La CI "Controlli" (`ci.yml`) esegue gli stessi comandi del Makefile su ogni PR.
+Deploy: ogni merge su `main` esegue `.github/workflows/pages.yml`, che valida i dati, sostituisce `__BUILD__` in `app/sw.js` con il commit e pubblica `app/`. Non toccare mai quel segnaposto a mano (`check-data` fallisce se manca). La CI "Controlli" (`ci.yml`) esegue gli stessi comandi del Makefile su ogni PR, più il job `lighthouse` con soglie bloccanti: prestazioni ≥ 90, accessibilità ≥ 95, buone pratiche ≥ 95, CLS ≤ 0,1 (ADR-007).
 
 ## Processo (standard S11–S14, ADR-005)
 
@@ -74,6 +75,8 @@ Gli invarianti (basi esistenti, coordinate, grafo raggiungibile dagli aeroporti,
 - DOM costruito con l'helper `el(tag, cls, txt)` e `textContent`, mai `innerHTML` con dati.
 - Formattazione con gli helper esistenti: `eur`, `yen`, `nn` (notti), `gg` (giorni), `hrs`, `fmtDate`; numeri in formato `it-IT`.
 - CSS con i token `--cds-*` e `--jp-*` di `app/css/app.css`; tema scuro tramite `prefers-color-scheme`. `app.css` per i contenuti, `shell.css` per barra, navigazione, mappa e linea del percorso.
-- Accessibilità già presente da mantenere: `role="tab"`/`aria-selected`, `aria-live` sui riepiloghi, `aria-label` sui pulsanti con sola icona, `prefers-reduced-motion` rispettato (`reduce`).
+- **Prestazioni e stabilità del layout** (soglie Lighthouse): nessuna risorsa esterna (font in `app/fonts/`, ADR-008; uno smoke test lo verifica); gli script classici hanno `defer`; i blocchi riempiti dopo l'arrivo dei dati hanno un'altezza riservata in CSS (riepilogo, KPI, linea) o stanno sotto la mappa (avvisi), altrimenti spostano la pagina (CLS); la scheda Percorso si disegna a tappe in `render()` (`poi(gen, …)`): KPI e linea subito, mappa e mete in task separati. Un nuovo modulo del motore va anche nei `modulepreload` di `index.html` (lo verifica `check-data`).
+- Colori: `--line` (`#0a7069` in chiaro) e `--line-fg` per il testo sopra: contrasto ≥ 4,5. Un colore nuovo per testo va verificato con lo stesso criterio.
+- Accessibilità già presente da mantenere (Lighthouse a 100): `role="tab"`/`aria-selected`/`aria-controls` anche sulle schede laterali, `aria-live` sui riepiloghi, `aria-label` sui pulsanti con sola icona, `prefers-reduced-motion` rispettato (`reduce`).
 - Ogni numero nuovo mostrato all'utente ha fonte e, dove possibile, data.
 - Nessun segreto nel codice né nel browser: le chiavi future vivono nei segreti di Actions o del Worker e sono documentate in `.env.example`.

@@ -43,7 +43,8 @@ Aprire http://localhost:8000. **Output atteso:** la scheda Percorso con mappa, K
 ```bash
 # dalla radice del repository
 make check                 # lint, validazione dati, unit test
-make test-integration      # apre l'app in Chromium: console pulita, calcolo, link ?r=, 390 px
+make test-integration      # apre l'app in Chromium: console pulita, calcolo, link ?r=, 390 px, offline, installabilità, nessuna richiesta esterna
+make lighthouse            # prestazioni ≥ 90, accessibilità ≥ 95, buone pratiche ≥ 95, CLS ≤ 0,1 (mediana di 3 esecuzioni)
 curl -sI https://gdelprato.github.io/japan-tour-planner/ | head -1     # HTTP/2 200
 curl -s  https://gdelprato.github.io/japan-tour-planner/sw.js | grep -o "japan-tour-planner-[0-9a-f]\{8\}"   # nome cache con il commit pubblicato
 ```
@@ -152,6 +153,8 @@ Oggi non esistono componenti server: le metriche sono quelle della CI e, quando 
 |---|---|---|---|
 | Esito CI su `main` | verde | un rosso | Revert e correzione |
 | `check-data` | 0 errori | 1 errore | Correggere i dati prima di qualsiasi deploy |
+| Lighthouse prestazioni (mediana, mobile) | 92–95 in locale | < 90 | Aprire il rapporto (artefatto `lighthouse` della CI): task lunghi, byte, CLS; correggere la causa prima di toccare la soglia (ADR-007) |
+| Lighthouse accessibilità | 100 | < 95 | L'audit fallito indica elemento e regola (contrasto, nomi, ruoli ARIA) |
 | Errori JavaScript per 100 sessioni (quando attivo) | < 1 | ≥ 1 | Aprire issue `type::bug` con il messaggio e il link `?r=` |
 | Età dei prezzi (piano §5.9) | < 6 mesi | ≥ 6 mesi | Far girare o correggere la pipeline dei prezzi |
 

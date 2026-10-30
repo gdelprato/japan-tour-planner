@@ -37,7 +37,8 @@ Archetipo secondo la matrice di applicabilità degli standard: oggi **software d
 | Dati (`app/data/*.json`) | Catalogo mete, basi, tratte, parametri di costo, partenze, eventi, stagioni, modelli di viaggio, geometria della mappa | JSON versionato, validato da `scripts/check-data.mjs` |
 | Service worker (`app/sw.js`) | Guscio dalla cache della versione installata; dati con rete prima e cache dopo 3 s | Cache API; nome cache con il commit (`__BUILD__`) |
 | Pubblicazione (`.github/workflows/pages.yml`) | Valida i dati, sostituisce `__BUILD__`, pubblica `app/` su GitHub Pages | GitHub Actions |
-| Controlli (`.github/workflows/ci.yml`, `Makefile`) | Lint, validazione dati, unit test, smoke test nel browser su ogni PR | ESLint, Prettier, `node --test`, Playwright |
+| Controlli (`.github/workflows/ci.yml`, `Makefile`) | Lint, validazione dati e manifest, unit test, smoke test nel browser, soglie Lighthouse su ogni PR | ESLint, Prettier, `node --test`, Playwright, Lighthouse CI (ADR-007) |
+| Font (`app/fonts/`) | Zen Kaku Gothic New, solo alfabeto latino, 4 pesi | woff2 ospitati sul sito, in cache offline (ADR-008) |
 | *Pianificato:* proxy serverless (`worker/`) | Chiamate ai modelli con chiave custodita, quote per IP, CORS sull'origine dell'app | Cloudflare Worker (ADR-004) |
 | *Pianificato:* pipeline dei prezzi (`scripts/`, Actions) | Aggiorna `app/data/prezzi/` da API e, via PR, i valori ricavati con AI | Node, GitHub Actions |
 
@@ -103,7 +104,6 @@ graph TD
 | Sistema | Tipo di integrazione | Protocollo | Note |
 |---|---|---|---|
 | GitHub Pages | Hosting statico | Deploy da Actions | Unica dipendenza esterna oggi |
-| Google Fonts | Font dell'interfaccia | CSS esterno | Se offline, fallback ai font di sistema |
 | *Pianificato:* API Claude via Worker | Assistente, revisione, lettura prenotazioni | HTTPS JSON | Chiave nel segreto del Worker, quote, cache dei prompt (ADR-004) |
 | *Pianificato:* frankfurter.app (BCE) | Cambio yen/euro | HTTPS, senza chiave | Fallback al valore in `parametri.json` |
 | *Pianificato:* Rakuten Travel, Travelpayouts o Amadeus | Prezzi hotel e voli | HTTPS con chiave, solo da Actions | Mai dal browser |
@@ -121,6 +121,8 @@ graph TD
 | Proxy serverless per le chiamate ai modelli | [ADR-004](decisions/ADR-004-proxy-serverless-per-i-modelli.md) | Chiavi mai nel browser, costi sotto controllo, nessun account |
 | Trunk-based: `main` più feature branch con PR, senza `develop` | [ADR-005](decisions/ADR-005-branch-strategy-trunk-based.md) | Un solo sviluppatore, deploy continuo da `main` |
 | Motore in moduli ES puri, senza build | [ADR-006](decisions/ADR-006-motore-in-moduli-es-senza-build.md) | Testabile in Node, riusabile, nessun build step |
+| Soglie di qualità con Lighthouse CI, installabilità con controlli propri | [ADR-007](decisions/ADR-007-soglie-di-qualita-con-lighthouse-ci.md) | Regressioni bloccate in PR; Lighthouse 12 non ha più la categoria PWA |
+| Font ospitato sul sito, solo alfabeto latino | [ADR-008](decisions/ADR-008-font-ospitato-sul-sito.md) | Niente richieste esterne, offline, meno byte |
 
 ---
 
@@ -134,7 +136,8 @@ graph TD
 | Versione nuova con file vecchi in cache | Media | Medio: errori in console | Cache con nome del commit, `cache: 'reload'` all'installazione, navigazioni servite sempre da `index.html` |
 | Link `?r=` con parametri di una versione precedente | Alta nel tempo | Medio | `norm()` completa e sana tutto; test di retrocompatibilità in `tests/integration/` |
 | Tratta mancante tra due basi | Bassa | Alto: `shortest` restituisce `null`, costo 99 ore | `check-data` verifica che ogni base sia raggiungibile dagli aeroporti |
-| Google Fonts non raggiungibile | Media | Basso | Font di sistema di riserva nel CSS |
+| Font non ancora scaricato | Alta alla prima visita | Basso | `font-display: swap`: testo subito con il font di sistema; nessun salto di layout rilevante (CLS ≤ 0,1 verificato da Lighthouse) |
+| Regressione di prestazioni o accessibilità | Media | Medio | Job `lighthouse` in CI con soglie bloccanti (ADR-007) |
 | *Pianificato:* Worker o API dei modelli non disponibili | Media | Basso | Ogni funzione AI ha un equivalente senza rete (wizard, regole deterministiche) |
 
 ---
@@ -154,3 +157,4 @@ graph TD
 |---|---|---|
 | 2026-10-30 | Versione iniziale: stato reale dell'app più i componenti pianificati, in applicazione degli standard della practice | Giacomo Del Prato |
 | 2026-10-30 | Motore estratto in `app/js/engine/`, `app.js` caricato come modulo (ADR-006) | Giacomo Del Prato |
+| 2026-10-30 | Lighthouse CI in PR (ADR-007), font ospitato sul sito e nessuna dipendenza esterna a runtime (ADR-008) | Giacomo Del Prato |

@@ -2,7 +2,7 @@
 
 Costruttore del percorso per qualsiasi viaggio in Giappone: scegli date, notti, numero di viaggiatori, città di partenza, arrivo e ritorno (Tokyo o Osaka) con l'orario dei voli, bagagli spediti o sempre con sé, stile di viaggio, cambio yen/euro e mete, e l'app calcola basi, notti, l'ordine delle tappe con meno ore di treno, calendario con feste, ciliegi e foliage, scadenze di prenotazione e budget.
 
-È una web app statica (HTML, CSS, JavaScript e dati JSON), senza server né account. Si può installare sul telefono come un'app e funziona anche offline.
+È una web app statica (HTML, CSS, JavaScript e dati JSON), senza server né account. Si può installare sul telefono come un'app e funziona anche offline. Non contatta server esterni: anche il font è servito dal sito.
 
 L'app è su https://gdelprato.github.io/japan-tour-planner/
 
@@ -35,7 +35,8 @@ Aprire `index.html` con un doppio clic non funziona: il browser blocca il carica
 
 ```bash
 make check              # lint, formato, validazione dei dati, unit test
-make test-integration   # apre l'app in Chromium: console pulita, calcolo, link ?r=, 390 px
+make test-integration   # apre l'app in Chromium: console pulita, calcolo, link ?r=, 390 px, offline, installabilità
+make lighthouse         # prestazioni ≥ 90, accessibilità ≥ 95 (serve Chrome, o CHROME_PATH)
 make check-data         # solo la validazione di app/data/
 ```
 
@@ -48,6 +49,7 @@ make check-data         # solo la validazione di app/data/
 | `app/js/app.js` | L'interfaccia: schede, mappa, controlli |
 | `app/js/dash-shim.js` | Carica i dati e salva le scelte nel link e nel browser |
 | `app/data/*.json` | Tutti i dati: mete, treni, basi, costi, feste, foliage, percorsi salvati |
+| `app/fonts/` | Font Zen Kaku Gothic New (solo alfabeto latino, licenza OFL in `OFL.txt`) |
 | `scripts/check-data.mjs` | Validazione dei dati e della loro coerenza con il codice |
 | `tests/` | `unit/`, `integration/` (browser), `evals/` (funzioni AI future) |
 | `configs/` | Soglie e liste usate dagli script |
