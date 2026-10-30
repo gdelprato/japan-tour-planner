@@ -1,0 +1,36 @@
+# Changelog
+
+Le modifiche rilevanti al progetto sono documentate qui. Il formato segue [Keep a Changelog](https://keepachangelog.com/it/1.0.0/), il versionamento [Semantic Versioning](https://semver.org/lang/it/).
+
+## [Non rilasciato]
+
+### Added
+- Adozione degli standard AI/ML Engineering della practice: `docs/architecture.md`, cinque ADR in `docs/decisions/`, `docs/runbook.md`, `docs/definition-of-done.md`, `docs/acceptance-criteria.md`, `docs/handover-checklist.md`, bozze di `docs/agent-perimeter.md` e `docs/tools-registry.md`.
+- `scripts/check-data.mjs`: validazione dei dati e della loro coerenza con `dash-shim.js` e `sw.js`, eseguita prima del deploy, nei test e nel pre-commit.
+- Unit test (`tests/unit/`), smoke test nel browser con Playwright (`tests/integration/`), struttura delle eval AI (`tests/evals/`).
+- `Makefile`, `package.json` con dipendenze fissate e lockfile, ESLint, Prettier, `.pre-commit-config.yaml`, `.nvmrc`, `.env.example`, `configs/`.
+- Workflow CI "Controlli" su ogni pull request; template di issue e pull request.
+- Tooling `.claude/` (hook, subagent, slash command) e `CLAUDE.md` per lo sviluppo con Claude Code.
+- `docs/PIANO_DI_SVILUPPO.md`: piano per release con funzioni di prodotto, budget, pipeline dei prezzi e funzioni basate su AI.
+
+### Changed
+- L'app pubblicata vive in `app/`; il workflow di Pages pubblica solo quella cartella e valida i dati prima del deploy (ADR-002).
+
+## [0.4.0] — 2026-10-29
+
+### Changed
+- Tolti i preconcetti ereditati dalla dashboard iniziale: bagagli a scelta, notti extra per quanto c'è da fare, sconto gruppo e rincaro singoli, orari dei voli, cambio modificabile.
+
+## [0.3.0] — 2026-10-28
+
+### Added
+- Service worker con guscio versionato e dati con timeout; barra "Aggiorna".
+- Notti fino a 365, mappa per regioni.
+
+### Changed
+- App resa generica per qualsiasi viaggio in Giappone: date, persone, partenza, aeroporti, stile, modelli di viaggio.
+
+## [0.1.0] — 2026-10-27
+
+### Added
+- Prima versione: percorso, calendario, confronto, budget, info utili; pubblicazione su GitHub Pages.

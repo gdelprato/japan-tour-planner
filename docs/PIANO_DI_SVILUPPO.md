@@ -1,20 +1,22 @@
 # Piano di sviluppo: da progetto personale ad applicazione professionale
 
-Aggiornato al 30 ottobre 2026. Questo documento estende `ROADMAP.md` (che resta la storia delle fasi fatte e il dettaglio della Fase 1) e lo sostituisce come guida per le prossime release. Le fasi 2–6 della roadmap sono riprese qui, riordinate per valore e integrate con le fondamenta tecniche e con le funzioni basate su AI.
+Aggiornato al 30 ottobre 2026.
+
+> **Struttura e processo.** Dal 30 ottobre il progetto segue gli standard della practice in `gdelprato/ai-ml-engineering-standards` (principi P01–P10, standard S01–S23). Architettura in `docs/architecture.md`, decisioni in `docs/decisions/`, criteri di accettazione per ogni release in `docs/acceptance-criteria.md`, definizione di fatto in `docs/definition-of-done.md`. Gli adattamenti a una web app statica sono in ADR-001; l'app pubblicata ora vive in `app/` (ADR-002). Le voci 0.3, 0.4 e 0.5 della Fase 0 sono già fatte. Questo documento estende `ROADMAP.md` (che resta la storia delle fasi fatte e il dettaglio della Fase 1) e lo sostituisce come guida per le prossime release. Le fasi 2–6 della roadmap sono riprese qui, riordinate per valore e integrate con le fondamenta tecniche e con le funzioni basate su AI.
 
 ---
 
 ## 1. Dove siamo
 
 **Cosa funziona già bene**
-- Un **motore deterministico** (`build()` → `planDays()` in `js/app.js`): da pochi parametri (mete, notti, viaggiatori, aeroporti, orari, stile, bagagli, cambio) calcola basi, notti per base, ordine delle tappe con meno ore di treno, giornata per giornata, budget min/max per categoria. È il vero valore dell'app ed è riproducibile: stesso input, stesso output.
-- **Dati aperti e leggibili** in `data/*.json` (54 KB in tutto senza la geometria della mappa), con la voce `fonte` sui prezzi.
+- Un **motore deterministico** (`build()` → `planDays()` in `app/js/app.js`): da pochi parametri (mete, notti, viaggiatori, aeroporti, orari, stile, bagagli, cambio) calcola basi, notti per base, ordine delle tappe con meno ore di treno, giornata per giornata, budget min/max per categoria. È il vero valore dell'app ed è riproducibile: stesso input, stesso output.
+- **Dati aperti e leggibili** in `app/data/*.json` (54 KB in tutto senza la geometria della mappa), con la voce `fonte` sui prezzi.
 - **Zero costi fissi**: PWA statica su GitHub Pages, offline, installabile, stato nel link condivisibile, nessun account.
 - Interfaccia già pensata per telefono e desktop, tema chiaro e scuro, mappa D3 con regioni.
 
 **Cosa manca per dirla "professionale"**
 - Nessun test automatico: una modifica al motore può cambiare budget o ordine delle tappe senza che nessuno se ne accorga.
-- `js/app.js` è un unico file da 1.060 righe che mescola calcolo e disegno: difficile da estendere e da testare.
+- `app/js/app.js` è un unico file da 1.060 righe che mescola calcolo e disegno: difficile da estendere e da testare.
 - I JSON non sono validati: un refuso in `catalogo.json` si scopre solo aprendo l'app.
 - Dati statici con data di aggiornamento fissa nel footer; cambio yen/euro fisso.
 - Il viaggio finisce con la pianificazione: niente prenotazioni, scadenze, esportazione, uso durante il viaggio.
@@ -41,10 +43,10 @@ Aggiornato al 30 ottobre 2026. Questo documento estende `ROADMAP.md` (che resta 
 ```
 Telefono / browser
   └─ PWA statica (GitHub Pages)  ── offline con sw.js, stato in ?r= e localStorage
-       ├─ js/engine/*   motore puro: build, planDays, shortest, order, budget (testabile in Node)
+       ├─ app/js/engine/*   motore puro: build, planDays, shortest, order, budget (testabile in Node)
        ├─ js/ui/*       un modulo per scheda: percorso, calendario, confronto, budget, info, voli, da-fare
        ├─ js/ai/*       client del proxy, prompt, fallback offline
-       └─ data/*.json   dati versionati e validati (schema in data/schema/)
+       └─ app/data/*.json   dati versionati e validati (schema in app/data/schema/)
               ▲
               │ pull request automatiche
   GitHub Actions (settimanale) ── "agente dati": verifica prezzi e tratte con Claude + ricerca web,
@@ -71,15 +73,15 @@ Obiettivo: poter cambiare il motore e i dati senza paura. Tutto senza build step
 
 | # | Intervento | Dettaglio | Sforzo |
 |---|---|---|---|
-| 0.1 | **Estrarre il motore** | Spostare `build`, `planDays`, `shortest`, `order`, `notesFor`, costanti `AIR`/`STILI` in `js/engine/` come moduli ES puri (nessun accesso al DOM né a `d3`: le somme si fanno con `reduce`). `app.js` li importa con `<script type="module">`. Aggiornare `SHELL` in `sw.js`. | M |
+| 0.1 | **Estrarre il motore** | Spostare `build`, `planDays`, `shortest`, `order`, `notesFor`, costanti `AIR`/`STILI` in `app/js/engine/` come moduli ES puri (nessun accesso al DOM né a `d3`: le somme si fanno con `reduce`). `app.js` li importa con `<script type="module">`. Aggiornare `SHELL` in `sw.js`. | M |
 | 0.2 | **Test del motore** | `node --test` (senza dipendenze) su casi d'oro: i 5 modelli di `percorsi.json` con 2, 5 e 1 persone, round trip e open-jaw, atterraggio mattina/sera. Snapshot di `stops`, `nights`, `cost`. Test mirati su `shortest` e `order`. Un test che apre un vecchio link `?r=` e verifica che dia lo stesso percorso. | M |
-| 0.3 | **Validazione dei dati in CI** | Schemi JSON in `data/schema/`, uno script `scripts/check-data.mjs` che verifica: id unici, ogni `basi`/`base_notte` esiste in `basi.json`, ogni base ha coordinate in `citta.json`, il grafo delle tratte è connesso, date `MM-GG` valide, ogni prezzo ha `fonte` e `aggiornato`. Gira nel workflow prima del deploy e come check sulle PR. | S |
-| 0.4 | **Lint e formattazione** | ESLint (configurazione minima) e Prettier, solo come check in CI; `npm run check` locale. | S |
-| 0.5 | **Smoke test del browser** | Playwright: apre l'app, nessun errore in console, cambia notti e persone, verifica che KPI e budget cambino, screenshot a 390 px e 1280 px come riferimento visivo. | S |
+| 0.3 | **Validazione dei dati in CI** ✅ | Schemi JSON in `app/data/schema/`, uno script `scripts/check-data.mjs` che verifica: id unici, ogni `basi`/`base_notte` esiste in `basi.json`, ogni base ha coordinate in `citta.json`, il grafo delle tratte è connesso, date `MM-GG` valide, ogni prezzo ha `fonte` e `aggiornato`. Gira nel workflow prima del deploy e come check sulle PR. **Fatto** (senza schemi JSON formali e senza il campo `aggiornato`, che arriva con 0.7). | S |
+| 0.4 | **Lint e formattazione** ✅ | ESLint (configurazione minima) e Prettier, solo come check in CI; `npm run check` locale. | S |
+| 0.5 | **Smoke test del browser** ✅ | Playwright: apre l'app, nessun errore in console, cambia notti e persone, verifica che KPI e budget cambino, screenshot a 390 px e 1280 px come riferimento visivo. | S |
 | 0.6 | **Qualità misurata** | Lighthouse CI con soglie (prestazioni ≥ 90, accessibilità ≥ 95, PWA installabile). | S |
 | 0.7 | **Dati con data** | Campo `aggiornato` in `parametri.json`, `partenze.json`, `tratte.json`; il footer e le tabelle lo leggono dai dati invece che da testo fisso; avviso giallo se più vecchio di 6 mesi. | S |
 | 0.8 | **Osservabilità rispettosa** | Contatore pagine e eventi anonimi senza cookie (Plausible o GoatCounter, piano gratuito) con opt-out; cattura degli errori JavaScript verso un endpoint del Worker (o Sentry gratuito). Senza questo non si sa cosa si rompe sui telefoni degli altri. | S |
-| 0.9 | **Versioni e note di rilascio** | `CHANGELOG.md`, tag `v0.x`, la versione mostrata nel pannello "Il viaggio"; la barra "Aggiorna" dice cosa è cambiato. | S |
+| 0.9 | **Versioni e note di rilascio** (CHANGELOG fatto) | `CHANGELOG.md`, tag `v0.x`, la versione mostrata nel pannello "Il viaggio"; la barra "Aggiorna" dice cosa è cambiato. | S |
 
 Risultato atteso: una PR che tocca il motore mostra in CI se cambia un budget o un ordine; un refuso nei dati blocca il deploy.
 
@@ -103,15 +105,15 @@ Riprese dalla roadmap e riordinate. Per ognuna: cosa vede l'utente, su cosa si a
 
 ### 5.3 Voli (ROADMAP Fase 3)
 - Scheda **Voli**: stima per città di partenza e mese, confronto open-jaw contro ritorno in treno (già calcolabile con `shortest()`), effetto dell'alta stagione, link di ricerca precompilati. **M**
-- Consigli posti e bagaglio in `data/posti.json`: lato Fuji sullo Shinkansen, posti con spazio per valigie grandi (obbligatoria la prenotazione), aereo. **S**
+- Consigli posti e bagaglio in `app/data/posti.json`: lato Fuji sullo Shinkansen, posti con spazio per valigie grandi (obbligatoria la prenotazione), aereo. **S**
 
 ### 5.4 Prenotazioni e scadenze (ROADMAP Fase 4)
 - Scheda **Da fare** generata dal percorso e dalla data: voli, ryokan, musei a prenotazione (Ghibli, teamLab, Palazzo Imperiale), posti Shinkansen nei festivi, eSIM, assicurazione, cambio, Suica. Ogni voce ha stato (da fare / prenotato / saltata), codice e nota; countdown delle scadenze in `#takeaway`. **M**
-- **Calcolatore pass**: JR Pass nazionale e pass regionali contro la somma dei biglietti singoli delle tratte del percorso (dati in `data/pass.json`). **M**
+- **Calcolatore pass**: JR Pass nazionale e pass regionali contro la somma dei biglietti singoli delle tratte del percorso (dati in `app/data/pass.json`). **M**
 - **Esportazione**: calendario `.ics` (una voce per giorno e per spostamento), **PDF** stampabile del viaggio, **CSV** del budget. Lo `.ics` si genera in JavaScript senza librerie. **M**
 
 ### 5.5 Giornata per giornata e in viaggio (ROADMAP Fase 5)
-- **Attività** in `data/attivita.json` (orari, chiusure settimanali, durata, prezzo): `planDays()` riempie le mezze giornate con proposte concrete invece del solo nome della meta; piano B per la pioggia. **L**
+- **Attività** in `app/data/attivita.json` (orari, chiusure settimanali, durata, prezzo): `planDays()` riempie le mezze giornate con proposte concrete invece del solo nome della meta; piano B per la pioggia. **L**
 - **Modalità "Oggi"**: durante il viaggio l'app apre direttamente il giorno corrente con treni, indirizzo dell'hotel anche in giapponese da mostrare a un tassista, meteo, frasi utili. Funziona offline. **M**
 - **Mappa con sfondo reale** opzionale (tile OpenStreetMap o MapLibre) oltre al disegno D3, utile nella modalità "Oggi". **M**
 
@@ -138,7 +140,7 @@ Oggi il budget è una stima min/max per categoria calcolata da `build()` sui par
 - **Costi per base** in `basi.json` (`costo_alloggio`, `costo_cibo`): Tokyo e Kyoto costano più di Takayama o Beppu; il calendario mostra la spesa prevista giorno per giorno. **M**
 - **Stagionalità degli alloggi**: fattore per notte che cade in ciliegi, foliage, Golden Week e Capodanno, riusando `eventi.json` e `stagione.json` (oggi l'alta stagione rincara solo i voli). **S**
 - **Ingressi reali per meta**: campo `yen_ingresso` in `catalogo.json` (Ghibli, teamLab, castelli, templi gratuiti) al posto del forfait giornaliero. **S**
-- **Pass contro biglietti singoli**: JR Pass 7/14/21 giorni e pass regionali (Kansai, Hokuriku Arch, Kyushu) confrontati con la somma delle tratte del percorso, con il verdetto "conviene / non conviene" e di quanto (dati in `data/pass.json`; coincide con il calcolatore di 5.4). **M**
+- **Pass contro biglietti singoli**: JR Pass 7/14/21 giorni e pass regionali (Kansai, Hokuriku Arch, Kyushu) confrontati con la somma delle tratte del percorso, con il verdetto "conviene / non conviene" e di quanto (dati in `app/data/pass.json`; coincide con il calcolatore di 5.4). **M**
 - **Sensibilità al cambio**: quanto varia il totale a ±10% di cambio, accanto al cambio dal vivo (5.2). **S**
 
 **Gestione prima e durante il viaggio**
@@ -156,13 +158,13 @@ Oggi il budget è una stima min/max per categoria calcolata da `build()` sui par
 Le funzioni AI legate al budget sono in 6.10.
 
 ### 5.9 Pipeline dei prezzi: dati sempre aggiornati, il browser legge sempre JSON statici
-Oggi 9 voci su 15 di `parametri.json` hanno fonte "Stima" e la data di aggiornamento è scritta a mano nel footer. Non esiste una fonte unica, quindi la soluzione combina più canali per tipo di prezzo. Il principio: le chiavi delle API non stanno nel client e nessuna chiamata a pagamento parte dal telefono. I prezzi si aggiornano **a monte**, con job programmati in GitHub Actions che scrivono in `data/`; l'app resta gratuita, statica e offline. L'unica eccezione è il cambio, gratuito e senza chiave.
+Oggi 9 voci su 15 di `parametri.json` hanno fonte "Stima" e la data di aggiornamento è scritta a mano nel footer. Non esiste una fonte unica, quindi la soluzione combina più canali per tipo di prezzo. Il principio: le chiavi delle API non stanno nel client e nessuna chiamata a pagamento parte dal telefono. I prezzi si aggiornano **a monte**, con job programmati in GitHub Actions che scrivono in `app/data/`; l'app resta gratuita, statica e offline. L'unica eccezione è il cambio, gratuito e senza chiave.
 
 | Voce | Cambia ogni | Fonte gratuita realistica | Metodo |
 |---|---|---|---|
 | Cambio yen/euro | giorno | BCE via frankfurter.app, senza chiave | chiamata dal browser, cache nel service worker, fallback statico |
-| Voli per città e mese | settimana | Travelpayouts Data API (prezzi minimi per mese, gratuita con account affiliato) o Amadeus Self-Service (quota mensile gratuita) | job settimanale → `data/prezzi/voli.json` |
-| Hotel per base e periodo | settimana | Rakuten Travel API (gratuita con ID applicazione, copre tutto il Giappone) | job settimanale → `data/prezzi/alloggi.json`, mediana per base e mese, per 2 e 4 persone |
+| Voli per città e mese | settimana | Travelpayouts Data API (prezzi minimi per mese, gratuita con account affiliato) o Amadeus Self-Service (quota mensile gratuita) | job settimanale → `app/data/prezzi/voli.json` |
+| Hotel per base e periodo | settimana | Rakuten Travel API (gratuita con ID applicazione, copre tutto il Giappone) | job settimanale → `app/data/prezzi/alloggi.json`, mediana per base e mese, per 2 e 4 persone |
 | Treni e pass JR | 1–2 volte l'anno | pagine ufficiali JR | verifica trimestrale con AI e ricerca web (6.7), PR da approvare |
 | Cibo, ingressi, locali, varie | pochi mesi | guide e siti ufficiali delle attrazioni | verifica mensile con AI e ricerca web (6.7), PR da approvare |
 | Takkyubin, eSIM, assicurazione | anno | tariffari Yamato, siti dei fornitori | verifica trimestrale con AI (6.7), PR da approvare |
@@ -171,13 +173,13 @@ Oggi 9 voci su 15 di `parametri.json` hanno fonte "Stima" e la data di aggiornam
 Disponibilità e quote gratuite di Travelpayouts, Amadeus e Rakuten vanno verificate al momento dell'implementazione: cambiano spesso.
 
 **Come funziona**
-1. Un workflow settimanale interroga le API strutturate (voli, hotel) e scrive `data/prezzi/*.json`; ogni valore porta `fonte`, `rilevato_il` e `campione` (quante offerte dietro la mediana). Dopo la validazione dello schema (0.3) si committa direttamente. **M**
+1. Un workflow settimanale interroga le API strutturate (voli, hotel) e scrive `app/data/prezzi/*.json`; ogni valore porta `fonte`, `rilevato_il` e `campione` (quante offerte dietro la mediana). Dopo la validazione dello schema (0.3) si committa direttamente. **M**
 2. I valori ricavati con AI e ricerca web (treni, cibo, ingressi, tariffe) aprono una **pull request** con diff e link alle fonti: li approva una persona. È l'agente dati di 6.7. **M**
-3. Il motore legge `data/prezzi/` con priorità sulle forchette di `parametri.json`, che restano come fallback quando un dato manca o è più vecchio di una soglia. **S**
+3. Il motore legge `app/data/prezzi/` con priorità sulle forchette di `parametri.json`, che restano come fallback quando un dato manca o è più vecchio di una soglia. **S**
 4. Il service worker già aggiorna i dati in rete anche senza una nuova versione dell'app: i telefoni ricevono i prezzi nuovi al primo avvio online. Nessun lavoro aggiuntivo.
 
 **Prezzi pagati davvero, in forma anonima** (richiede il proxy serverless)
-Quando un utente inserisce un valore reale nel budget (5.8), l'app chiede se condividerlo in forma anonima. Il Worker riceve solo categoria, città, mese e importo, senza identificativi, e aggrega mediane in KV. Sopra una soglia minima di contributi (per esempio 20 per base e mese) il valore entra in `data/prezzi/` tramite il job settimanale. È un dato che nessuna API fornisce. **M**
+Quando un utente inserisce un valore reale nel budget (5.8), l'app chiede se condividerlo in forma anonima. Il Worker riceve solo categoria, città, mese e importo, senza identificativi, e aggrega mediane in KV. Sopra una soglia minima di contributi (per esempio 20 per base e mese) il valore entra in `app/data/prezzi/` tramite il job settimanale. È un dato che nessuna API fornisce. **M**
 
 **Freschezza visibile**
 Ogni prezzo con data e fonte accanto, un colore per età (verde sotto 1 mese, giallo sotto 6, grigio oltre), un riepilogo nel budget ("voli rilevati il 24 ottobre, hotel stimati, treni verificati a giugno") e, accanto a ogni voce, il link alla ricerca reale (Google Flights, Booking, Rakuten): al momento di prenotare il prezzo giusto è quello del giorno. **S**
@@ -230,7 +232,7 @@ Ogni funzione rispetta il principio 1: il modello produce parametri, testi o let
 - **Modello.** Claude Opus 5.5 (poche chiamate, serve giudizio sulle fonti). **Costo**: qualche decina di centesimi a settimana. **Sforzo.** M. Dipende da 0.3 e 0.7.
 
 ### 6.8 Contenuti generati al build: più ricchi, in due lingue, offline
-- **Cosa fa.** Per ogni meta: descrizione lunga, "quando andare", "da sapere" (chiusure, prenotazioni, costume); per ogni base: quartieri dove dormire con pro e contro; **frasario** per la modalità Oggi con pronuncia; descrizioni in inglese. Tutto committato in `data/generati/` e quindi disponibile offline e senza costo a runtime.
+- **Cosa fa.** Per ogni meta: descrizione lunga, "quando andare", "da sapere" (chiusure, prenotazioni, costume); per ogni base: quartieri dove dormire con pro e contro; **frasario** per la modalità Oggi con pronuncia; descrizioni in inglese. Tutto committato in `app/data/generati/` e quindi disponibile offline e senza costo a runtime.
 - **Come funziona.** Script Node eseguito a mano o dal workflow quando cambia `catalogo.json`; usa l'API Batches (metà prezzo, nessuna fretta). Ogni testo riporta la data di generazione e passa da una PR, così si rilegge prima di pubblicare.
 - **Modello.** Claude Opus 5.5 via Batches. **Costo**: pochi euro per l'intero catalogo, una tantum. **Sforzo.** S.
 
@@ -269,7 +271,7 @@ Ordine per valore percepito e dipendenze. Ogni release è pubblicabile da sola e
 - Wizard, interessi come tag, più viaggi, singolare (5.1).
 - Contenuti generati al build in italiano (6.8) per descrizioni e "da sapere".
 - Budget più preciso: costi per base, stagionalità degli alloggi, ingressi per meta, costo di una notte in più per base (5.8).
-- Pipeline dei prezzi: job settimanale hotel con Rakuten Travel e lettura di `data/prezzi/` con fallback (5.9).
+- Pipeline dei prezzi: job settimanale hotel con Rakuten Travel e lettura di `app/data/prezzi/` con fallback (5.9).
 
 ### v1.0 "Assistente" (3–4 settimane)  ← prima release da far provare a un pubblico allargato
 - Proxy, quote, BYOK (infrastruttura AI).
@@ -302,7 +304,7 @@ Ordine per valore percepito e dipendenze. Ogni release è pubblicabile da sola e
 
 | Metrica | Oggi | Obiettivo v1.0 |
 |---|---|---|
-| Copertura test del motore (`js/engine/`) | 0 | ≥ 80% delle funzioni, snapshot dei 5 modelli |
+| Copertura test del motore (`app/js/engine/`) | 0 | ≥ 80% delle funzioni, snapshot dei 5 modelli |
 | Errori JavaScript per 100 sessioni | sconosciuto | < 1 |
 | Lighthouse (prestazioni / accessibilità) | da misurare | ≥ 90 / ≥ 95 |
 | Utenti che completano il primo viaggio (wizard finito) | sconosciuto | ≥ 60% di chi apre l'app |
@@ -327,7 +329,7 @@ Ordine per valore percepito e dipendenze. Ogni release è pubblicabile da sola e
 
 ## 10. Prossimi passi concreti (le prime due settimane)
 
-1. Creare `js/engine/` ed estrarre `build`, `planDays`, `shortest`, `order` con un primo file di test `tests/engine.test.mjs` sui 5 modelli di `percorsi.json` (0.1, 0.2).
+1. Creare `app/js/engine/` ed estrarre `build`, `planDays`, `shortest`, `order` con un primo file di test `tests/engine.test.mjs` sui 5 modelli di `percorsi.json` (0.1, 0.2).
 2. Scrivere `scripts/check-data.mjs` e aggiungerlo al workflow come job che precede il deploy (0.3).
 3. Aggiungere Playwright smoke test e Lighthouse CI (0.5, 0.6).
 4. Campo `rilevato_il` e fonte su ogni prezzo con la freschezza visibile (0.7, 5.9); cambio dalla BCE con fallback (5.2); primo campo "il mio valore" nel budget (5.8).
