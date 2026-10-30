@@ -1,6 +1,6 @@
 {
  "descrizione": "Risultati del motore PRIMA dell'estrazione in app/js/engine (ADR-006), uno per scenario di tests/unit/scenari-motore.mjs, ridotti con tests/unit/proiezione-motore.mjs. Il motore estratto deve riprodurli esattamente. Rigenerare solo per un cambio di comportamento voluto: npm run aggiorna-riferimento-motore.",
- "generato_da": "app/js/engine al commit f86a5dc (Node)",
+ "generato_da": "app/js/engine al commit 1dc1753 (Node)",
  "scenari": [
   {
    "nome": "percorso di esempio in Golden Week",
@@ -4354,11 +4354,11 @@
       "base": "Osaka",
       "ordine": 1,
       "dal": 1,
-      "al": 8,
-      "notti": 7,
+      "al": 9,
+      "notti": 8,
       "minN": 7,
       "need": 6,
-      "free": 0,
+      "free": 1,
       "ts": 0,
       "from": "Kansai",
       "legIn": {
@@ -4415,30 +4415,6 @@
         null
        ]
       ]
-     },
-     {
-      "base": "Osaka",
-      "ordine": 2,
-      "dal": 8,
-      "al": 9,
-      "notti": 1,
-      "minN": null,
-      "need": 0,
-      "free": 0,
-      "ts": 2,
-      "from": "Osaka",
-      "legIn": {
-       "ore": 0,
-       "yen": 0,
-       "stima": false,
-       "volo": false
-      },
-      "zona": "Namba per la sera, Umeda o Shin-Osaka per i treni",
-      "tipoNotte": "hotel",
-      "finale": true,
-      "overflow": 0,
-      "citta": [],
-      "gite": []
      }
     ],
     "last": {
@@ -4449,7 +4425,7 @@
     },
     "airport": "Kansai",
     "deficit": 0,
-    "minTotal": 8,
+    "minTotal": 7,
     "items": [
      "kyoto",
      "nara",
@@ -4501,12 +4477,6 @@
       "how": "9 giorni"
      },
      {
-      "cat": "Takkyubin",
-      "min": 10,
-      "max": 17,
-      "how": "1 spedizioni dei bagagli, una per cambio"
-     },
-     {
       "cat": "Assicurazione",
       "min": 21,
       "max": 36,
@@ -4520,15 +4490,17 @@
      }
     ],
     "tot": {
-     "min": 1498.386364,
-     "max": 2513.340909
+     "min": 1488.386364,
+     "max": 2496.340909
     },
-    "cambi": 1,
+    "cambi": 0,
     "G": 9,
     "maxN": 5,
     "oreBagagli": 0,
-    "free": 0,
-    "overMax": [],
+    "free": 1,
+    "overMax": [
+     "Osaka"
+    ],
     "giorni": [
      {
       "n": 1,
@@ -4644,18 +4616,13 @@
       "n": 8,
       "data": "2027-10-20",
       "base": "Osaka",
-      "first": true,
-      "travel": "Treno da Osaka (0 min)",
+      "first": false,
+      "travel": null,
       "parts": [
-       [
-        "Ultima serata a Osaka",
-        "libero",
-        false
-       ],
        [
         "Tempo libero",
         "libero",
-        false
+        true
        ]
       ],
       "note": []
@@ -4670,7 +4637,12 @@
       "note": []
      }
     ],
-    "avvisi": []
+    "avvisi": [
+     [
+      "Base lunga. ",
+      "Osaka 8 notti: più di 5 notti nello stesso posto. Potete aggiungere una meta o una tappa."
+     ]
+    ]
    }
   },
   {
@@ -7941,12 +7913,6 @@
       "min": 34.090909,
       "max": 68.181818,
       "how": "6 giorni"
-     },
-     {
-      "cat": "Takkyubin",
-      "min": 0,
-      "max": 0,
-      "how": "0 spedizioni dei bagagli, una per cambio"
      },
      {
       "cat": "Assicurazione",
