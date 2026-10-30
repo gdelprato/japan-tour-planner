@@ -1,6 +1,6 @@
 # Piano di sviluppo: da progetto personale ad applicazione professionale
 
-Aggiornato al 29 ottobre 2026. Questo documento estende `ROADMAP.md` (che resta la storia delle fasi fatte e il dettaglio della Fase 1) e lo sostituisce come guida per le prossime release. Le fasi 2–6 della roadmap sono riprese qui, riordinate per valore e integrate con le fondamenta tecniche e con le funzioni basate su AI.
+Aggiornato al 30 ottobre 2026. Questo documento estende `ROADMAP.md` (che resta la storia delle fasi fatte e il dettaglio della Fase 1) e lo sostituisce come guida per le prossime release. Le fasi 2–6 della roadmap sono riprese qui, riordinate per valore e integrate con le fondamenta tecniche e con le funzioni basate su AI.
 
 ---
 
@@ -125,6 +125,67 @@ Riprese dalla roadmap e riordinate. Per ognuna: cosa vede l'utente, su cosa si a
 - **Accessibilità**: verifica con tastiera e screen reader, contrasto, `aria-live` sui KPI, focus nel pannello e nella mappa. **S**
 - **SEO e anteprime**: meta Open Graph, immagine di anteprima del percorso condiviso (generata dal Worker come SVG → PNG), pagina di presentazione. **S**
 
+### 5.8 Budget: da forchetta a strumento su cui prenotare
+Oggi il budget è una stima min/max per categoria calcolata da `build()` sui parametri di `parametri.json`, di sola lettura. Queste funzioni lo rendono modificabile, più preciso e utile anche in viaggio.
+
+**Modificabile**
+- **Valore mio per categoria**: accanto a ogni barra un campo "il mio valore" (il volo già comprato, l'hotel già prenotato). Il totale si ricalcola, la voce è segnata "confermata", il valore viaggia nel link come gli altri parametri. **S**
+- **Stile per categoria**: tre selettori indipendenti per alloggio, cibo e ryokan al posto dell'unico `STILI` (dormire economico e mangiare bene). **S**
+- **Tetto di spesa**: inserito il massimo a persona, l'app mostra lo sforo, in quale categoria, e cosa cambierebbe togliendo una notte, un ryokan o un cambio base (ricalcoli del motore con parametri alternativi). **M**
+- **Shopping e souvenir** come voce opzionale a importo libero o per giorno, oggi esclusa dal totale. **S**
+
+**Più preciso**
+- **Costi per base** in `basi.json` (`costo_alloggio`, `costo_cibo`): Tokyo e Kyoto costano più di Takayama o Beppu; il calendario mostra la spesa prevista giorno per giorno. **M**
+- **Stagionalità degli alloggi**: fattore per notte che cade in ciliegi, foliage, Golden Week e Capodanno, riusando `eventi.json` e `stagione.json` (oggi l'alta stagione rincara solo i voli). **S**
+- **Ingressi reali per meta**: campo `yen_ingresso` in `catalogo.json` (Ghibli, teamLab, castelli, templi gratuiti) al posto del forfait giornaliero. **S**
+- **Pass contro biglietti singoli**: JR Pass 7/14/21 giorni e pass regionali (Kansai, Hokuriku Arch, Kyushu) confrontati con la somma delle tratte del percorso, con il verdetto "conviene / non conviene" e di quanto (dati in `data/pass.json`; coincide con il calcolatore di 5.4). **M**
+- **Sensibilità al cambio**: quanto varia il totale a ±10% di cambio, accanto al cambio dal vivo (5.2). **S**
+
+**Gestione prima e durante il viaggio**
+- **Tre colonne: stimato, prenotato, speso**. Lo stimato c'è già; il prenotato arriva dalle voci della scheda Da fare (5.4) che hanno un importo; lo speso si registra in viaggio con un modulo veloce (importo, categoria, chi ha pagato) che funziona offline. Il delta dice se si sta sforando. **M**
+- **Curva prevista contro reale** giorno per giorno, da aprire la sera in hotel nella modalità Oggi (5.5). **S**
+- **Fondo di contingenza** suggerito (10–15%) e **cassa comune** con saldo "chi deve a chi" (si collega a 5.6). **S** / **M**
+- **Valuta mista**: ogni spesa in yen o euro con il cambio del giorno salvato per voce; riepilogo di quanto contante cambiare e dove. **S**
+- **Esportazione** del budget in CSV e nel PDF del viaggio (5.4). **S**
+
+**Confronto e simulazione**
+- **Scenari "e se"** a parità di percorso cambiando una sola leva: 2 contro 4 persone, economico contro medio, round trip contro open-jaw, bagagli spediti o no. Tre righe nella scheda Confronto, zero dati nuovi. **S**
+- **Costo di una notte in più o in meno** per ogni base, mostrato nelle Tappe ("una notte in più a Kyoto: 95–180 € a persona"). **S**
+- **Distribuzione del costo per base** sulla mappa (cerchio proporzionale) e sulla linea del percorso. **S**
+
+Le funzioni AI legate al budget sono in 6.10.
+
+### 5.9 Pipeline dei prezzi: dati sempre aggiornati, il browser legge sempre JSON statici
+Oggi 9 voci su 15 di `parametri.json` hanno fonte "Stima" e la data di aggiornamento è scritta a mano nel footer. Non esiste una fonte unica, quindi la soluzione combina più canali per tipo di prezzo. Il principio: le chiavi delle API non stanno nel client e nessuna chiamata a pagamento parte dal telefono. I prezzi si aggiornano **a monte**, con job programmati in GitHub Actions che scrivono in `data/`; l'app resta gratuita, statica e offline. L'unica eccezione è il cambio, gratuito e senza chiave.
+
+| Voce | Cambia ogni | Fonte gratuita realistica | Metodo |
+|---|---|---|---|
+| Cambio yen/euro | giorno | BCE via frankfurter.app, senza chiave | chiamata dal browser, cache nel service worker, fallback statico |
+| Voli per città e mese | settimana | Travelpayouts Data API (prezzi minimi per mese, gratuita con account affiliato) o Amadeus Self-Service (quota mensile gratuita) | job settimanale → `data/prezzi/voli.json` |
+| Hotel per base e periodo | settimana | Rakuten Travel API (gratuita con ID applicazione, copre tutto il Giappone) | job settimanale → `data/prezzi/alloggi.json`, mediana per base e mese, per 2 e 4 persone |
+| Treni e pass JR | 1–2 volte l'anno | pagine ufficiali JR | verifica trimestrale con AI e ricerca web (6.7), PR da approvare |
+| Cibo, ingressi, locali, varie | pochi mesi | guide e siti ufficiali delle attrazioni | verifica mensile con AI e ricerca web (6.7), PR da approvare |
+| Takkyubin, eSIM, assicurazione | anno | tariffari Yamato, siti dei fornitori | verifica trimestrale con AI (6.7), PR da approvare |
+| Prezzi davvero pagati | sempre | gli utenti dell'app | raccolta anonima, vedi sotto |
+
+Disponibilità e quote gratuite di Travelpayouts, Amadeus e Rakuten vanno verificate al momento dell'implementazione: cambiano spesso.
+
+**Come funziona**
+1. Un workflow settimanale interroga le API strutturate (voli, hotel) e scrive `data/prezzi/*.json`; ogni valore porta `fonte`, `rilevato_il` e `campione` (quante offerte dietro la mediana). Dopo la validazione dello schema (0.3) si committa direttamente. **M**
+2. I valori ricavati con AI e ricerca web (treni, cibo, ingressi, tariffe) aprono una **pull request** con diff e link alle fonti: li approva una persona. È l'agente dati di 6.7. **M**
+3. Il motore legge `data/prezzi/` con priorità sulle forchette di `parametri.json`, che restano come fallback quando un dato manca o è più vecchio di una soglia. **S**
+4. Il service worker già aggiorna i dati in rete anche senza una nuova versione dell'app: i telefoni ricevono i prezzi nuovi al primo avvio online. Nessun lavoro aggiuntivo.
+
+**Prezzi pagati davvero, in forma anonima** (richiede il proxy serverless)
+Quando un utente inserisce un valore reale nel budget (5.8), l'app chiede se condividerlo in forma anonima. Il Worker riceve solo categoria, città, mese e importo, senza identificativi, e aggrega mediane in KV. Sopra una soglia minima di contributi (per esempio 20 per base e mese) il valore entra in `data/prezzi/` tramite il job settimanale. È un dato che nessuna API fornisce. **M**
+
+**Freschezza visibile**
+Ogni prezzo con data e fonte accanto, un colore per età (verde sotto 1 mese, giallo sotto 6, grigio oltre), un riepilogo nel budget ("voli rilevati il 24 ottobre, hotel stimati, treni verificati a giugno") e, accanto a ogni voce, il link alla ricerca reale (Google Flights, Booking, Rakuten): al momento di prenotare il prezzo giusto è quello del giorno. **S**
+
+Costi: GitHub Actions gratuito per un repository pubblico, API con piano gratuito, parte AI qualche decina di centesimi a settimana.
+
+**Ordine consigliato**: cambio dal vivo con fallback → `rilevato_il` e fonte su ogni prezzo con la freschezza visibile → job hotel (la voce più grossa e variabile) → job voli → agente AI trimestrale per treni, pass e tariffe → raccolta anonima dei prezzi pagati quando il proxy esiste.
+
 ---
 
 ## 6. Funzioni basate su AI
@@ -178,6 +239,12 @@ Ogni funzione rispetta il principio 1: il modello produce parametri, testi o let
 - **Come funziona.** Frasario statico generato al build (6.8) per le situazioni comuni, chiamata al modello solo per frasi nuove.
 - **Modello.** Claude Haiku 5.5. **Costo**: meno di 1 centesimo. **Fallback**: frasario statico. **Sforzo.** S.
 
+### 6.10 AI sul budget
+- **Spiegazione delle differenze**: "Perché il percorso Alpi costa 400 € in più del Classico?" La differenza è calcolabile dal motore (più ryokan, più treni, basi più care); il modello la racconta in due frasi con i numeri già pronti. Claude Haiku 5.5, meno di 1 centesimo. **S**
+- **Taglia il budget**: "porta il viaggio sotto i 2.000 € a persona toccando il meno possibile". Il modello propone 2–3 alternative come set di parametri in output strutturato, il motore le valuta, l'app le mostra con Applica e Confronta. È il revisore del piano (6.3) applicato ai soldi. Claude Sonnet 5.5, 2–4 centesimi. **M**
+- **Lettura degli scontrini**: foto dello scontrino o del riepilogo della carta e la spesa entra nella categoria giusta, in yen, con il cambio del giorno (stessa infrastruttura di 6.4). Claude Sonnet 5.5, 1–2 centesimi. **S** dopo 6.4
+- **Agente dati sui prezzi**: estensione di 6.7 alle voci oggi con fonte "Stima" (hotel medi per città, cibo, ingressi, pass), con la cadenza della tabella in 5.9. Nessun costo aggiuntivo rispetto a 6.7.
+
 ### Infrastruttura comune alle funzioni AI (prerequisito di 6.1–6.6, 6.9)
 - **Proxy**: Cloudflare Worker in `worker/` nel repository, deploy con Wrangler da GitHub Actions. Un endpoint per funzione, schema di richiesta validato, chiave nel segreto del Worker.
 - **Quote**: per IP e giornaliera totale in Workers KV (per esempio 30 richieste al giorno per IP, 2.000 totali); Turnstile invisibile contro i bot; messaggi chiari quando la quota è finita ("riprova domani oppure usa la tua chiave").
@@ -194,33 +261,40 @@ Ordine per valore percepito e dipendenze. Ogni release è pubblicabile da sola e
 
 ### v0.5 "Fondamenta" (2–3 settimane)
 - Fase 0 completa (0.1–0.9).
-- Cambio aggiornato dalla BCE (5.2), link profondi (5.2), dati con data (0.7).
+- Cambio aggiornato dalla BCE (5.2), link profondi (5.2), dati con data e freschezza visibile su ogni prezzo (0.7, 5.9).
+- Budget: valore mio per categoria, stile per categoria, shopping, sensibilità al cambio, scenari "e se" (5.8).
 - Risultato: stessa app di oggi, ma testata, validata, misurata.
 
 ### v0.6 "Primo avvio" (2 settimane)
 - Wizard, interessi come tag, più viaggi, singolare (5.1).
 - Contenuti generati al build in italiano (6.8) per descrizioni e "da sapere".
+- Budget più preciso: costi per base, stagionalità degli alloggi, ingressi per meta, costo di una notte in più per base (5.8).
+- Pipeline dei prezzi: job settimanale hotel con Rakuten Travel e lettura di `data/prezzi/` con fallback (5.9).
 
 ### v1.0 "Assistente" (3–4 settimane)  ← prima release da far provare a un pubblico allargato
 - Proxy, quote, BYOK (infrastruttura AI).
 - Assistente di viaggio (6.1), "Perché così?" (6.2), interessi in parole (6.6).
-- Scheda Voli (5.3) e meteo (5.2).
+- Scheda Voli (5.3) e meteo (5.2); job settimanale voli (5.9).
+- Tetto di spesa (5.8) e "Taglia il budget" (6.10).
 - Pagina di presentazione, Open Graph, inglese dell'interfaccia (5.7).
 
 ### v1.1 "Prenotazioni" (3 settimane)
 - Scheda Da fare, calcolatore pass, esportazioni `.ics`, PDF, CSV (5.4).
 - Lettura delle prenotazioni da screenshot e PDF (6.4).
 - Revisore del piano (6.3).
+- Budget: pass contro biglietti singoli, colonne stimato/prenotato/speso, esportazione CSV (5.8).
 
 ### v1.2 "Dati vivi" (2 settimane)
 - Agente dati settimanale con PR (6.7); festività dell'anno esatto (5.2).
 - Chiedi al planner con fonti (6.5).
+- Agente dati esteso alle voci "Stima" del budget (6.10); raccolta anonima dei prezzi pagati (5.9).
 
 ### v1.5 "In viaggio" (4 settimane)
 - Attività e piano B (5.5), modalità Oggi con meteo e frasario (5.5, 6.9), mappa con sfondo reale.
+- Budget in viaggio: registrazione delle spese offline, curva prevista contro reale, valuta mista, lettura degli scontrini (5.8, 6.10).
 
 ### v2.0 "Insieme" (da decidere in base all'uso)
-- Voti e spese di gruppo (5.6); backend leggero solo se necessario.
+- Voti e spese di gruppo (5.6), cassa comune con saldo "chi deve a chi" (5.8); backend leggero solo se necessario.
 
 ---
 
@@ -235,6 +309,8 @@ Ordine per valore percepito e dipendenze. Ogni release è pubblicabile da sola e
 | Richieste all'assistente con parametri validi al primo colpo | n/d | ≥ 90% sulle 50 di esempio; mete inventate: 0 |
 | Costo AI per utente attivo al mese | n/d | < 0,10 € |
 | Dati più vecchi di 6 mesi | tutti dall'ottobre 2026 | nessuno (agente dati) |
+| Voci di prezzo con fonte "Stima" | 9 su 15 | 0: ogni voce da API, fonte verificata o prezzi pagati |
+| Età mediana dei prezzi di voli e hotel | fissa | < 2 settimane |
 
 ---
 
@@ -254,5 +330,5 @@ Ordine per valore percepito e dipendenze. Ogni release è pubblicabile da sola e
 1. Creare `js/engine/` ed estrarre `build`, `planDays`, `shortest`, `order` con un primo file di test `tests/engine.test.mjs` sui 5 modelli di `percorsi.json` (0.1, 0.2).
 2. Scrivere `scripts/check-data.mjs` e aggiungerlo al workflow come job che precede il deploy (0.3).
 3. Aggiungere Playwright smoke test e Lighthouse CI (0.5, 0.6).
-4. Campo `aggiornato` nei dati e footer dinamico (0.7); cambio dalla BCE con fallback (5.2).
+4. Campo `rilevato_il` e fonte su ogni prezzo con la freschezza visibile (0.7, 5.9); cambio dalla BCE con fallback (5.2); primo campo "il mio valore" nel budget (5.8).
 5. Aprire la discussione di design dell'assistente: schema JSON dei parametri, 30 richieste di esempio con il risultato atteso, bozza del prompt. Questo lavoro non costa nulla e rende la v1.0 molto più rapida.
