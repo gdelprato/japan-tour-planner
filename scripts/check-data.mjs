@@ -119,6 +119,9 @@ export function runChecks(cfgPath = path.join(ROOT, 'configs', 'check-data.json'
   const adj = new Map();
   for (const t of tratte) {
     if (!(Number(t.ore) > 0)) err(`tratte.json ${t.da}→${t.a}: "ore" deve essere > 0`);
+    // gli spareggi di order() (engine/grafo.js) assumono ore multiple di 0,05 (3 minuti)
+    if (Math.abs(Math.round(Number(t.ore) / 0.05) * 0.05 - Number(t.ore)) > 1e-9)
+      err(`tratte.json ${t.da}→${t.a}: "ore" ${t.ore} non è un multiplo di 0,05 (3 minuti)`);
     if (!(Number(t.yen) >= 0)) err(`tratte.json ${t.da}→${t.a}: "yen" deve essere ≥ 0`);
     for (const [a, b] of [
       [t.da, t.a],

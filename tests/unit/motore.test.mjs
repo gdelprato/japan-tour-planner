@@ -156,3 +156,38 @@ test('il motore non usa DOM, window, localStorage né d3', () => {
       assert.ok(!vietato.test(src), `${f} usa ${vietato}`);
   }
 });
+
+// ---------- regressioni ----------
+
+test('ogni modello di viaggio di percorsi.json sta nelle sue notti (issue #7)', () => {
+  // come routeFromSaved() in app.js: il modello porta il percorso, il resto sono i default
+  for (const m of leggi('app/data/percorsi.json')) {
+    const params = {
+      sel: m.sel,
+      notti: m.notti,
+      arrivo: m.arrivo,
+      ritorno: m.ritorno,
+      pernotto: m.pernotto,
+      giorni_citta: m.giorni_citta,
+      giornata_citta: m.giornata_citta,
+      partenza: '2027-10-13',
+    };
+    const { r, avvisi } = esegui(params);
+    assert.equal(r.deficit, 0, `${m.nome}: servono ${r.minTotal} notti`);
+    assert.ok(!avvisi.some(([t]) => t.startsWith('Mancano notti')), m.nome);
+  }
+});
+
+test('a parità di ore di treno vince l’ordine che fa perdere meno notti (issue #7)', () => {
+  const params = {
+    sel: 'kyoto,nara,osaka,himeji,hiroshima,fukuoka,nagasaki,beppu',
+    notti: 12,
+    arrivo: 'osaka',
+    ritorno: 'osaka',
+    pernotto: 'beppu',
+    partenza: '2027-10-13',
+  };
+  const { r } = esegui(params);
+  assert.equal(r.oreBagagli, 12.8); // le ore restano le minime possibili
+  assert.equal(r.minTotal, 12);
+});

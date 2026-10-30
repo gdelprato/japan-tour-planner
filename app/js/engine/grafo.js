@@ -1,5 +1,14 @@
 /* Grafo dei treni (tratte.json, non orientato), percorso più breve in ore e ordine delle tappe. */
 import { num, sum } from './util.js';
+import { LONG_LEG } from './costanti.js';
+
+// Spareggi nell'ordine delle tappe, più piccoli di qualsiasi differenza reale di ore: le tratte sono multipli
+// di 0,05 h (3 minuti, lo verifica check-data), quindi due ordini con ore diverse differiscono di almeno 0,05.
+// Con al massimo 12 basi: notti perse ≤ 12 × 0,002 = 0,024 < 0,05; passi indietro ≤ 12 × 0,0001 < 0,002.
+const PESO_NOTTE_PERSA = 0.002;
+const PESO_PASSO_INDIETRO = 0.0001;
+// notti minime di una tappa con `need` giornate da fare e `ts` mezze giornate utili il giorno d'arrivo (come in build)
+const nottiMinime = (need, ts) => Math.max(1, 1 + Math.ceil(need - ts / 2 - 1e-9));
 
 // un grafo per array di tratte: si ricostruisce solo se cambiano i dati
 const cache = new WeakMap();
@@ -57,16 +66,23 @@ export function shortest(tratte, from, to) {
 }
 
 // ordine delle tappe con meno ore di treno: la prima è fissa (città di arrivo), l'ultima tratta va verso `end`.
-// A parità di ore vince l'ordine geografico di basi.json. Programmazione dinamica sui sottoinsiemi fino a 12 basi.
+// A parità di ore vince l'ordine che fa perdere meno notti (una tratta oltre LONG_LEG toglie mezza giornata alla
+// tappa d'arrivo, issue #7), poi l'ordine geografico di basi.json. Programmazione dinamica sui sottoinsiemi fino a 12 basi.
 export function order(stops, end, tratte, rank) {
   const rest = stops.slice(1),
     n = rest.length;
   const byRank = (a, b) => rank(a.base) - rank(b.base);
   if (n < 2 || n > 12) return stops.slice(0, 1).concat(rest.sort(byRank));
   const memo = new Map();
+  const needOf = new Map(stops.map((s) => [s.base, num(s.need)]));
   const cost = (a, b) => {
     const k = a + '>' + b;
-    if (!memo.has(k)) memo.set(k, (shortest(tratte, a, b) || { ore: 99 }).ore + (rank(b) < rank(a) ? 0.001 : 0));
+    if (!memo.has(k)) {
+      const ore = (shortest(tratte, a, b) || { ore: 99 }).ore;
+      // la notte finale verso `end` è fissa: lì una tratta lunga non costa notti
+      const perse = b !== end && ore > LONG_LEG ? nottiMinime(needOf.get(b), 1) - nottiMinime(needOf.get(b), 2) : 0;
+      memo.set(k, ore + perse * PESO_NOTTE_PERSA + (rank(b) < rank(a) ? PESO_PASSO_INDIETRO : 0));
+    }
     return memo.get(k);
   };
   const full = (1 << n) - 1,
