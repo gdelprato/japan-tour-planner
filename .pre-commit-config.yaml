@@ -1,0 +1,32 @@
+# Controlli prima di ogni commit (S06). Attivazione: `pip install pre-commit && pre-commit install` (lo fa `make setup`).
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-json
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ['--maxkb=600']
+      - id: detect-private-key
+      - id: end-of-file-fixer
+        exclude: '^app/js/d3\.v7\.min\.js$'
+      - id: trailing-whitespace
+        exclude: '^app/js/d3\.v7\.min\.js$'
+  - repo: local
+    hooks:
+      - id: eslint
+        name: eslint
+        entry: npx eslint
+        language: system
+        files: '\.(js|mjs)$'
+      - id: check-data
+        name: validazione dati app/data
+        entry: node scripts/check-data.mjs
+        language: system
+        pass_filenames: false
+        files: '^(app/data/|app/js/dash-shim\.js|app/sw\.js|configs/check-data\.json|scripts/check-data\.mjs)'
+      - id: commit-convention
+        name: commit convention (S12)
+        entry: python3 .claude/hooks/check_commit_msg.py
+        language: system
+        stages: [commit-msg]

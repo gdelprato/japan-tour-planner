@@ -22,11 +22,16 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Validazione dei dati prima del deploy (S10)
+        run: node scripts/check-data.mjs
       - uses: actions/configure-pages@v5
       - name: Versione della cache offline
-        run: sed -i "s/__BUILD__/${GITHUB_SHA::8}/" sw.js && grep -q "japan-tour-planner-${GITHUB_SHA::8}" sw.js
+        run: sed -i "s/__BUILD__/${GITHUB_SHA::8}/" app/sw.js && grep -q "japan-tour-planner-${GITHUB_SHA::8}" app/sw.js
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: app
       - id: deployment
         uses: actions/deploy-pages@v4

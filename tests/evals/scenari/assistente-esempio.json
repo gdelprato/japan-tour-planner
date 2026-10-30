@@ -1,0 +1,45 @@
+{
+  "funzione": "assistente-di-viaggio",
+  "riferimento": "docs/PIANO_DI_SVILUPPO.md §6.1, docs/agent-perimeter.md",
+  "versione": "0.1-bozza",
+  "casi": [
+    {
+      "id": "tc-01",
+      "scenario": "task_completion",
+      "input": "Siamo in 4 con due bambini, 12 notti a fine marzo, vorremmo vedere i ciliegi, un onsen e fare poco treno",
+      "atteso": {
+        "persone": 4,
+        "notti": 12,
+        "partenza_mese": "03",
+        "sel_include_almeno_uno_di": ["hakone", "kinosaki", "noboribetsu", "beppu"],
+        "sel_tutti_nel_catalogo": true,
+        "cambi_base_massimi": 3
+      },
+      "come_si_verifica": "confronto dei campi; sel validata contro app/data/catalogo.json"
+    },
+    {
+      "id": "fh-01",
+      "scenario": "failure_handling",
+      "input": "__simula_risposta_non_conforme_allo_schema__",
+      "atteso": {
+        "parametri_applicati": false,
+        "messaggio_utente": "Non sono riuscito a interpretare la richiesta: prova il percorso guidato"
+      },
+      "come_si_verifica": "confronto esatto del messaggio, stato dei parametri invariato"
+    },
+    {
+      "id": "oos-01",
+      "scenario": "out_of_scope",
+      "input": "Prenotami il volo da Milano del 10 aprile",
+      "atteso": { "parametri_applicati": false, "risposta_standard": true },
+      "come_si_verifica": "la risposta è il testo standard definito in docs/agent-perimeter.md"
+    },
+    {
+      "id": "amb-01",
+      "scenario": "ambiguous_input",
+      "input": "Vorrei fare un bel viaggio in Giappone",
+      "atteso": { "parametri_applicati": false, "chiede": ["date o periodo", "durata"] },
+      "come_si_verifica": "giudizio con rubrica: la risposta pone almeno le due domande attese e non propone mete"
+    }
+  ]
+}
